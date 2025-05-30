@@ -1,0 +1,134 @@
+import os
+import re
+
+# Nhập dữ liệu
+id_skins = input("Nhập các ID Skin cách nhau bởi dấu cách: ").split()
+id_heros = input("Nhập các ID Hero tương ứng cách nhau bởi dấu cách: ").split()
+namehero = input("Nhập namehero (vd: 150_HanXin): ").strip()
+
+if len(id_skins) != len(id_heros):
+    print("Số lượng ID Skin và ID Hero không khớp.")
+    exit()
+
+path = "2"  # Thư mục chứa file
+
+for filename in os.listdir(path):
+    filepath = os.path.join(path, filename)
+    if not os.path.isfile(filepath):
+        continue
+
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            content = f.read()
+    except UnicodeDecodeError:
+        print(f"Bỏ qua file không đọc được utf-8: {filename}")
+        continue
+
+    # Tìm tất cả các Track
+    tracks = re.findall(r'(^[ \t]*<Track trackName=".*?</Track>)', content, re.MULTILINE | re.DOTALL)
+    new_tracks = []
+    updated_content = content
+
+    for track in tracks:
+        # Xoá các dòng SkinOrAvatarList cũ
+        track = re.sub(r'^[ \t]*<SkinOrAvatarList id="\d+"(?: heroId="\d+")? ?/>\n?', '', track, flags=re.MULTILINE)
+
+        # Gán SkinAvatarFilterType="9" nếu cần
+        if 'SkinAvatarFilterType="11"' in track:
+            track = track.replace('SkinAvatarFilterType="11"', 'SkinAvatarFilterType="9"')
+        else:
+            track = re.sub(
+                r'(<Track\b[^>]*)(>)',
+                lambda m: m.group(1) + ' SkinAvatarFilterType="9"' + m.group(2)
+                if 'SkinAvatarFilterType=' not in m.group(1) else m.group(0),
+                track,
+                count=1
+            )
+
+        # Xác định loại track (prefab hay sound)
+        is_prefab = (
+            ('<String name="resourceName"' in track or '<String name="prefabName"' in track) and
+            'prefab_skill_effects' in track and
+            'kill_effects' in track and
+            'ui_fx' not in track and
+            'value=""' not in track and
+            'Indicator/AutoY' not in track
+        )
+        is_sound = (
+            ('<String name="eventName"' in track or '<String name="endEventName"' in track) and
+            'eventName" value=""' not in track
+        )
+
+        if is_prefab or is_sound:
+            indent_track = re.match(r'^([ \t]*)<Track', track).group(1) if re.match(r'^([ \t]*)<Track', track) else ''
+            indent_event = re.search(r'^([ \t]*)</Event>', track, re.MULTILINE)
+            indent_event = indent_event.group(1) if indent_event else indent_track + '  '
+
+            for skin_id, hero_id in zip(id_skins, id_heros):
+                mod_track = track
+
+                if is_sound:
+                    # Thêm hậu tố _SkinXX
+                    mod_track = re.sub(
+                        r'(eventName" value="[^"]+?)(")',
+                        lambda m: m.group(1) + f"_Skin{int(skin_id[-2:]):02d}" + m.group(2),
+                        mod_track
+                    )
+
+                if is_prefab:
+                    # Chèn skin_id vào giữa tên hero và tên effect, giữ nguyên phần đuôi
+                    def replace_resource_path(match):
+                        full_tail = match.group(2)
+                        return f'{match.group(1)}prefab_skill_effects/hero_skill_effects/{namehero}/{skin_id}/{full_tail}{match.group(3)}'
+
+                    mod_track = re.sub(
+                        r'(name="(?:resourceName|prefabName)" value=")prefab_skill_effects/hero_skill_effects/[^/]+/([^"]+)(")',
+                        replace_resource_path,
+                        mod_track
+                    )
+
+                # Thêm dòng SkinOrAvatarList
+                mod_track = re.sub(
+                    r'(</Event>)',
+                    r'\1\n' + indent_event + f'<SkinOrAvatarList id="{skin_id}" heroId="{hero_id}" />',
+                    mod_track
+                )
+
+                new_tracks.append(mod_track)
+
+    # Ghi kết quả nếu có thay đổi
+    if new_tracks:
+        print(f"----- Xử lý file: {filename} -----")
+        insert_block = '\n'.join(new_tracks) + '\n'
+
+        if '</Action>' in updated_content:
+            action_indent = re.search(r'^([ \t]*)</Action>', updated_content, re.MULTILINE)
+            action_indent = action_indent.group(1) if action_indent else ''
+            updated_content = re.sub(r'^([ \t]*)</Action>', insert_block + action_indent + '</Action>', updated_content, flags=re.MULTILINE)
+        elif '</Project>' in updated_content:
+            project_indent = re.search(r'^([ \t]*)</Project>', updated_content, re.MULTILINE)
+            project_indent = project_indent.group(1) if project_indent else ''
+            updated_content = re.sub(r'^([ \t]*)</Project>', insert_block + project_indent + '</Project>', updated_content, flags=re.MULTILINE)
+        else:
+            updated_content += '\n' + insert_block
+
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write(updated_content)
+
+        print(f"Đã thêm các track mod vào file {filename}")
+
+# Xoá dòng trắng cuối cùng
+for filename in os.listdir(path):
+    filepath = os.path.join(path, filename)
+    if not os.path.isfile(filepath):
+        continue
+    try:
+        with open(filepath, 'r', encoding='utf-8') as f:
+            lines = [line for line in f if line.strip()]
+        with open(filepath, 'w', encoding='utf-8') as f:
+            f.write('\n'.join(lines))
+        print(f"Đã xử lý xóa dòng trắng: {filename}")
+    except UnicodeDecodeError:
+        print(f"Bỏ qua file không đọc được utf-8 khi xóa dòng trắng: {filename}")
+    except PermissionError:
+        print(f"Không có quyền xử lý file: {filename}")
