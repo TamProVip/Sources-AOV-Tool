@@ -138,8 +138,6 @@ print(Fore.YELLOW + '-' * 50 + Fore.RESET)
 if len(DANHSACH) > 1:
     pack_name = input("Nhập Tên Pack Skin: ")
     os.mkdir(pack_name)
-    with open('pack.txt', 'w', encoding='utf8') as f:
-        f.write(pack_name)
     base_path = f"{pack_name}/Resources/1.58.1/Databin/Client/"
     directories = ["Actor", "Shop", "Sound", "Skill", "Character", "Motion", "Global"]
     for directory in directories:
@@ -1243,7 +1241,6 @@ for folder_name in os.listdir(Files_Directory):
                     arcname = os.path.relpath(file_path, Files_Directory)
                     zipf.write(file_path, arcname)
 
-        #print(f"✅ Đã nén: {output_file}")
         shutil.rmtree(folder_path)
 shutil.rmtree(Files_Directory)
 
@@ -1252,7 +1249,7 @@ with zipfile.ZipFile(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefa
     for root, dirs, files in os.walk(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1'):
         for file in files:
             file_path = os.path.join(root, file)
-            arcname = os.path.relpath(file_path, f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1')  # giữ cả đường dẫn từ mod1/
+            arcname = os.path.relpath(file_path, f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1')  
             zipf.write(file_path, arcname)
 shutil.rmtree(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1')
 shutil.rmtree('Prefab_Hero')
@@ -1265,26 +1262,25 @@ for folder_name in os.listdir(f'{pack_name}/Resources/1.58.1/Prefab_Characters/m
     try:
         hero_id = folder_name.split("_")[0]
         zip_file_name = f"Actor_{hero_id}_Infos.pkg.bytes"
-        zip_file_path = os.path.join(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero', zip_file_name)
+        zip_file_path = os.path.join(f'{pack_name}/Resources/1.58.1/Prefab_Characters', zip_file_name)
 
         with zipfile.ZipFile(zip_file_path, 'w', compression=zipfile.ZIP_STORED) as zipf:
             for root, _, files in os.walk(full_path):
                 for file in files:
                     file_path = os.path.join(root, file)
-                    rel_path = os.path.relpath(file_path, full_path)  # ✅ Thêm dòng này
+                    rel_path = os.path.relpath(file_path, full_path) 
                     arcname = os.path.join("Prefab_Hero", folder_name, rel_path)
                     zipf.write(file_path, arcname)
-
     except Exception as e:
         print(f"❌ Lỗi khi nén {folder_name}: {e}")
-
+shutil.rmtree(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/')
 for idx, (ten_skin, skin_id_input) in enumerate(zip(TENSKIN, IDMODSKIN), start=1):
 
     print(f"\n🛠️ [{idx}] {ten_skin} ({skin_id_input})")
     print("───────────────────────────────────────────────")
 
     print("📄 Danh sách file XML đã mod:")
-    print(f"   └─ {os.path.basename(file)}")
+    print(f"   └─ {File}")
 
     print("\n🔊 File âm thanh đã mod:")
     print(f"   └─ {os.path.basename(sound_file_name)}")
@@ -1303,6 +1299,6 @@ for idx, (ten_skin, skin_id_input) in enumerate(zip(TENSKIN, IDMODSKIN), start=1
     print(f"   └─ Back.xml")
 
     print("\n🧩 File Infos :")
-    print(f"   └─ {os.path.basename(newpath)}")
+    print(f"   └─ {newpath}")
 
     print("\n" + "-" * 50)
