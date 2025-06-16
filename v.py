@@ -1,4 +1,4 @@
-import os; import re; import getopt; import random; import pyzstd; import xml.dom.minidom; from colorama import Fore; import sys; import shutil; import zipfile; import uuid
+import os; import re; import getopt; import random; import pyzstd; import xml.dom.minidom; from colorama import Fore; import sys; import shutil; import zipfile; import uuid; from collections import Counter
 
 with open("ZSTD_DICT.xml", 'rb') as f:
     ZSTD_DICT = f.read()
@@ -218,7 +218,7 @@ for IDCHECK in IDMODSKIN:
     Show = 'n'
     IDB = int(ID).to_bytes(4, 'little')
     IDH = int(ID[0:3]).to_bytes(4, 'little')
-
+    results = []
     for File in FILES:
         with open(File, "rb") as file:
             Code = file.read()
@@ -239,13 +239,15 @@ for IDCHECK in IDMODSKIN:
 
         if not Skin:
             print(Fore.RED + f"\nKhông tìm thấy ID trong file {File}" + Fore.RESET)
+            results.append((File.split("/")[-1], "Not Found!"))
             IDNew = input(Fore.CYAN + "\nNhập ID thay thế: " + Fore.RESET)
             IDK = int(IDNew).to_bytes(4, 'little')
             IDH2 = int(IDNew[0:3]).to_bytes(4, 'little')
             Find = Code.find(IDK + IDH2)
             Sum = int.from_bytes(Code[Find - 4:Find - 2], 'little')
             Skin = Code[Find - 4:Find - 4 + Sum]
-
+        else:
+            results.append((File.split("/")[-1], "Done!"))
         for Id in All:
             Cache = Skin.replace(Skin[4:6], Id[4:6], 1)
             Cache = Cache.replace(Cache[35:44], Id[35:40] + Cache[40:44], 1)
@@ -297,8 +299,11 @@ for IDCHECK in IDMODSKIN:
                     dieukienmod = dieukienmod2
         with open(File, "wb") as file:
             file.write(Code)
-
-
+    print('-'*53)
+    print(f"🎯 Mod Skin ID: {ID}")
+    for file_name, status in results:
+        prefix = "[-]" if status == "Done!" else "[x]"
+        print(f"   {prefix} {file_name:<25} {status}")
 
 for skin_id_input in IDMODSKIN:
     sound_directory = Sound_Files
@@ -315,7 +320,7 @@ for skin_id_input in IDMODSKIN:
     # Xóa selected và initial khỏi danh sách thay thế
     all_skin_ids.remove(selected_skin_id)
     all_skin_ids.remove(initial_skin_id)
-
+    results = []
     for sound_file_name in sound_files:
         with open(os.path.join(sound_directory, sound_file_name), "rb") as sound_file:
             sound_data = sound_file.read()
@@ -374,9 +379,20 @@ for skin_id_input in IDMODSKIN:
         # Ghi đè lại file đã xử lý
         with open(os.path.join(sound_directory, sound_file_name), "wb") as sound_file:
             sound_file.write(sound_data)
+        results.append((sound_file_name, "Đã xử lý"))
+
+    sound_results = [r for r in results if r[0] not in ("heroSkin.bytes", "HeroSkinShop.bytes")]
+    if sound_results:
+        print(f" Mod Sound Databin - {skin_id_input}")
+        printed = set()
+        for file_name, status in sound_results:
+            if (file_name, status) not in printed:
+                print(f"   [-] {file_name:<25} {status}")
+                printed.add((file_name, status))
 
 
 file_paths = [file_mod_skill1, file_mod_skill2]
+
 for user_id in IDMODSKIN:
     user_id_bytes = bytes(f"fects/{user_id[0:3]}_", "utf8")
     matching_files = []
@@ -443,7 +459,14 @@ for user_id in IDMODSKIN:
 
             with open(file, "wb") as f:
                 f.write(original_content)
-        #print('Done')
+    print('-'*53)
+    print(f"  Mod Skill Effect ID: {user_id}")
+    if matching_files:
+        for file in matching_files:
+            print(f"   [-] {os.path.basename(file):<25} Done!")
+    else:
+        print("   [x] Not Found")
+
 
 for ID in IDMODSKIN:
     AllID = []
@@ -485,7 +508,7 @@ for ID in IDMODSKIN:
 
     aw = 0
     if len(CodeDB) > 1:
-        print(f"Skin {ID} có {len(CodeDB)} kiểu nhảy đặc biệt → tự chọn kiểu đầu tiên")
+        #print(f"Skin {ID} có {len(CodeDB)} kiểu nhảy đặc biệt → tự chọn kiểu đầu tiên")
         aw = 0
 
     if len(CodeDB) > 0:
@@ -525,91 +548,102 @@ for ID in IDMODSKIN:
 
     with open(file_mod_Modtion, "wb") as f:
         f.write(y)
+    print("-"*53)
+    print(f"  Mod Motion ID: {ID}")
+    if len(CodeMD) + len(CodeDB) > 0:
+        print(f"   [-] {os.path.basename(file_mod_Modtion):<25} Done!")
+    else:
+        print(f"   [x] ID Not Found")
 
-CODE_BV_HERO = b''
-def modify_skill_data(data, new_id, effect_name_lowercase, effect_name):
-    modified_data = data.read()
-    modified_data = modified_data.replace(string1, string1 + new_id)
-    modified_data = modified_data.replace(string3, string3 + new_id)
-    modified_data = modified_data.replace(string2, string2 + new_id)
-    modified_data = modified_data.replace(string4, string4 + new_id)
-    modified_data = modified_data.replace(b'tyEffect" value="true"', b'tyEffect" value="false"')
-    modified_data = modified_data.replace(string5, string5 + new_id)
-    modified_data = modified_data.replace(string7, string7 + new_id)
-    modified_data.replace(SKIN_EFFECT_ID, new_id)
-    return modified_data
 
 for IDMODSKIN in IDMODSKIN1:
     zip_path = f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{IDMODSKIN[:3]}_Actions.pkg.bytes'
     Files_Directory_Path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4/'
-
+    print("-"*53)
+    print(f'  Skill Ages - {IDMODSKIN}')
     with zipfile.ZipFile(zip_path, 'r') as zip_ref:
         zip_ref.extractall(Files_Directory_Path)
-    
-    #print(f"📂 Đã giải nén: {zip_path} -> {Files_Directory_Path}")
-    #print("📁 Danh sách thư mục sau giải nén:", os.listdir(Files_Directory_Path))
+
     NAME_HERO = next((name for name in os.listdir(Files_Directory_Path) if name.startswith(IDMODSKIN[:3] + "_")), None)
     if not NAME_HERO:
         print(f"❌ Không tìm thấy thư mục cho ID {IDMODSKIN}")
         continue
-    if IDMODSKIN in ("53002", "53702") or b"Skin_Icon_Skill" in dieukienmod or b"Skin_Icon_BackToTown" in dieukienmod:
-        directory_path = f'{Files_Directory_Path}{NAME_HERO}/skill/'
-        if not os.path.exists(directory_path):
-            print(f"⚠️ Không có thư mục skill cho {NAME_HERO}")
-            continue
-        effect_name = NAME_HERO
-        effect_name_db = effect_name[4:]
-        effect_info = effect_name_db.capitalize()
-        file_name = effect_name.replace(effect_name_db, effect_info)
 
-        new_id = IDMODSKIN.encode()
-        new_id_slash = new_id + b"/"
-        effect_name_bytes = file_name.encode()
-        effect_name_lower = effect_name_bytes.lower()
+    Id_Skin = IDMODSKIN.encode()
+    Name_Hero = NAME_HERO.encode()
+    HD = b'n'
+    Skins = b'y'
 
-        string1 = b"hero_skill_effects/" + effect_name_lower + b"/"
-        string2 = b"hero_skill_effects/" + effect_name_bytes + b"/"
-        string3 = b"Hero_Skill_Effects/" + effect_name_lower + b"/"
-        string4 = b"Hero_Skill_Effects/" + effect_name_bytes + b"/"
-        string5 = b"hero_skill_effects/" + effect_name_bytes + b"/"
-        string7 = b"Hero_Skill_Effects/" + effect_name_bytes + b"/"
-        SKIN_EFFECT_ID = new_id + b"/" + new_id
+    FILES_XML = []
+    for root, dirs, files in os.walk(Files_Directory_Path):
+        for file in files:
+            if file.endswith('.xml'):
+                FILES_XML.append(os.path.join(root, file))
 
-        for file_item in os.listdir(directory_path):
-            file_path = os.path.join(directory_path, file_item)
-            giai(file_path)
-            if IDMODSKIN != "16707" and 'Back' in file_item:
+    for file_path in FILES_XML:
+        giai(file_path)
+
+        with open(file_path, 'rb') as f:
+            All = f.read()
+
+        if b'"Jg\x00' not in All:
+            ListAll = All.split(b'\r\n')
+            CODE_EFF = [x for x in ListAll if b'prefab_skill_effects/hero_skill_effects/' in x.lower()]
+            if len(CODE_EFF) == 0:
                 continue
 
-            if file_item.endswith('.xml'):
+            for text in CODE_EFF:
+                if Id_Skin not in [b'13311', b'16707']:
+                    text1 = re.sub(
+                        re.escape(b"prefab_skill_effects/hero_skill_effects/" + Name_Hero + b'/'),
+                        b"prefab_skill_effects/hero_skill_effects/" + Name_Hero + b'/' + Id_Skin + b'/',
+                        text,
+                        flags=re.IGNORECASE
+                    )
+                    text1 = text1.replace(b'/' + Id_Skin + b'/' + Id_Skin + b'/', b'/' + Id_Skin + b'/')
+                else:
+                    ID_EOV = Id_Skin + b'_5/'
+                    text1 = re.sub(
+                        re.escape(b"prefab_skill_effects/hero_skill_effects/" + Name_Hero + b'/'),
+                        b"prefab_skill_effects/component_effects/" + Id_Skin + b'/' + ID_EOV,
+                        text,
+                        flags=re.IGNORECASE
+                    )
+
+                if HD == b'y':
+                    text1 = text1.replace(b'" refParamName=""', b'.prefab" refParamName=""')
+                    text1 = text1.replace(b'_E.prefab"', b'_E"').replace(b'_e.prefab"', b'_e"')
+                    text1 = text1.replace(b'.prefab.prefab" refParamName=""', b'.prefab" refParamName=""')
+
+                All = All.replace(text, text1)
+            if Skins == b'y' and b'bUseTargetSkinEffect' not in All:
+                new_lines = []
+                for line in All.split(b'\r\n'):
+                    new_lines.append(line)
+                    if b'<String name="resourceName"' in line:
+                        new_lines.append(b'        <bool name="bUseTargetSkinEffect" value="true" refParamName="" useRefParam="false"/>')
+                All = b'\r\n'.join(new_lines)
+
+            with open(file_path, 'wb') as f:
+                f.write(All)
+            if IDMODSKIN == '10611' and 'U1B1' in file_path:
                 with open(file_path, 'rb') as f:
-                    modified = modify_skill_data(f, new_id_slash, effect_name_lower, effect_name_bytes)
+                    rpl = f.read()
+                    rpl = re.sub(
+                        br'<Condition id="[^"]+" guid="2e5f463f-105d-4143-b786-e59ea8b34fa2" status="true" />',
+                        b'<!-- ' + AABBCC.encode('utf-8') + b' -->', rpl)
                 with open(file_path, 'wb') as f:
-                    f.write(modified)
-
-                if IDCHECK == '10611':
-                    if file_item == 'U1B1.xml':
-                        with open(file_path, 'rb') as f:
-                            data = f.read().replace(
-                                b'<Condition id="10" guid="2e5f463f-105d-4143-b786-e59ea8b34fa2" status="true" />',
-                                b'\r\n    <!-- ' + AABBCC.encode('utf-8') + b' -->'
-                            )
-                        with open(file_path, 'wb') as f:
-                            f.write(data)
-
-                    if file_item == 'A3.xml':
-                        with open(file_path, 'rb') as f:
-                            data = f.read().replace(
-                                b'<String name="clipName" value="Atk3"',
-                                b'<String name="clipName" value="Atk1"'
-                            )
-                        with open(file_path, 'wb') as f:
-                            f.write(data)
-
-    #print(f"✅ Đã xử lý xong ID {IDMODSKIN}")
+                    f.write(rpl)
+            if IDMODSKIN == '10611' and 'A3' in file_path: 
+                with open(file_path, 'rb') as f:
+                    rpl = f.read().replace(b'<String name="clipName" value="Atk3"', b'<String name="clipName" value="Atk1"')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
 
     if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
         if IDCHECK not in ["13311", "16707"]:
+            print("-"*53)
+            print(f"\n  Sound Ages ID -{IDMODSKIN}")
             directory_path = Files_Directory_Path + f'{NAME_HERO}' + '/skill/'        
             IDSOUND_S = IDMODSKIN
             if IDSOUND_S[3:4] == '0':
@@ -864,12 +898,51 @@ if modified_count > 0:
         f.write(target_content)
     #print(f"\n💾 Đã lưu thay đổi vào Back.xml ({modified_count} lần chèn)")
 else:
-    print("\n⚠️ Không có thay đổi nào được thực hiện trong Back.xml")
+    print("\nBack.xml Not Found")
 with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "r", encoding="utf-8") as f:
     lines = [line for line in f if line.strip()]  # loại bỏ dòng trống (line.strip() == False)
 with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "w", encoding="utf-8") as f:
     f.writelines(lines)
 
+file_path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml'
+for IDCOUNT in IDMODSKIN1:
+    IDKIEMTRA = IDCOUNT[:3] + "00"
+    LineCheck = f'<int name="skinId" value="{IDKIEMTRA}" refParamName="" useRefParam="false" />'
+
+    with open(file_path, 'r', encoding='utf-8') as f:
+        lines = f.readlines()
+
+    new_lines = []
+    count = 0
+    in_insert_mode = False
+
+    for i in range(len(lines)):
+        line = lines[i]
+
+    # Đếm số lượng Track xuất hiện trước khi gặp skinId
+        if not in_insert_mode and '<Track trackName=' in line:
+            count += 1
+
+    # Khi gặp skinId target → bật chế độ insert
+        if LineCheck in line:
+            in_insert_mode = True
+
+    # Nếu đang insert mà gặp skinId khác → dừng insert
+        elif in_insert_mode and 'CheckSkinIdTick' in line and LineCheck not in line:
+            in_insert_mode = False
+
+    # Thêm dòng gốc vào output
+        new_lines.append(line)
+
+    # Nếu đang trong chế độ insert và gặp dòng <Track trackName=>
+        if in_insert_mode and '<Track trackName=' in line:
+            guid = str(uuid.uuid4())
+            condition_line = f'      <Condition id="{count-1}" guid="{guid}" status="true" />\r\n'
+            new_lines.append(condition_line)
+
+    with open(file_path, 'w', encoding='utf-8') as f:
+        f.writelines(new_lines)
+print(f'Done-{IDCOUNT}')
 IDMODSKININ = [str(num) for num in numbers]
 
 # Dùng dict lưu tên hero theo từng ID
@@ -1226,7 +1299,7 @@ while True:
     if tiep_tuc != 'y':
         break
 #giai(newpath)
-#print("INFOS [DONE!]")
+    print("INFOS [DONE!]")
 Files_Directory = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4'
 for folder_name in os.listdir(Files_Directory):
     folder_path = os.path.join(Files_Directory, folder_name)
@@ -1274,31 +1347,3 @@ for folder_name in os.listdir(f'{pack_name}/Resources/1.58.1/Prefab_Characters/m
     except Exception as e:
         print(f"❌ Lỗi khi nén {folder_name}: {e}")
 shutil.rmtree(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/')
-for idx, (ten_skin, skin_id_input) in enumerate(zip(TENSKIN, IDMODSKIN), start=1):
-
-    print(f"\n🛠️ [{idx}] {ten_skin} ({skin_id_input})")
-    print("───────────────────────────────────────────────")
-
-    print("📄 Danh sách file XML đã mod:")
-    print(f"   └─ {File}")
-
-    print("\n🔊 File âm thanh đã mod:")
-    print(f"   └─ {os.path.basename(sound_file_name)}")
-
-    print("\n🎯 File Skill :")
-    print(f"   └─ {os.path.basename(file_mod_skill1)}")
-    print(f"   └─ {os.path.basename(file_mod_skill2)}")
-
-    print("\n🎬 File Motion :")
-    print(f"   └─ {os.path.basename(file_mod_Modtion)}")
-
-    print("\n📦 File Actions :")
-    print(f"   └─ {os.path.basename(output_file)}")
-
-    print("\n🗂️ File Back.xml :")
-    print(f"   └─ Back.xml")
-
-    print("\n🧩 File Infos :")
-    print(f"   └─ {newpath}")
-
-    print("\n" + "-" * 50)
