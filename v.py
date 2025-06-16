@@ -7,11 +7,14 @@ ZSTD_LEVEL = 1
 def giai(a):
     if os.path.isdir(a):
         for root, dirs, files in os.walk(a):
+            if 'imprint' in root.lower():
+                continue
             for file in files:
                 file_path = os.path.join(root, file)
                 _giaima_file(file_path)
     else:
-        _giaima_file(a)
+        if 'imprint' not in a.lower():
+            _giaima_file(a)
 
 def _giaima_file(filepath):
     try:
@@ -21,11 +24,8 @@ def _giaima_file(filepath):
         with open(filepath, "rb") as f:
             input_blob = f.read()
 
-        # Nếu đã giải mã (ví dụ có XML), thì bỏ qua
         if b'"Jg' in input_blob or b"<?xml" in input_blob:
             return
-
-        # Nếu là file nén ZSTD
         pos = input_blob.find(b"\x28\xb5\x2f\xfd")
         if pos != -1:
             anti_pos = input_blob.rfind(b'ANTI_DECOMP__')
@@ -60,7 +60,7 @@ def process_input_numbers(numbers):
     return results
 
 input_numbers = input('\n\t' + "ID: ")
-AABBCC = input('\n\t Nhập Nguồn :')
+AABBCC = input('\n\tNhập Nguồn :')
 numbers = [int(num) for num in input_numbers.split()]
 results = process_input_numbers(numbers)
 
@@ -130,9 +130,13 @@ for mapp in FILES_MAP:
                 continue 
 aaabbbcccnnn = ''
 for pack_name in TENSKIN:
-    #print(pack_name)
+    print('-'*53)
+    print(pack_name)
+    print('-'*53)
     aaabbbcccnnn = pack_name
     ten_final = pack_name
+with open('List.txt', 'w', encoding='utf8') as f:
+    f.write(pack_name)
 
 print(Fore.YELLOW + '-' * 50 + Fore.RESET)
 if len(DANHSACH) > 1:
@@ -389,6 +393,7 @@ for skin_id_input in IDMODSKIN:
             if (file_name, status) not in printed:
                 print(f"   [-] {file_name:<25} {status}")
                 printed.add((file_name, status))
+        print('-'*53)
 
 
 file_paths = [file_mod_skill1, file_mod_skill2]
@@ -466,7 +471,62 @@ for user_id in IDMODSKIN:
             print(f"   [-] {os.path.basename(file):<25} Done!")
     else:
         print("   [x] Not Found")
+for IDCHECK in IDMODSKIN1:
+    if IDCHECK not in ["13008", "52007"]:
+        if not os.path.exists(file_mod_Character):
+            print(f"❌ Không tìm thấy file: {file_name}")
+            continue
 
+        with open(file_mod_Character, 'rb') as f:
+            file_content = f.read()
+
+        IDPHUKIEN = IDCHECK[:3]
+        found_patterns = []
+        for i in range(10500, 20000):
+            if i.to_bytes(4, 'little') in file_content:
+                found_patterns.append(str(i))
+
+        for i in range(50100, 54900):
+            if i.to_bytes(4, 'little') in file_content:
+                found_patterns.append(str(i))
+        relevant_patterns = [p for p in found_patterns if IDPHUKIEN == p[:3]]
+
+        if relevant_patterns:
+            first_pattern = relevant_patterns[0]
+            total_matches = sum(
+                file_content.count(int(p).to_bytes(4, 'little')) for p in relevant_patterns
+            )
+
+            first_pos = file_content.find(int(first_pattern).to_bytes(4, 'little')) - 155
+            if first_pos < 0:
+                print("⚠️ Không tìm được vị trí hợp lệ.")
+                continue
+
+            full_code = b''
+            while True:
+                try:
+                    block_size = int.from_bytes(file_content[first_pos:first_pos+4], 'little')
+                    block = file_content[first_pos:first_pos + block_size + 4]
+                except:
+                    print("❌ Lỗi đọc block (có thể cuối file).")
+                    break
+
+                if all(int(p).to_bytes(4, 'little') not in block for p in relevant_patterns):
+                    break
+
+                full_code += block
+                file_content = file_content[first_pos + block_size + 4:]
+                first_pos = 0
+
+            if full_code:
+                new_data = file_content.replace(full_code, b'')
+
+                with open(file_mod_Character, 'wb') as f:
+                    f.write(new_data)
+            else:
+                pass
+        else:
+            pass
 
 for ID in IDMODSKIN:
     AllID = []
@@ -624,6 +684,12 @@ for IDMODSKIN in IDMODSKIN1:
                         new_lines.append(b'        <bool name="bUseTargetSkinEffect" value="true" refParamName="" useRefParam="false"/>')
                 All = b'\r\n'.join(new_lines)
 
+            
+            CheckSkinIdTick = ('<int name="skinId" value="'+IDMODSKIN+'" refParamName="" useRefParam="false" />').encode()
+            CheckSkinIdTick0 = ('<int name="skinId" value="'IDMODSKIN[:3]+'00'+'" refParamName="" useRefParam="false" />').encode()
+            if CheckSkinIdTick in All:
+                All = All.replace(CheckSkinIdTick, CheckSkinIdTick0)
+                print(f'CheckSkinIdTick : {file_path}')
             with open(file_path, 'wb') as f:
                 f.write(All)
             if IDMODSKIN == '10611' and 'U1B1' in file_path:
@@ -637,6 +703,42 @@ for IDMODSKIN in IDMODSKIN1:
             if IDMODSKIN == '10611' and 'A3' in file_path: 
                 with open(file_path, 'rb') as f:
                     rpl = f.read().replace(b'<String name="clipName" value="Atk3"', b'<String name="clipName" value="Atk1"')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN[:3] == '531' and '531gm' in file_path and '53107_Back.xml' in file_path:
+                with open(file_path, 'rb') as f:
+                    rpl = f.read()
+                    rpl = rpl.replace(b'531_Keera/53107/5318_Keera_S_LOD1', b'531_Keera/5318_Keera_S_LOD1')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN[:3] == '531' and '531gm_1' in file_path:
+                with open(file_path, 'rb') as f:
+                    rpl = f.read()
+                    rpl = rpl.replace(b'531_Keera/53107/5318_Keera_LOD1', b'531_Keera/5318_Keera_LOD1')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN == '11107' and 'death.xml' not in file_path.lower():
+                with open(file_path, 'rb') as f:
+                    rpl = f.read().replace(
+                    b'<String name="clipName" value="',
+                    b'<String name="clipName" value="11107/'
+        )
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN == '15704' and 'death.xml' not in file_path.lower():
+                with open(file_path, 'rb') as f:
+                    rpl = f.read().replace(
+                    b'<String name="clipName" value="',
+                    b'<String name="clipName" value="15704/'
+        )
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN == '10603' and 'death.xml' not in file_path.lower():
+                with open(file_path, 'rb') as f:
+                    rpl = f.read().replace(
+                    b'<String name="clipName" value="',
+                    b'<String name="clipName" value="10603/'
+        )
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
 
@@ -904,12 +1006,11 @@ with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1
 with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "w", encoding="utf-8") as f:
     f.writelines(lines)
 
-file_path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml'
 for IDCOUNT in IDMODSKIN1:
     IDKIEMTRA = IDCOUNT[:3] + "00"
     LineCheck = f'<int name="skinId" value="{IDKIEMTRA}" refParamName="" useRefParam="false" />'
 
-    with open(file_path, 'r', encoding='utf-8') as f:
+    with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', 'r', encoding='utf-8') as f:
         lines = f.readlines()
 
     new_lines = []
@@ -940,25 +1041,17 @@ for IDCOUNT in IDMODSKIN1:
             condition_line = f'      <Condition id="{count-1}" guid="{guid}" status="true" />\r\n'
             new_lines.append(condition_line)
 
-    with open(file_path, 'w', encoding='utf-8') as f:
+    with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', 'w', encoding='utf-8') as f:
         f.writelines(new_lines)
-print(f'Done-{IDCOUNT}')
+    print('-'*53)
+    print(f'Done-{IDCOUNT}')
 IDMODSKININ = [str(num) for num in numbers]
-
-# Dùng dict lưu tên hero theo từng ID
 while True:
     for id_str in IDMODSKININ:
         IDINFO = int(id_str)
         IDINFO = str(IDINFO)
-
-        # Bỏ số 0 ở giữa nếu có (VD: 15001 -> 1501)
         if len(IDINFO) > 3 and IDINFO[3:4] == '0':
             IDINFO = IDINFO[:3] + IDINFO[4:]
-
-        #print("✅ Đang xử lý ID:", IDINFO)
-        #print(IDINFO)
-        
-        # Process each ID individually
         try:
             Files_Directory_Path = f'Prefab_Hero/mod{IDINFO}/'
             # Create directory if it doesn't exist
@@ -1298,8 +1391,6 @@ while True:
     tiep_tuc = 'n'
     if tiep_tuc != 'y':
         break
-#giai(newpath)
-    print("INFOS [DONE!]")
 Files_Directory = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4'
 for folder_name in os.listdir(Files_Directory):
     folder_path = os.path.join(Files_Directory, folder_name)
@@ -1344,6 +1435,7 @@ for folder_name in os.listdir(f'{pack_name}/Resources/1.58.1/Prefab_Characters/m
                     rel_path = os.path.relpath(file_path, full_path) 
                     arcname = os.path.join("Prefab_Hero", folder_name, rel_path)
                     zipf.write(file_path, arcname)
+        print(f"  {os.path.basename(zip_file_path)} Done")
     except Exception as e:
         print(f"❌ Lỗi khi nén {folder_name}: {e}")
 shutil.rmtree(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/')
