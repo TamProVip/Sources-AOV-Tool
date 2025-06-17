@@ -499,7 +499,7 @@ for user_id in IDMODSKIN:
             print(f"   [-] {os.path.basename(file):<25} Done!")
     else:
         print("   [x] Not Found")
-for IDCHECK in IDMODSKIN1:
+"""for IDCHECK in IDMODSKIN1:
     if IDCHECK not in ["13008", "52007"]:
         if not os.path.exists(file_mod_Character):
             print(f"❌ Không tìm thấy file: {file_name}")
@@ -553,7 +553,7 @@ for IDCHECK in IDMODSKIN1:
             else:
                 pass
         else:
-            pass
+            pass"""
 
 for ID in IDMODSKIN:
     AllID = []
@@ -768,7 +768,7 @@ for IDMODSKIN in IDMODSKIN1:
         )
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
-
+#-----------------------------------------------
         if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
             if IDCHECK not in ["13311", "16707"]:
                 print("-"*53)
@@ -807,7 +807,8 @@ for IDMODSKIN in IDMODSKIN1:
                             Rpl = Rpl.replace(a, b)
                         if Rpl != open(o + file, 'rb').read():
                             with open(o + file, 'wb') as f:
-                            f.write(Rpl)
+                                f.write(Rpl)
+#-----------------------------------------------
     if IDCHECK == '15009':
         for file in ["BlueBuff.xml", "RedBuff_Slow.xml"]:
             duongdan = f"{pack_name}/files/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/PassiveResource/{file}"
@@ -855,6 +856,7 @@ for IDMODSKIN in IDMODSKIN1:
                 except UnicodeDecodeError:
                     print(f"Files Encryptes JG: {file_path}")
                     continue
+#-----------------------------------------------
     if IDCHECK in ["50108","14111","11107","15009","13015"]:
         ID = IDCHECK
         file = open(organSkin_mod, "rb")
@@ -925,6 +927,9 @@ for IDMODSKIN in IDMODSKIN1:
         file = open(organSkin_mod, "wb")
         Z = file.write(Read)
         file.close()
+#-----------------------------------------------
+
+#-----------------------------------------------
     if b"Skin_Icon_BackToTown" in dieukienmod or b"Skin_Icon_Animation" in dieukienmod:
         def extract_blocks(xml_content):
             result = []
@@ -1093,7 +1098,7 @@ with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1
 
 modified_count = 0
 HEROS = os.listdir(Files_Directory_Path)
-
+#-----------------------------------------------
 for ID_BACK in IDMODSKIN1:
     CHECK_ID = ID_BACK
     Skin_Back = ID_BACK[:3] + "00"
@@ -1151,7 +1156,7 @@ with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1
     lines = [line for line in f if line.strip()]  # loại bỏ dòng trống (line.strip() == False)
 with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "w", encoding="utf-8") as f:
     f.writelines(lines)
-
+#-----------------------------------------------
 for IDCOUNT in IDMODSKIN1:
     IDKIEMTRA = IDCOUNT[:3] + "00"
     LineCheck = f'<int name="skinId" value="{IDKIEMTRA}" refParamName="" useRefParam="false" />'
@@ -1180,17 +1185,163 @@ for IDCOUNT in IDMODSKIN1:
 
     # Thêm dòng gốc vào output
         new_lines.append(line)
-
+    
     # Nếu đang trong chế độ insert và gặp dòng <Track trackName=>
         if in_insert_mode and '<Track trackName=' in line:
             guid = str(uuid.uuid4())
             condition_line = f'      <Condition id="{count-1}" guid="{guid}" status="true" />\r\n'
             new_lines.append(condition_line)
-
     with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', 'w', encoding='utf-8') as f:
         f.writelines(new_lines)
     print('-'*53)
     print(f'Done-{IDCOUNT}')
+#-----------------------------------------------
+
+duonggia = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/HasteE1.xml'
+giai(duonggia)
+with open(duonggia, 'r', encoding='utf-8') as f:
+    lines = f.readlines()
+
+text = ''.join(lines)
+matches = re.findall(r'<int name="skinId" value="(\d+)" refParamName="" useRefParam="false" />', text)
+if not matches:
+    print("[!] Không tìm thấy dòng <int name='skinId'...>")
+    exit()
+id_skin_goc = matches[0]
+print(f"[✓] ID gốc: {id_skin_goc}")
+
+# Lấy block gốc <Track>
+skin_line_index = next((i for i, line in enumerate(lines) if id_skin_goc in line), None)
+start = next((i for i in range(skin_line_index, -1, -1) if '<Track trackName=' in lines[i]), None)
+end = next((i for i in range(skin_line_index, len(lines)) if '</Track>' in lines[i]), None)
+block_skinid = lines[start:end+1]
+
+# Tìm 2 block hiệu ứng jiasu
+pattern_effect = re.compile(r'jiasu_tongyong_0[12]')
+effect_blocks = []
+seen = set()
+i = 0
+while i < len(lines):
+    if '<Track trackName=' in lines[i]:
+        block_start = i
+        while i < len(lines) and '</Track>' not in lines[i]:
+            i += 1
+        block_end = i
+        block = lines[block_start:block_end+1]
+        block_text = ''.join(block)
+        match = pattern_effect.search(block_text)
+        if match:
+            eff_name = match.group(0)
+            if eff_name not in seen:
+                seen.add(eff_name)
+                block = [l for l in block if '<Condition ' not in l]
+                effect_blocks.append(block)
+                if len(effect_blocks) == 2:
+                    break
+    i += 1
+
+if len(effect_blocks) < 2:
+    print("[!] Không đủ block hiệu ứng.")
+    exit()
+
+# Đếm Track ban đầu
+track_count = sum(1 for l in lines if '<Track trackName=' in l)
+insert_index = next((i for i in range(len(lines)-1, -1, -1) if '</Action>' in lines[i]), None)
+if insert_index is None:
+    print("[!] Không tìm thấy </Action>")
+    exit()
+
+all_inserted = []
+
+# Lặp qua từng skin ID
+for IDCHECK in IDMODSKIN1:
+    file_path = "Resources/1.58.1/Databin/Client/Actor/heroSkin.bytes"
+    skin_id = IDCHECK
+    dieukienmod = False
+
+    try:
+        with open(file_path, "rb") as f:
+            data = f.read().decode(errors="ignore")
+
+        lines_text = data.split("\0")
+        lines_text = [line.strip() for line in lines_text if line.strip()]
+        start_idx = None
+        end_idx = None
+        stop_marker = f"30{str(int(skin_id))[:-2]}{int(skin_id[-2:])}head.jpg"
+
+        for i, line in enumerate(lines_text):
+            if f"Share_{skin_id}.jpg" in line:
+                start_idx = i
+                break
+
+        if start_idx is not None:
+            for j in range(start_idx + 1, len(lines_text)):
+                if stop_marker in lines_text[j]:
+                    end_idx = j
+                    break
+
+        if start_idx is None:
+            print(f"❌ Không tìm thấy Share_{skin_id}.jpg trong {file_path}")
+        elif end_idx is None:
+            print(f"❌ Không tìm thấy {stop_marker} sau Share_{skin_id}.jpg trong {file_path}")
+        else:
+            dieukienmod = any("Skin_Icon_Atmosphere" in lines_text[k] for k in range(start_idx, end_idx))
+            if dieukienmod:
+                print(f"[-] ID {skin_id} có Skin_Icon_Atmosphere")
+            else:
+                print(f"[+] ID {skin_id} không có Skin_Icon_Atmosphere")
+
+    except Exception as e:
+        print(f"Lỗi kiểm tra Skin_Icon_Atmosphere: {e}")
+
+    if IDCHECK == "53002" or b'Skin_Icon_Atmosphere' in dieukienmod:
+        prefix = IDCHECK[:3]
+        zip_path = f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{prefix}_Actions.pkg.bytes'
+        mod5_dir = f'./mod5/{IDCHECK}/'
+
+        # Giải nén riêng từng ID
+        if not os.path.exists(mod5_dir) or not os.listdir(mod5_dir):
+            os.makedirs(mod5_dir, exist_ok=True)
+            try:
+                with zipfile.ZipFile(zip_path, 'r') as zip_ref:
+                    zip_ref.extractall(mod5_dir)
+            except:
+                print(f"[!] Không giải nén được file: {zip_path}")
+                continue
+
+        NAME_HERO = next((name for name in os.listdir(mod5_dir) if name.startswith(prefix + "_")), None)
+        if not NAME_HERO:
+            continue
+
+        # Clone block skinId
+        block_clone = [l.replace(id_skin_goc, IDCHECK) for l in block_skinid]
+
+        # Clone 2 block hiệu ứng
+        effect_clones = []
+        for eff_block in effect_blocks:
+            eff_clone = []
+            for l in eff_block:
+                l = re.sub(r'common_effects', f'hero_skill_effects/{NAME_HERO}/{IDCHECK}', l)
+                eff_clone.append(l)
+            for i, line in enumerate(eff_clone):
+                if '<Track trackName=' in line:
+                    eff_clone[i] = re.sub(r'trackName="[^"]+"', f'trackName="TriggerParticle{track_count}"', line)
+                    eff_clone.insert(i+1, f'      <Condition id="{track_count}" guid="{str(uuid.uuid4())}" status="true" />\n')
+                    break
+            track_count += 1
+            effect_clones.append(eff_clone)
+
+        all_inserted += block_clone + effect_clones[0] + effect_clones[1]
+    else:
+        print(f"[-] Bỏ qua {IDCHECK}, không thỏa điều kiện mod.")
+
+# Ghi file
+with open(duonggia, 'w', encoding='utf-8') as f:
+    f.writelines(lines[:insert_index] + all_inserted + lines[insert_index:])
+
+print(f"[✓] Gia Tốc: {os.path.basename(duonggia)} Done")
+
+#-----------------------------------------------
 IDMODSKININ = [str(num) for num in numbers]
 while True:
     for id_str in IDMODSKININ:
