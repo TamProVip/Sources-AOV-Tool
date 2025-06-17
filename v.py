@@ -771,8 +771,6 @@ for IDMODSKIN in IDMODSKIN1:
 #-----------------------------------------------
         if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
             if IDCHECK not in ["13311", "16707"]:
-                print("-"*53)
-                print(f"\n  Sound Ages ID -{IDMODSKIN}")
                 directory_path = Files_Directory_Path + f'{NAME_HERO}' + '/skill/'        
                 IDSOUND_S = IDMODSKIN
                 if IDSOUND_S[3:4] == '0':
@@ -808,6 +806,8 @@ for IDMODSKIN in IDMODSKIN1:
                         if Rpl != open(o + file, 'rb').read():
                             with open(o + file, 'wb') as f:
                                 f.write(Rpl)
+                            print("-"*53)
+                            print(f"\n  Sound Ages ID -{IDMODSKIN}")
 #-----------------------------------------------
     if IDCHECK == '15009':
         for file in ["BlueBuff.xml", "RedBuff_Slow.xml"]:
@@ -821,6 +821,18 @@ for IDMODSKIN in IDMODSKIN1:
                     )
             with open(duongdan, 'wb') as f:
                 f.write(content)
+    if IDCHECK == '15013':
+        Youtuber_Name = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/PassiveResource/BlueBuff_CD.xml'
+        giai(Youtuber_Name)
+        with open(Youtuber_Name, 'rb') as f:
+            noidung = f.read()
+        noidung = noidung.replace(b"CheckSkinIdTick", b"CheckHeroIdTick")\
+                         .replace(b'"skinId" value="15013"', b'"heroId" value="150"')\
+                         .replace(b'prefab_skill_effects/hero_skill_effects/15013/', 
+                                  b'prefab_skill_effects/hero_skill_effects/150_hanxin/15013/')
+        with open(Youtuber_Name, 'wb') as f:
+            f.write(noidung)
+#-----------------------------------------------
     if IDCHECK == "11107" or IDCHECK == "14111":
         with zipfile.ZipFile(f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Organ_Age.pkg.bytes') as f:
             f.extractall(f'{pack_name}/files/Resources/1.58.1/Ages/Prefab_Characters/mod2/')
@@ -1340,6 +1352,7 @@ with open(duonggia, 'w', encoding='utf-8') as f:
     f.writelines(lines[:insert_index] + all_inserted + lines[insert_index:])
 
 print(f"[✓] Gia Tốc: {os.path.basename(duonggia)} Done")
+os.remove('mod5')
 
 #-----------------------------------------------
 IDMODSKININ = [str(num) for num in numbers]
