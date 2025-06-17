@@ -41,10 +41,10 @@ def _giaima_file(filepath):
             with open(filepath, "wb") as f:
                 f.write(output_blob)
         else:
-            print(f"❌ Không phải file ZSTD: {filepath}")
+            pass
 
     except Exception as e:
-        print(f"⚠️ Lỗi giải file: {filepath} - {e}")
+        pass
 
 def process_input_numbers(numbers):
     results = []
@@ -308,6 +308,39 @@ for IDCHECK in IDMODSKIN:
     for file_name, status in results:
         prefix = "[-]" if status == "Done!" else "[x]"
         print(f"   {prefix} {file_name:<25} {status}")
+        if len(IDMODSKIN1) == 3:
+            inp = file_mod_vien
+            with open(inp, 'rb') as f:
+                ab = f.read()
+
+            Sorted = sorted(IDMODSKIN1, key=int)
+            IdGlobal = {Sorted[0]: '6500', Sorted[1]: '6600', Sorted[2]: '6300'}
+
+            for IDCHECK in IDMODSKIN1:
+                id2 = IdGlobal[IDCHECK]
+                data = dieukienmod
+                target = b'\x00\x00\x10\x00\x00\x00Share_' + IDCHECK.encode() + b'.jpg'
+                index = data.find(target) - 2
+                two_bytes_before = data[index:index+2]
+                print(f"[{IDCHECK}] two_bytes_before: {two_bytes_before}")
+
+                if two_bytes_before != b'\x00\x00':
+                    a = two_bytes_before
+                    i = ab.find(a) - 4
+                    vt = ab[i:i+4]
+                    vtr = int.from_bytes(vt, byteorder='little')
+                    vt1 = ab[i:i+vtr]
+
+                    a1 = bytes.fromhex(id2)
+                    i1 = ab.find(a1) - 4
+                    vt11 = ab[i1:i1+4]
+                    vtr1 = int.from_bytes(vt11, byteorder='little')
+                    vt2 = ab[i1:i1+vtr1]
+
+                    vt1_moi = vt1.replace(a, a1)
+                    ab = ab.replace(vt2, vt1_moi)
+            with open(inp, 'wb') as go:
+                go.write(ab)
 
 for skin_id_input in IDMODSKIN:
     sound_directory = Sound_Files
@@ -360,8 +393,6 @@ for skin_id_input in IDMODSKIN:
                 sound_data = sound_data.replace(b'0~\x19', b'CA\x00')
             if sound_file_name == 'LobbySound.bytes':
                 sound_data = sound_data.replace(b'0~\x19', b'CA\x00')
-
-        # Xử lý thay thế ID cho toàn bộ sound files
         if sound_file_name != "CoupleSound.bytes":
             for skin_id in all_skin_ids:
                 skin_id += b"\x00" * 8
@@ -370,8 +401,6 @@ for skin_id_input in IDMODSKIN:
             for skin_id in all_skin_ids:
                 skin_id += b"\x02\x00\x00\x00\x01"
                 sound_data = sound_data.replace(skin_id, b"\x0000\x00\x00\x02\x00\x00\x00\x01")
-
-        # Thay thế selected ID
         if sound_data.find(selected_skin_id) != -1:
             if sound_file_name != "CoupleSound.bytes":
                 sound_data = sound_data.replace(initial_skin_id + b"\x00" * 8, b"\x0000" + b"\x00" * 10)
@@ -379,14 +408,13 @@ for skin_id_input in IDMODSKIN:
             else:
                 sound_data = sound_data.replace(initial_skin_id + b"\x02\x00\x00\x00\x01", b"\x0000\x00\x00\x02\x00\x00\x00\x01")
                 sound_data = sound_data.replace(selected_skin_id + b"\x02\x00\x00\x00\x01", initial_skin_id + b"\x02\x00\x00\x00\x01")
-
-        # Ghi đè lại file đã xử lý
         with open(os.path.join(sound_directory, sound_file_name), "wb") as sound_file:
             sound_file.write(sound_data)
         results.append((sound_file_name, "Đã xử lý"))
 
     sound_results = [r for r in results if r[0] not in ("heroSkin.bytes", "HeroSkinShop.bytes")]
     if sound_results:
+        print('-'*53)
         print(f" Mod Sound Databin - {skin_id_input}")
         printed = set()
         for file_name, status in sound_results:
@@ -499,7 +527,6 @@ for IDCHECK in IDMODSKIN1:
 
             first_pos = file_content.find(int(first_pattern).to_bytes(4, 'little')) - 155
             if first_pos < 0:
-                print("⚠️ Không tìm được vị trí hợp lệ.")
                 continue
 
             full_code = b''
@@ -568,7 +595,6 @@ for ID in IDMODSKIN:
 
     aw = 0
     if len(CodeDB) > 1:
-        #print(f"Skin {ID} có {len(CodeDB)} kiểu nhảy đặc biệt → tự chọn kiểu đầu tiên")
         aw = 0
 
     if len(CodeDB) > 0:
@@ -681,15 +707,16 @@ for IDMODSKIN in IDMODSKIN1:
                 for line in All.split(b'\r\n'):
                     new_lines.append(line)
                     if b'<String name="resourceName"' in line:
-                        new_lines.append(b'        <bool name="bUseTargetSkinEffect" value="true" refParamName="" useRefParam="false"/>')
+                        new_lines.append(b'        <int name="frameRate" value="120" refParamName="" useRefParam="false" />\n        <bool name="bUseTargetSkinEffect" value="true" refParamName="" useRefParam="false"/>')
                 All = b'\r\n'.join(new_lines)
 
             
             CheckSkinIdTick = ('<int name="skinId" value="'+IDMODSKIN+'" refParamName="" useRefParam="false" />').encode()
-            CheckSkinIdTick0 = ('<int name="skinId" value="'IDMODSKIN[:3]+'00'+'" refParamName="" useRefParam="false" />').encode()
+            CheckSkinIdTick0 = ('<int name="skinId" value="'+IDMODSKIN[:3]+'00'+'" refParamName="" useRefParam="false" />').encode()
             if CheckSkinIdTick in All:
                 All = All.replace(CheckSkinIdTick, CheckSkinIdTick0)
-                print(f'CheckSkinIdTick : {file_path}')
+                print(f'  CheckSkinIdTick : {os.path.basename(file_path)}')
+            All = All.replace(b'bAllowEmptyEffect" value="true"', b'bAllowEmptyEffect" value="false"')
             with open(file_path, 'wb') as f:
                 f.write(All)
             if IDMODSKIN == '10611' and 'U1B1' in file_path:
@@ -742,43 +769,162 @@ for IDMODSKIN in IDMODSKIN1:
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
 
-    if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
-        if IDCHECK not in ["13311", "16707"]:
-            print("-"*53)
-            print(f"\n  Sound Ages ID -{IDMODSKIN}")
-            directory_path = Files_Directory_Path + f'{NAME_HERO}' + '/skill/'        
-            IDSOUND_S = IDMODSKIN
-            if IDSOUND_S[3:4] == '0':
-                IDSOUND_S = IDSOUND_S[:3] + IDSOUND_S[4:]
-            IDSOUND1 = IDSOUND_S[3:]
-            IDSOUND12 = IDSOUND1.encode()
-            IDSOUND = b"_Skin" + IDSOUND12
-            IDINFO = int(IDMODSKIN) + 1
-            IDINFO = str(IDINFO)
-            if IDINFO[3:4] == '0':
-                IDINFO = IDINFO[:3] + IDINFO[4:]
-            IDINFO = str(IDINFO)
+        if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
+            if IDCHECK not in ["13311", "16707"]:
+                print("-"*53)
+                print(f"\n  Sound Ages ID -{IDMODSKIN}")
+                directory_path = Files_Directory_Path + f'{NAME_HERO}' + '/skill/'        
+                IDSOUND_S = IDMODSKIN
+                if IDSOUND_S[3:4] == '0':
+                    IDSOUND_S = IDSOUND_S[:3] + IDSOUND_S[4:]
+                IDSOUND1 = IDSOUND_S[3:]
+                IDSOUND12 = IDSOUND1.encode()
+                IDSOUND = b"_Skin" + IDSOUND12
+                IDINFO = int(IDMODSKIN) + 1
+                IDINFO = str(IDINFO)
+                if IDINFO[3:4] == '0':
+                    IDINFO = IDINFO[:3] + IDINFO[4:]
+                IDINFO = str(IDINFO)
 
-            o = directory_path
-            ID = (IDSOUND)
-            File = os.listdir(o)
-            for file in File:
-                with open(o + file, 'rb') as f:
-                    rpl = f.readlines()
-                with open(o + file, 'rb') as f:
-                    Rpl = f.read()
-                Code = []
-                for i in rpl:
-                    if i.find(b'<String name="eventName" value="') != -1:
-                        Code.append(i[40:i.find(b'" refParamName="" useRefParam="false" />')])
-                for i in Code:
-                    a = b'<String name="eventName" value="' + i + b'" refParamName="" useRefParam="false" />'
-                    if Code:
-                        Rpl = Rpl.replace(a, b'<String name="eventName" value="' + i + IDSOUND + b'" refParamName="" useRefParam="false" />')
-                if Rpl != open(o + file, 'rb').read():
-                    with open(o + file, 'wb') as f:
-                        f.write(Rpl)
-    
+                o = directory_path
+                ID = (IDSOUND)
+                File = os.listdir(o)
+                for file in File:
+                    with open(o + file, 'rb') as f:
+                        rpl = f.readlines()
+                    with open(o + file, 'rb') as f:
+                        Rpl = f.read()
+                    Code = []
+                    for i in rpl:
+                        if i.find(b'<String name="eventName" value="') != -1:
+                            Code.append(i[40:i.find(b'" refParamName="" useRefParam="false" />')])
+                        for i in Code:
+                            if IDSOUND in i:
+                                continue
+                            a = b'<String name="eventName" value="' + i + b'" refParamName="" useRefParam="false" />'
+                            b = b'<String name="eventName" value="' + i + IDSOUND + b'" refParamName="" useRefParam="false" />\n        <bool name="useSkinSwitch" value="false" refParamName="" useRefParam="false"/>'
+                    
+                            Rpl = Rpl.replace(a, b)
+                        if Rpl != open(o + file, 'rb').read():
+                            with open(o + file, 'wb') as f:
+                            f.write(Rpl)
+    if IDCHECK == '15009':
+        for file in ["BlueBuff.xml", "RedBuff_Slow.xml"]:
+            duongdan = f"{pack_name}/files/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/PassiveResource/{file}"
+            giai(duongdan)
+            with open(duongdan, 'rb') as f:
+                content = f.read().replace(
+                    b"CheckSkinIdVirtualTick", b"CheckHeroIdTick"
+                    ).replace(
+                    b'"skinId" value="15009"', b'"heroId" value="150"'
+                    )
+            with open(duongdan, 'wb') as f:
+                f.write(content)
+    if IDCHECK == "11107" or IDCHECK == "14111":
+        with zipfile.ZipFile(f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Organ_Age.pkg.bytes') as f:
+            f.extractall(f'{pack_name}/files/Resources/1.58.1/Ages/Prefab_Characters/mod2/')
+            TRU1 = (f'{pack_name}/files/Resources/1.58.1/Ages/Prefab_Characters/mod2/Prefab_Organ/Crystal/New_BlueCrystal/Skill/')
+            TRU2 = (f'{pack_name}/files/Resources/1.58.1/Ages/Prefab_Characters/mod2/Prefab_Organ/Crystal/New_RedCrystal/Skill/')
+            TRU3 = (f'{pack_name}/files/Resources/1.58.1/Ages/Prefab_Characters/mod2/Prefab_Organ/Tower/New_BlueTower/Skill/')
+            TRU4 = (f'{pack_name}/files/Resources/1.58.1/Ages/Prefab_Characters/mod2/Prefab_Organ/Tower/New_BlueTower_High/Skill/')
+            TRU5 = (f'{pack_name}/files/Resources/1.58.1/Ages/Prefab_Characters/mod2/Prefab_Organ/Tower/New_RedTower/Skill/')
+            TRU6 = (f'{pack_name}/files/Resources/1.58.1/Ages/Prefab_Characters/mod2/Prefab_Organ/Tower/New_RedTower_High/Skill/')
+            f.close()
+        folder_path1 = [TRU1, TRU2, TRU3, TRU4, TRU5, TRU6]
+        for folder_path in folder_path1:
+            for filename in os.listdir(folder_path):
+                file_path = os.path.join(folder_path, filename)
+                giai(file_path)
+                try:
+                    with open(file_path, 'r', encoding='utf-8') as file:
+                        content = file.readlines()
+
+                    with open(file_path, 'w', encoding='utf-8') as file:
+                        for line in content:
+                            if '<String name="prefabName"' in line:
+                                parts = line.split('/')
+                                if len(parts) >= 5:
+                                    parts[4] = '1/' + parts[4]
+                                    line = '/'.join(parts)
+                            elif '<String name="resourceName"' in line:
+                                parts = line.split('/')
+                                if len(parts) >= 3:
+                                    parts[2] = '1/' + parts[2]
+                                    line = '/'.join(parts)
+                            file.write(line)
+                except UnicodeDecodeError:
+                    print(f"Files Encryptes JG: {file_path}")
+                    continue
+    if IDCHECK in ["50108","14111","11107","15009","13015"]:
+        ID = IDCHECK
+        file = open(organSkin_mod, "rb")
+        IDN = str(hex(int(ID)))
+        IDN = IDN[4:6] + IDN[2:4]
+        IDN = bytes.fromhex(IDN)
+        ALL_ID = []
+        MD = int(ID[0:3] + "00")
+        for IDNew in range(21):
+            ALL_ID.append(str(MD))
+            MD += 1
+        ALL_ID.remove(ID)
+        for x in range(20):
+            IDK = str(hex(int(ALL_ID[x])))
+            IDK = IDK[4:6] + IDK[2:4]
+            IDK = bytes.fromhex(IDK)
+            ALL_ID[x] = IDK
+        Begin = file.read(140)
+        Read = b"\x00"
+        All = []
+        while Read != b"":
+            Read = file.read(36)
+            if Read.find(IDN) != -1:
+                All.append(Read)
+            try:
+                Max = Read[4] + (Read[5]*256)
+                Max0 = str(hex(Max))
+                if len(Max0) == 4:
+                    Max0 = Max0[2:4] + "00"
+                if len(Max0) == 5:
+                    Max0 = Max0[3:5] + "0" + Max0[2]
+                if len(Max0) == 6:
+                    Max0 = Max0[4:6] + Max0[2:4]
+                Max0 = bytes.fromhex(Max0)
+            except:
+                None
+        file.close()
+        file = open(organSkin_mod, "ab+")
+        Read0 = file.read()
+        for i in range(len(ALL_ID)):
+            for j in range(len(All)):
+                CT = All[j]
+                if CT.find(IDN) != -1:
+                    CT = CT.replace(IDN,ALL_ID[i])
+                else:
+                    CT = CT.replace(ALL_ID[i-1],ALL_ID[i])
+                CTN = str(hex(Max0[0]+(Max0[1]*256)+1))
+                if len(CTN) == 4:
+                    CTN = CTN[2:4]
+                if len(CTN) == 5:
+                    CTN = CTN[3:5] + "0" + CTN[2]
+                if len(CTN) == 6:
+                    CTN = CTN[4:6] + CTN[2:4]
+                CTN = bytes.fromhex(CTN)
+                OZ = b" \x00\x00\x00"
+                if len(CTN) == 1:
+                    CT = CT.replace(OZ+CT[4:6],OZ+CTN+b"\x00",1)
+                if len(CTN) == 2:
+                    CT = CT.replace(OZ+CT[4:6],OZ+CTN,1)
+                All[j] = CT
+                XXX = file.write(CT)
+                Max0 = CT[4:6]
+        file.close()
+        file = open(organSkin_mod, "rb")
+        Read = file.read()
+        Read = Read.replace(Begin[12:14],Max0,1)
+        file.close()
+        file = open(organSkin_mod, "wb")
+        Z = file.write(Read)
+        file.close()
     if b"Skin_Icon_BackToTown" in dieukienmod or b"Skin_Icon_Animation" in dieukienmod:
         def extract_blocks(xml_content):
             result = []
@@ -1081,7 +1227,7 @@ while True:
             continue
         
         # NOTE: The following variables need to be defined before use:
-        # sanitized_input, version, NAME_HERO, IDCHECK, phukienv, phukien,
+        # pack_name, version, NAME_HERO, IDCHECK, phukienv, phukien,
         # ngoaihinhvaneovvang, ngoaihinhvaneovdo, ngoaihinhvaneov,
         # ngoaihinhkhieov, ngoaihinhdoveres, ngoaihinhxanhveres
         
