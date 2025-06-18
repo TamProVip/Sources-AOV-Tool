@@ -719,7 +719,7 @@ for IDMODSKIN in IDMODSKIN1:
             All = All.replace(b'bAllowEmptyEffect" value="true"', b'bAllowEmptyEffect" value="false"')
             with open(file_path, 'wb') as f:
                 f.write(All)
-            if IDMODSKIN == '10611' and 'U1B1' in file_path:
+            if IDMODSKIN == '10611' and 'U1B1.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read()
                     rpl = re.sub(
@@ -727,18 +727,18 @@ for IDMODSKIN in IDMODSKIN1:
                         b'<!-- ' + AABBCC.encode('utf-8') + b' -->', rpl)
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
-            if IDMODSKIN == '10611' and 'A3' in file_path: 
+            if IDMODSKIN == '10611' and 'A3.xml' in file_path: 
                 with open(file_path, 'rb') as f:
                     rpl = f.read().replace(b'<String name="clipName" value="Atk3"', b'<String name="clipName" value="Atk1"')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
-            if IDMODSKIN[:3] == '531' and '531gm' in file_path and '53107_Back.xml' in file_path:
+            if IDMODSKIN[:3] == '531' and '531gm.xml' in file_path and '53107_Back.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read()
                     rpl = rpl.replace(b'531_Keera/53107/5318_Keera_S_LOD1', b'531_Keera/5318_Keera_S_LOD1')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
-            if IDMODSKIN[:3] == '531' and '531gm_1' in file_path:
+            if IDMODSKIN[:3] == '531' and '531gm_1.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read()
                     rpl = rpl.replace(b'531_Keera/53107/5318_Keera_LOD1', b'531_Keera/5318_Keera_LOD1')
@@ -768,47 +768,133 @@ for IDMODSKIN in IDMODSKIN1:
         )
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+            if IDMODSKIN == '13011' and 'S2B2_13011' in file_path and 'S2B3_13011' in file_path and 'S2B1.xml' in file_path:
+                with open(file_path, 'rb') as f:
+                    rpl = f.read()
+                    rpl = rpl.replace(
+                    b'      <Event>', 
+                    b'      </Event>\n      <SkinOrAvatarList id="13011"/>', 1)
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN == '13011' and 'A1.xml' in file_path:
+                with open(file_path, 'rb') as f:
+                    rpl = f.read()
+                    rpl = rpl.replace(b'  </Action>', b'    <Track trackName="AnhYeuEm" eventType="GetHolidayResourcePathTick" guid="9e8a16b4-5d54-4b43-b149-8160e9054175" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="25" guid="Cut" status="true"/>\n      <Event eventName="GetHolidayResourcePathTick" time="0.000" isDuration="false" guid="5f29c189-96ab-44ff-9fdc-82c83264c461">\n        <String name="holidayResourcePathPrefix" value="prefab_skill_effects/Inner_game_effect/returncity_holidays/holiday0/huijidi" refParamName="" useRefParam="false"/>\n        <String name="outPathParamName" value="AnhYeuEm" refParamName="" useRefParam="false"/>\n      </Event>\n    </Track>\n    <Track trackName="AnhYeuEm" eventType="GetHolidayResourcePathTick" guid="345352d8-7e2b-4e5c-98e1-e66c22f47551" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="25" guid="Cut" status="true"/>\n      <Event eventName="GetHolidayResourcePathTick" time="0.000" isDuration="false" guid="7b59dc67-c1aa-4b8b-8643-01f4e0cc03fd">\n        <String name="holidayResourcePathPrefix" value="prefab_skill_effects/hero_skill_effects/130_GongBenWuZang/13011/huicheng_tongyong_01" refParamName="" useRefParam="false"/>\n        <String name="outPathParamName" value="AnhYeuEm" refParamName="" useRefParam="false"/>\n      </Event>\n    </Track>\n    <Track trackName="AnhYeuEm" eventType="GetHolidayResourcePathTick" guid="87f96f4c-55cd-4b02-813b-27e638fcae38" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="26" guid="Cut" status="true"/>\n      <Event eventName="GetHolidayResourcePathTick" time="0.000" isDuration="false" guid="187465f4-e4e7-4c6d-9c38-add261d99fa9">\n        <String name="holidayResourcePathPrefix" value="prefab_skill_effects/hero_skill_effects/130_GongBenWuZang/13011/jiasu_tongyong_01" refParamName="" useRefParam="false"/>\n        <String name="outPathParamName" value="AnhYeuEm" refParamName="" useRefParam="false"/>\n      </Event>\n    </Track>\n  </Action>')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN == '13011' and 'UCS.xml' in file_path:
+                    with open(file_path, 'rb') as f: 
+                        rpl = f.read().replace(b'  <Action tag="" length="0.600" loop="false">\r\n    <Track trackName="CameraShakeDuration0" eventType="CameraShakeDuration" guid="20c9a92f-6c8b-4320-bec5-eb48f5e4b418" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="CameraShakeDuration" time="0.000" length="0.600" isDuration="true" guid="54e19b05-d68f-4c09-90dd-4ad5d3422cae">\r\n        <bool name="useMainCamera" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="filter_self" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="canBeCover" value="false" refParamName="" useRefParam="false" />\r\n        <Vector3 name="shakeRange" x="0.200" y="0.400" z="0.200" refParamName="" useRefParam="false" />\r\n        <bool name="bUseCustomCurveMode" value="true" refParamName="" useRefParam="false" />\r\n        <String name="curvesPath" value="Prefab_Skill_Assets/CameraShakeCurves/nor04" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>',b'  <Action tag="" length="1.000" loop="false">\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="f7cc90e1-0903-43fb-91ec-7fa8e0998295" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.000" isDuration="true" guid="f720cf9e-c348-4163-a5e5-c13004eafd10">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/130_gongbenwuzang/13011/gongbenwuzang_attack01_spell01_1" refParamName="" useRefParam="false" />\r\n        <Vector3 name="bindPosOffset" x="0.000" y="1.000" z="0.500" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <bool name="bUseRealScaling" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="bOnlyFollowPos" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="b1stTickParentRot" value="true" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>')
+                    with open(file_path, 'wb') as f:
+                         f.write(rpl)
+            if IDMODSKIN == '13011' and "S2.xml" in file_path and "S21.xml" in file_path and "S22.xml" in file_path:
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'"PlayAnimDuration" guid="9d243092-f160-4189-a9da-f132595032c9" enabled="true"',b'"PlayAnimDuration" guid="9d243092-f160-4189-a9da-f132595032c9" enabled="false"').replace(b'        <bool name="bEqual" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="bSkipLogicCheck" value="false" refParamName="" useRefParam="false" />', b'').replace(b'        <bool name="bEqual" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="bSkipLogicCheck" value="true" refParamName="" useRefParam="false" />', b'        <bool name="bSkipLogicCheck" value="true" refParamName="" useRefParam="false" />').replace(b'        <bool name="bEqual" value="false" refParamName="" useRefParam="false" />\r\n        <bool name="bSkipLogicCheck" value="false" refParamName="" useRefParam="false" />', b'     <bool name="bEqual" value="false" refParamName="" useRefParam="false" />').replace(b'        <bool name="useNegateValue" value="false" refParamName="" useRefParam="false" />\r\n        <Array name="skinIdArray" refParamName="" useRefParam="false" type="int" />\r\n      </Event>\r\n    </Track>', b'      </Event>\r\n    </Track>')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN == '13011' and 'S2.xml' in file_path:
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'    <Track trackName="13011_22" eventType="PlayAnimDuration" guid="346663c5-53c1-4f57-9196-8ea5aec7bafb" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="5" guid="1d2453a9-f234-4489-90f4-dde12f642d17" status="true" />',b'    <Track trackName="13011_22" eventType="PlayAnimDuration" guid="346663c5-53c1-4f57-9196-8ea5aec7bafb" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">').replace(b'    <Track trackName="ChangeSpringDuration5" eventType="ChangeSpringDuration" guid="fc54f26a-3264-4759-b526-2609b8aa6fc0" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="5" guid="1d2453a9-f234-4489-90f4-dde12f642d17" status="true" />', b'    <Track trackName="ChangeSpringDuration5" eventType="ChangeSpringDuration" guid="fc54f26a-3264-4759-b526-2609b8aa6fc0" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN == '13011' and 'S21.xml' in file_path:
+                ABCD = []
+                with open(file_path, 'rb') as file:
+                    xml_bytes = file.read()#.decode('utf-8')
+                    start_phrase = b'<Track trackName="'
+                    end_phrase = b'</Track>' 
+                    start_index = xml_bytes.find(start_phrase)
+                    end_index = xml_bytes.find(end_phrase, start_index)
+                    while start_index != -1 and end_index != -1:
+                        track_text = xml_bytes[start_index:end_index + len(end_phrase)]
+                        start_index = xml_bytes.find(start_phrase, end_index)
+                        end_index = xml_bytes.find(end_phrase, start_index)
+                        if b'a07302eb-cb3b-4146-9996-d018f92247aa' in track_text:
+                            ABCD.append(track_text)
+                                #print(track_text)
+                                #track_text = track_text.encode()
+                        
+                for track_text in ABCD:
+                    with open(file_path, 'rb') as file:
+                        xml_bytes = file.read()
+                    modified_data =b'    <Track trackName="\xe5\xa4\xa7\xe9\x83\xa8\xe5\x88\x86\xe7\x9a\xae\xe8\x82\xa4\xe7\x9a\x84\xe7\x89\xb9\xe6\x95\x88\xe5\xad\x90\xe5\xbc\xb91" eventType="SpawnBulletTick" guid="7255b095-38a9-420b-96c1-0fc359ef272d" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="6" guid="6b3a8d20-c4c6-4d17-83e1-b60201720bb2" status="true" />\r\n      <Event eventName="SpawnBulletTick" time="0.000" isDuration="false" guid="0fe84e6b-f4b9-491b-a802-c85858c85dd3">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="ActionName" value="prefab_characters/prefab_hero/130_gongbenwuzang/skill/UCS" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>'
+                    modified_data1 = xml_bytes.replace(track_text, modified_data)
+                    with open(file_path, 'wb') as file:
+                        file.write(modified_data1)
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'    <Track trackName="13011_22" eventType="PlayAnimDuration" guid="346663c5-53c1-4f57-9196-8ea5aec7bafb" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="5" guid="753f3471-d461-40e5-b0d9-9305c2d4615d" status="true" />',b'    <Track trackName="13011_22" eventType="PlayAnimDuration" guid="346663c5-53c1-4f57-9196-8ea5aec7bafb" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">').replace(b'prefab_skill_effects/hero_skill_effects/130_gongbenwuzang/13011/GongBenWuZang_attack01_spell01_2', b'Nhung').replace(b'    <Track trackName="ChangeSpringDuration6" eventType="ChangeSpringDuration" guid="6d7eb5bc-f19e-4c58-ac74-9ef746b58e86" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="5" guid="753f3471-d461-40e5-b0d9-9305c2d4615d" status="true" />', b'    <Track trackName="ChangeSpringDuration6" eventType="ChangeSpringDuration" guid="6d7eb5bc-f19e-4c58-ac74-9ef746b58e86" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN == '13011' and 'S22.xml' in file_path:
+                ABCD = []
+                with open(file_path, 'rb') as file:
+                    xml_bytes = file.read()#.decode('utf-8')
+                    start_phrase = b'<Track trackName="'
+                    end_phrase = b'</Track>' 
+                    start_index = xml_bytes.find(start_phrase)
+                    end_index = xml_bytes.find(end_phrase, start_index)
+                    while start_index != -1 and end_index != -1:
+                        track_text = xml_bytes[start_index:end_index + len(end_phrase)]
+                        start_index = xml_bytes.find(start_phrase, end_index)
+                        end_index = xml_bytes.find(end_phrase, start_index)
+                        if b'a07302eb-cb3b-4146-9996-d018f92247aa' in track_text:
+                            ABCD.append(track_text)
+                                #print(track_text)
+                                #track_text = track_text.encode()
+                for track_text in ABCD:
+                    if b'guid="6d1d27e2-efcc-4365-a0a0-c650d4ca16ef"' in track_text:
+                        continue
+                    with open(file_path, 'rb') as file:
+                        xml_bytes = file.read()
+                    modified_data = b'    <Track trackName="\xe5\xa4\xa7\xe9\x83\xa8\xe5\x88\x86\xe7\x9a\xae\xe8\x82\xa4\xe7\x9a\x84\xe7\x89\xb9\xe6\x95\x88\xe5\xad\x90\xe5\xbc\xb92" eventType="SpawnBulletTick" guid="7255b095-38a9-420b-96c1-0fc359ef272d" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="6" guid="8d5e99b6-7c14-4d52-930f-cf8653835641" status="true" />\r\n      <Event eventName="SpawnBulletTick" time="0.000" isDuration="false" guid="0fe84e6b-f4b9-491b-a802-c85858c85dd3">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="ActionName" value="prefab_characters/prefab_hero/130_gongbenwuzang/skill/13011_back" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>'              
+                    modified_data1 = xml_bytes.replace(track_text, modified_data)
+                    with open(file_path, 'wb') as file:
+                        file.write(modified_data1)
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'    <Track trackName="13011_22" eventType="PlayAnimDuration" guid="346663c5-53c1-4f57-9196-8ea5aec7bafb" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="5" guid="cea185dc-6db5-47e8-9a5f-fbf0f2aabacb" status="true" />',b'    <Track trackName="13011_22" eventType="PlayAnimDuration" guid="346663c5-53c1-4f57-9196-8ea5aec7bafb" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">').replace(b'    <Track trackName="ChangeSpringDuration7" eventType="ChangeSpringDuration" guid="4e903727-596c-4844-9b0c-c882335080b9" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="5" guid="cea185dc-6db5-47e8-9a5f-fbf0f2aabacb" status="true" />', b'    <Track trackName="ChangeSpringDuration7" eventType="ChangeSpringDuration" guid="4e903727-596c-4844-9b0c-c882335080b9" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN == '13011' and 'S2B1.xml' in file_path:
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'      </Event>\r\n    </Track>\r\n    <Track trackName="AutoY" eventType="HitTriggerTick" guid="9749148c-8e56-47f6-89e8-70c4ed334ef0" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="HitTriggerTick" time="0.000" isDuration="false" guid="62578072-d0be-44f1-bf0d-d8c1de538873">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <int name="SelfSkillCombineID_1" value="130006" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="triggerId" id="-1" objectName="None" isTemp="false" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>',b'      </Event>\r\n    </Track>').replace(b'  <Action tag="" length="2.000" loop="false">', b'  <Action tag="" length="2.000" loop="false">\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="39adb49e-b73a-4b00-ab89-1cc90a2f6860" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.000" isDuration="true" guid="879c7677-a1d1-4da3-a387-a65149b7d0b7">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="true" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/130_gongbenwuzang/13011/gongbenwuzang_attack01_spell01" refParamName="" useRefParam="false" />\r\n        <Vector3 name="bindPosOffset" x="0.000" y="1.000" z="0.500" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <bool name="bUseRealScaling" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="bOnlyFollowPos" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="b1stTickParentRot" value="true" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
 #-----------------------------------------------
-        if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
-            if IDCHECK not in ["13311", "16707"]:
-                directory_path = Files_Directory_Path + f'{NAME_HERO}' + '/skill/'        
-                IDSOUND_S = IDMODSKIN
-                if IDSOUND_S[3:4] == '0':
-                    IDSOUND_S = IDSOUND_S[:3] + IDSOUND_S[4:]
-                IDSOUND1 = IDSOUND_S[3:]
-                IDSOUND12 = IDSOUND1.encode()
-                IDSOUND = b"_Skin" + IDSOUND12
-                IDINFO = str(int(IDMODSKIN) + 1)
-                if IDINFO[3:4] == '0':
-                    IDINFO = IDINFO[:3] + IDINFO[4:]
+    if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
+        if IDCHECK not in ["13311", "16707"]:
+            directory_path = Files_Directory_Path + f'{NAME_HERO}' + '/skill/'        
+            IDSOUND_S = IDMODSKIN
+            if IDSOUND_S[3:4] == '0':
+                IDSOUND_S = IDSOUND_S[:3] + IDSOUND_S[4:]
+            IDSOUND1 = IDSOUND_S[3:]
+            IDSOUND12 = IDSOUND1.encode()
+            IDSOUND = b"_Skin" + IDSOUND12
+            IDINFO = str(int(IDMODSKIN) + 1)
+            if IDINFO[3:4] == '0':
+                IDINFO = IDINFO[:3] + IDINFO[4:]
 
-                for file in os.listdir(directory_path):
-                    filepath = directory_path + file
-                    with open(filepath, 'rb') as f:
-                        content = f.read()
+            for file in os.listdir(directory_path):
+                filepath = directory_path + file
+                with open(filepath, 'rb') as f:
+                    content = f.read()
 
-                    lines = content.split(b'\r\n')
-                    code_lines = [
-                        line[40:line.find(b'" refParamName="" useRefParam="false" />')]
-                        for line in lines
-                        if b'<String name="eventName" value="' in line
-                    ]
+                lines = content.split(b'\r\n')
+                code_lines = [
+                    line[40:line.find(b'" refParamName="" useRefParam="false" />')]
+                    for line in lines
+                    if b'<String name="eventName" value="' in line
+                ]
 
-                    modified = False
-                    for code in code_lines:
-                        if IDSOUND in code:
-                            continue
-                        a = b'<String name="eventName" value="' + code + b'" refParamName="" useRefParam="false" />'
-                        b = b'<String name="eventName" value="' + code + IDSOUND + b'" refParamName="" useRefParam="false" />\n        <bool name="useSkinSwitch" value="false" refParamName="" useRefParam="false"/>'
-                        if a in content:
-                            content = content.replace(a, b)
-                            modified = True
+                modified = False
+                for code in code_lines:
+                    if IDSOUND in code:
+                        continue
+                    a = b'<String name="eventName" value="' + code + b'" refParamName="" useRefParam="false" />'
+                    b = b'<String name="eventName" value="' + code + IDSOUND + b'" refParamName="" useRefParam="false" />\n        <bool name="useSkinSwitch" value="false" refParamName="" useRefParam="false"/>'
+                    if a in content:
+                        content = content.replace(a, b)
+                        modified = True
 
-                    if modified:
-                        with open(filepath, 'wb') as f:
-                            f.write(content)
-                        print("-"*53)
-                        print(f"\n  Sound Ages ID -{IDMODSKIN}")
+                if modified:
+                    with open(filepath, 'wb') as f:
+                        f.write(content)
+                    print("-" * 53)
+                    print(f"\n  Sound Ages ID -{IDMODSKIN}")
 
 #-----------------------------------------------
     if IDCHECK == '15009':
@@ -1031,8 +1117,6 @@ for IDMODSKIN in IDMODSKIN1:
                     inserted = True
                 output.append(line)
             return '\n'.join(output)
-
-        # ======== MAIN ========
         with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "r", encoding="utf-8") as f:
             original_content = f.read()
         final_content = original_content
@@ -1060,7 +1144,6 @@ for IDMODSKIN in IDMODSKIN1:
                     check_skin_block = base_blocks[0]
                     other_blocks = base_blocks[1:]
 
-            # Xử lý checkskin block cho ID hiện tại
                     lines = check_skin_block.splitlines()
                     replaced_lines = []
                     for line in lines:
@@ -1087,15 +1170,8 @@ for IDMODSKIN in IDMODSKIN1:
                             replaced_block = replace_resource_lines(clean_block, NAME_HERO, IDMODSKIN)
                             effect_blocks.append(replaced_block)
 
-            # Gom đủ 5 block (1 checkskin, 2 hiệu ứng, 2 home/gohome)
-                    
-                    # Gom đủ 5 block
                     all_blocks = [check_skin_block_mod] + effect_blocks[:2] + gohome_home_blocks[:2]
-# Chèn dòng <Condition ...> vào mỗi block
-# Gắn vào file XML
                     final_content = insert_blocks_before_action_close(final_content, all_blocks)
-                    #print(f"✅ Đã xử lý xong {NAME_HERO} - {IDMODSKIN}")
-
             except Exception as e:
                 print("❌ Lỗi xử lý:", str(e))
         with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/BackMod.xml', "w", encoding="utf-8") as f:
@@ -1128,36 +1204,23 @@ for ID_BACK in IDMODSKIN1:
 
         with open(file_path, "r", encoding="utf-8") as f:
             source_content = f.read()
-
-        # ⚙️ Dò các block <Track> trong file nguồn
         track_blocks = re.findall(r'\s*<Track trackName=.*?</Track>', source_content, flags=re.DOTALL)
         if not track_blocks:
-            print(f"⚠️ Không tìm thấy block nào trong '{file_name}', bỏ qua.")
             continue
-
-        # 🔍 Tìm dòng skinId tương ứng trong Back.xml
         pattern = rf'<int name="skinId" value="{Skin_Back}".*?/>'
         match = re.search(pattern, target_content)
         if not match:
-            print(f"⚠️ Không tìm thấy dòng skinId {Skin_Back} trong Back.xml, bỏ qua '{file_name}'")
             continue
-
-        # 📍 Tìm vị trí chèn sau </Track>
         insert_pos = target_content.find('</Event>', match.end())
         if insert_pos == -1:
-            print(f"⚠️ Không tìm thấy </Event> sau dòng skinId trong '{file_name}'")
             continue
         insert_pos = target_content.find('</Track>', insert_pos)
         if insert_pos == -1:
-            print(f"⚠️ Không tìm thấy </Track> sau </Event> trong '{file_name}'")
             continue
         insert_pos += len('</Track>')
-
-        # 🧩 Chèn block vào Back.xml
         combined_blocks = "\n"+"\n".join(track_blocks)
         target_content = target_content[:insert_pos] + combined_blocks + target_content[insert_pos:]
         modified_count += 1
-        #print(f"✅ Đã chèn {len(track_blocks)} block từ '{file_name}' vào Back.xml sau skinId {Skin_Back}")
         found = True
         break 
     if not found:
@@ -1165,11 +1228,10 @@ for ID_BACK in IDMODSKIN1:
 if modified_count > 0:
     with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "w", encoding="utf-8") as f:
         f.write(target_content)
-    #print(f"\n💾 Đã lưu thay đổi vào Back.xml ({modified_count} lần chèn)")
 else:
     print("\nBack.xml Not Found")
 with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "r", encoding="utf-8") as f:
-    lines = [line for line in f if line.strip()]  # loại bỏ dòng trống (line.strip() == False)
+    lines = [line for line in f if line.strip()] 
 with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "w", encoding="utf-8") as f:
     f.writelines(lines)
 #-----------------------------------------------
@@ -1186,23 +1248,13 @@ for IDCOUNT in IDMODSKIN1:
 
     for i in range(len(lines)):
         line = lines[i]
-
-    # Đếm số lượng Track xuất hiện trước khi gặp skinId
         if not in_insert_mode and '<Track trackName=' in line:
             count += 1
-
-    # Khi gặp skinId target → bật chế độ insert
         if LineCheck in line:
             in_insert_mode = True
-
-    # Nếu đang insert mà gặp skinId khác → dừng insert
         elif in_insert_mode and 'CheckSkinIdTick' in line and LineCheck not in line:
             in_insert_mode = False
-
-    # Thêm dòng gốc vào output
         new_lines.append(line)
-    
-    # Nếu đang trong chế độ insert và gặp dòng <Track trackName=>
         if in_insert_mode and '<Track trackName=' in line:
             guid = str(uuid.uuid4())
             condition_line = f'      <Condition id="{count-1}" guid="{guid}" status="true" />\r\n'
@@ -1226,13 +1278,11 @@ if not matches:
 id_skin_goc = matches[0]
 print(f"[✓] ID gốc: {id_skin_goc}")
 
-# Lấy block gốc <Track>
 skin_line_index = next((i for i, line in enumerate(lines) if id_skin_goc in line), None)
 start = next((i for i in range(skin_line_index, -1, -1) if '<Track trackName=' in lines[i]), None)
 end = next((i for i in range(skin_line_index, len(lines)) if '</Track>' in lines[i]), None)
 block_skinid = lines[start:end+1]
 
-# Tìm 2 block hiệu ứng jiasu
 pattern_effect = re.compile(r'jiasu_tongyong_0[12]')
 effect_blocks = []
 seen = set()
@@ -1268,8 +1318,6 @@ if insert_index is None:
     exit()
 
 all_inserted = []
-
-# Lặp qua từng skin ID
 for IDCHECK in IDMODSKIN1:
     file_path = "Resources/1.58.1/Databin/Client/Actor/heroSkin.bytes"
     skin_id = IDCHECK
@@ -1314,8 +1362,6 @@ for IDCHECK in IDMODSKIN1:
         prefix = IDCHECK[:3]
         zip_path = f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{prefix}_Actions.pkg.bytes'
         mod5_dir = f'mod5/{IDCHECK}/'
-
-        # Giải nén riêng từng ID
         if not os.path.exists(mod5_dir) or not os.listdir(mod5_dir):
             os.makedirs(mod5_dir, exist_ok=True)
             try:
@@ -1328,18 +1374,14 @@ for IDCHECK in IDMODSKIN1:
         NAME_HERO = next((name for name in os.listdir(mod5_dir) if name.startswith(prefix + "_")), None)
         if not NAME_HERO:
             continue
-
-        # Clone block skinId
         block_clone = []
         for l in block_skinid:
             if '<int name="skinId"' in l:
         # Chỉ thay skinId thành HeroID + 00
                 l = l.replace(id_skin_goc, IDCHECK[:3] + '00')
             else:
-        # Các chỗ còn lại (vd: trackName) thì thay thành đúng ID Skin
                 l = l.replace(id_skin_goc, IDCHECK)
             block_clone.append(l)
-        # Clone 2 block hiệu ứng
         effect_clones = []
         for eff_block in effect_blocks:
             eff_clone = []
@@ -1358,12 +1400,11 @@ for IDCHECK in IDMODSKIN1:
     else:
         print(f"[-] Bỏ qua {IDCHECK}, không thỏa điều kiện mod.")
 
-# Ghi file
 with open(duonggia, 'w', encoding='utf-8') as f:
     f.writelines(lines[:insert_index] + all_inserted + lines[insert_index:])
 
 print(f"[✓] Gia Tốc: {os.path.basename(duonggia)} Done")
-os.remove('mod5')
+shutil.rmtree('mod5')
 #-----------------------------------------------
 IDMODSKININ = [str(num) for num in numbers]
 while True:
