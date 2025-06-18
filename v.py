@@ -778,36 +778,38 @@ for IDMODSKIN in IDMODSKIN1:
                 IDSOUND1 = IDSOUND_S[3:]
                 IDSOUND12 = IDSOUND1.encode()
                 IDSOUND = b"_Skin" + IDSOUND12
-                IDINFO = int(IDMODSKIN) + 1
-                IDINFO = str(IDINFO)
+                IDINFO = str(int(IDMODSKIN) + 1)
                 if IDINFO[3:4] == '0':
                     IDINFO = IDINFO[:3] + IDINFO[4:]
-                IDINFO = str(IDINFO)
 
-                o = directory_path
-                ID = (IDSOUND)
-                File = os.listdir(o)
-                for file in File:
-                    with open(o + file, 'rb') as f:
-                        rpl = f.readlines()
-                    with open(o + file, 'rb') as f:
-                        Rpl = f.read()
-                    Code = []
-                    for i in rpl:
-                        if i.find(b'<String name="eventName" value="') != -1:
-                            Code.append(i[40:i.find(b'" refParamName="" useRefParam="false" />')])
-                        for i in Code:
-                            if IDSOUND in i:
-                                continue
-                            a = b'<String name="eventName" value="' + i + b'" refParamName="" useRefParam="false" />'
-                            b = b'<String name="eventName" value="' + i + IDSOUND + b'" refParamName="" useRefParam="false" />\n        <bool name="useSkinSwitch" value="false" refParamName="" useRefParam="false"/>'
-                    
-                            Rpl = Rpl.replace(a, b)
-                        if Rpl != open(o + file, 'rb').read():
-                            with open(o + file, 'wb') as f:
-                                f.write(Rpl)
-                            print("-"*53)
-                            print(f"\n  Sound Ages ID -{IDMODSKIN}")
+                for file in os.listdir(directory_path):
+                    filepath = directory_path + file
+                    with open(filepath, 'rb') as f:
+                        content = f.read()
+
+                    lines = content.split(b'\r\n')
+                    code_lines = [
+                        line[40:line.find(b'" refParamName="" useRefParam="false" />')]
+                        for line in lines
+                        if b'<String name="eventName" value="' in line
+                    ]
+
+                    modified = False
+                    for code in code_lines:
+                        if IDSOUND in code:
+                            continue
+                        a = b'<String name="eventName" value="' + code + b'" refParamName="" useRefParam="false" />'
+                        b = b'<String name="eventName" value="' + code + IDSOUND + b'" refParamName="" useRefParam="false" />\n        <bool name="useSkinSwitch" value="false" refParamName="" useRefParam="false"/>'
+                        if a in content:
+                            content = content.replace(a, b)
+                            modified = True
+
+                    if modified:
+                        with open(filepath, 'wb') as f:
+                            f.write(content)
+                        print("-"*53)
+                        print(f"\n  Sound Ages ID -{IDMODSKIN}")
+
 #-----------------------------------------------
     if IDCHECK == '15009':
         for file in ["BlueBuff.xml", "RedBuff_Slow.xml"]:
@@ -1098,19 +1100,21 @@ for IDMODSKIN in IDMODSKIN1:
                 print("❌ Lỗi xử lý:", str(e))
         with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/BackMod.xml', "w", encoding="utf-8") as f:
             f.write(final_content)
-os.remove(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml')
+backmod_path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/BackMod.xml'
+back_path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml'
 
-        # Đổi tên file BackMod.xml thành Back.xml
-os.rename(
-            f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/BackMod.xml',
-            f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml'
-        )
+if os.path.exists(backmod_path):
+    if os.path.exists(back_path):
+        os.remove(back_path)
+    os.rename(backmod_path, back_path)
+else:
+    print(f"[!] Không tìm thấy {backmod_path}, không thể đổi tên.")
+#-----------------------------------------------
 with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "r", encoding="utf-8") as f:
     target_content = f.read()
 
 modified_count = 0
 HEROS = os.listdir(Files_Directory_Path)
-#-----------------------------------------------
 for ID_BACK in IDMODSKIN1:
     CHECK_ID = ID_BACK
     Skin_Back = ID_BACK[:3] + "00"
@@ -1306,10 +1310,10 @@ for IDCHECK in IDMODSKIN1:
     except Exception as e:
         print(f"Lỗi kiểm tra Skin_Icon_Atmosphere: {e}")
 
-    if IDCHECK == "53002" or b'Skin_Icon_Atmosphere' in dieukienmod:
+    if IDCHECK == "53002" or dieukienmod:
         prefix = IDCHECK[:3]
         zip_path = f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{prefix}_Actions.pkg.bytes'
-        mod5_dir = f'./mod5/{IDCHECK}/'
+        mod5_dir = f'mod5/{IDCHECK}/'
 
         # Giải nén riêng từng ID
         if not os.path.exists(mod5_dir) or not os.listdir(mod5_dir):
@@ -1326,8 +1330,15 @@ for IDCHECK in IDMODSKIN1:
             continue
 
         # Clone block skinId
-        block_clone = [l.replace(id_skin_goc, IDCHECK) for l in block_skinid]
-
+        block_clone = []
+        for l in block_skinid:
+            if '<int name="skinId"' in l:
+        # Chỉ thay skinId thành HeroID + 00
+                l = l.replace(id_skin_goc, IDCHECK[:3] + '00')
+            else:
+        # Các chỗ còn lại (vd: trackName) thì thay thành đúng ID Skin
+                l = l.replace(id_skin_goc, IDCHECK)
+            block_clone.append(l)
         # Clone 2 block hiệu ứng
         effect_clones = []
         for eff_block in effect_blocks:
@@ -1353,7 +1364,6 @@ with open(duonggia, 'w', encoding='utf-8') as f:
 
 print(f"[✓] Gia Tốc: {os.path.basename(duonggia)} Done")
 os.remove('mod5')
-
 #-----------------------------------------------
 IDMODSKININ = [str(num) for num in numbers]
 while True:
