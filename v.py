@@ -1,4 +1,4 @@
-import os; import re; import getopt; import random; import pyzstd; import xml.dom.minidom; from colorama import Fore; import sys; import shutil; import zipfile; import uuid; from collections import Counter
+import os; import re; import getopt; import random; import pyzstd; import xml.dom.minidom; from colorama import Fore; import sys; import shutil; import zipfile; import uuid; from collections import Counter; import xml.etree.ElementTree as ET
 
 with open("ZSTD_DICT.xml", 'rb') as f:
     ZSTD_DICT = f.read()
@@ -215,441 +215,314 @@ with zipfile.ZipFile('Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Common
     zipf.extractall(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/')
     giai(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml')
 #-----------------------------------------------
-class StringBytes:
-    def __init__(self,String):
-        self.String=String
-        self.OldString=String
-    def tell(self):
-        return len(self.OldString)-len(self.String)
-    def seek(self,I,O=0):
-        if O==0:
-            self.String=self.OldString[I:]
-        elif O==1:
-            self.String=self.String[I:]
-    def read(self,Int=None):
-        if Int==None:
-            if type(self.String)==str:
-                return ""
-            else:
-                return b""
-        R=self.String[:Int]
-        self.String=self.String[Int:]
-        return R
-class Bytes_XML:
-    def decode(String):
-        def get_int(A):
-            return int.from_bytes(A.read(4), 'little')        
-        def get_str(A, pos=None):
-            if pos is not None:
-                A.seek(pos, 0)
-            ofs = get_int(A)
-            stri = A.read(ofs-4)
-            return stri.decode()        
-        def get_node(A, fid=None, sta=None):
-            global i
-            ofs = get_int(A)
-            stri = get_str(A)
-            stri1 = stri
-            myid = i
-            i += 1
-            A.seek(4, 1)
-            aidx = get_int(A)
-            ite = False
-            attr = {}
-            for j in range(0, aidx):
-                attr1 = get_attr(A)
-                if type(attr1) == str:
-                    text1 = attr1
-                    ite = True
-                else:
-                    attr.update(attr1)
-            if fid is None:
-                nod[myid] = ET.SubElement(root, stri1, attrib=attr)
-            else:
-                nod[myid] = ET.SubElement(nod[fid], stri1, attrib=attr)
-            if ite:
-                if text1 == '':
-                    nod[myid].set("value",' ')
-                else:
-                    nod[myid].set("value",text1)
-            check_four(A)
-            chk = sta + ofs - A.tell()
-            if chk > 12:
-                A.seek(4, 1)
-                sidx = get_int(A)
-                for h in range(0, sidx):
-                    get_node(A, myid, A.tell())
-            A.seek(sta + ofs, 0)        
-        def get_attr(A, pos=None):
-            if pos is None:
-                pos = A.tell()
-            ofs = get_int(A)
-            type = get_int(A)
-            if type == 5:
-                stri = A.read(ofs - 8).decode()[1:]
-                check_four(A)
-                A.seek(pos + ofs, 0)
-                return stri
-            else:
-                if type == 6:
-                    stri = A.read(ofs - 8).decode()
-                    if stri[0:2] == 'JT':
-                        if stri == 'JTArr':
-                            stri = 'Array'
-                        elif stri == 'JTPri':
-                            stri = 'String'
-                        else:
-                            stri = stri[2:]
-                        name = 'var'
-                    else:
-                        name = 'var_Raw'
-                elif type == 8:
-                    stri2 = A.read(ofs - 8).decode()
-                    if stri2[0:4] == 'Type':
-                        stri = stri2[4:]
-                        name = 'type'
-                    else:
-                        stri = stri2
-                        name = 'type_Raw'
-                else:
-                    stri = A.read(ofs - 8).decode()
-                    name = str(type)
-                    A.seek(pos + ofs, 0)
-                return {name:stri}
-        def check_four(A):
-            if get_int(A) != 4:
-                A.seek(-4, 1)
-        A=StringBytes(String)
-        global i, nod, root
-        i = 0
-        nod = {}
-        ofs = get_int(A)
-        stri = get_str(A)
-        stri1 = stri
-        A.seek(4, 1)
-        aidx = get_int(A)
-        ite = False
-        attr = {}
-        for j in range(0, aidx):
-            attr1 = get_attr(A)
-            if type(attr1) == str:
-                text1 = attr1
-                ite = True
-            else:
-                attr.update(attr1)
-        root = ET.Element(stri1, attrib=attr)
-        if ite:
-            nod[myid].set("value",text1)
-        check_four(A)
-        chk = ofs - A.tell()
-        if chk > 12:
-            A.seek(4, 1)
-            sidx = get_int(A)
-            for h in range(0, sidx):
-                get_node(A, None, A.tell())
-        try:return minidom.parseString(ET.tostring(root,"utf-8").decode()).toprettyxml(indent="  ",newl="\r\n").encode()
-        except: return ET.tostring(root,"utf-8").decode()
-    def encode(xmlfile):
-        def byteint(num):
-            return num.to_bytes(4, byteorder='little')
-        def bytestr(stri):
-            outbyte = byteint(len(stri) + 4)
-            outbyte = outbyte + stri.encode()
-            return outbyte
-        def byteattr(key, attr):
-            if key == 'var':
-                if attr[key] == 'Array':
-                    stri = 'JTArr'
-                elif attr[key] == 'String':
-                    stri = 'JTPri'
-                else:
-                    stri = 'JT' + attr[key]
-                aid = 6
-            elif key == 'var_Raw':
-                stri = attr[key]
-                aid = 6
-            elif key == 'type':
-                stri = 'Type' + attr[key]
-                aid = 8
-            elif key == 'type_Raw':
-                stri = attr[key]
-                aid = 8
-            elif key == "value": return b""
-            else:
-                import unicodedata
-                if unicodedata.numeric(key):
-                    stri = attr[key]
-                    aid = int(key)
-            stripro = stri.encode()
-            outbyte = byteint(len(stripro) + 8) + byteint(aid) + stripro
-            return outbyte
-        def bytenode(node):
-            iftex = False
-            name1 = node.tag
-            name = bytestr(name1)
-            attr1 = b''
-            aindex = len(node.attrib)
-            plus = 8
-            for key in node.attrib:
-                if key=="value":aindex-=1
-                attr1 = attr1 + byteattr(key, node.attrib)
-            if (node.get("value") != None) and (node.get("value")[0:1] != '\n'):
-                if node.get("value") == ' ':
-                    stri1 = ''
-                else:
-                    stri1 = node.get("value")
-                iftex = True
-                stripro = ('V' + stri1).encode()
-                attr1 = attr1 + byteint(len(stripro) + 8) + byteint(5) + stripro + byteint(4)
-                aindex += 1
-                plus = 4
-            attr1 = byteint(len(attr1) + plus) + byteint(aindex) + attr1 + byteint(4)
-            alchild = b''
-            if len(node):
-                cindex = 0
-                for child in node:
-                    alchild = alchild + bytenode(child)
-                    cindex += 1
-                alchild = byteint(len(alchild) + 8) + byteint(cindex) + alchild
-            else:
-                if iftex == False:
-                    alchild = byteint(4)
-            bnode = name + attr1 + alchild
-            bnode = byteint(len(bnode) + 4) + bnode
-            return bnode
-        tree = ET.fromstring(xmlfile)
-        byt = bytenode(tree)
-        return byt
-        
-
-def process_file(file_path_FL, LC):
-    with open(file_path_FL, "rb") as f:
-        G = f.read()
-        with open(file_path_FL, "wb") as f1:
-            try:
-                if LC == "1":
-                    f1.write(Bytes_XML.decode(G))
-                elif LC == "2":
-                    f1.write(Bytes_XML.encode(G.decode()))
-            except Exception as e:
-                pass
-                     
-def process_directory(directory_path, LC):
-    file_path_FL = directory_path
-    process_file(file_path_FL, LC) 
+iconvaneovmacdinh=b'\t\x03\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00F9B9135D9DECEB62_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0075939F64822D8D0D_##\x00\x08\x00\x00\x003013311\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00Share_13311.jpg\x00\x10\x00\x00\x00Share_13311.jpg\x00\x10\x00\x00\x00Share_13311.jpg\x00\n\x00\x00\x0013311.jpg\x00\x05\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x00D1188909BCF1A796_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x008771C9DA02F4FEA6_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x008D69A8C30826E8D2_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x006740D42BD5B8DAF3_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x002231A8E028E42D2D_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00D74BB3893108A06A_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Commons_01/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01x\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x00\x003013311.jpg\x00\x10\x00\x00\x003013311head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
 #-----------------------------------------------
-FILES = [file_actor_mod, file_shop_mod]
+iconvaneovbat5=b'%\x03\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00F9B9135D9DECEB62_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0075939F64822D8D0D_##\x00\n\x00\x00\x003013311_2\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x0c\x00\x00\x0013311_2.jpg\x00\x05\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x00D1188909BCF1A796_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x008771C9DA02F4FEA6_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x008D69A8C30826E8D2_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x006740D42BD5B8DAF3_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x002231A8E028E42D2D_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00D74BB3893108A06A_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x003\x00\x00\x00BG_DiRenJie_13312_T3/BG_yinyingzhishou_01_platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01x\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x003013311_2.jpg\x00\x12\x00\x00\x003013311head_2.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+#-----------------------------------------------
+iconngokhongeovmacdinh=b'R\x03\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x00EBC0C74462FF4B6A_##\x00\x07\x00\x00\x00\x14\x00\x00\x00DDB8BB646733B67E_##\x00\x07\x00\x00\x00301677\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00Share_16707.jpg\x00\x10\x00\x00\x00Share_16707.jpg\x00\x10\x00\x00\x00Share_16707.jpg\x00\n\x00\x00\x0016707.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x008407CA15068FFAAA_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x00C35E60871AB1288B_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x007CD9214682BAB4D9_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x0030F7AD035D47227A_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x00B64FCE08AE9DDFE5_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x0051BF047372097407_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00E51142379BF893FC_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x00B68080AD661210A0_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Commons_01/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01N\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0b\x00\x00\x00301677.jpg\x00\x0f\x00\x00\x00301677head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+#-----------------------------------------------
+iconngokhongeovbat5=b'h\x03\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x00EBC0C74462FF4B6A_##\x00\x07\x00\x00\x00\x14\x00\x00\x00DDB8BB646733B67E_##\x00\t\x00\x00\x00301677_2\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x0c\x00\x00\x0016707_2.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x008407CA15068FFAAA_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x00C35E60871AB1288B_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x007CD9214682BAB4D9_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x0030F7AD035D47227A_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x00B64FCE08AE9DDFE5_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x0051BF047372097407_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00E51142379BF893FC_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x00B68080AD661210A0_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00-\x00\x00\x00BG_wukongjuexing2/BG_wukongjuexing2_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01N\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\r\x00\x00\x00301677_2.jpg\x00\x11\x00\x00\x00301677_2head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+#-----------------------------------------------
+bacvaneovmacdinh=b'\t\x01\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00D898FD6DC80FD88F_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0062C20D284D202339_##\x00\x14\x00\x00\x00105E41477A829A72_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x0013311.png\x00\x00\x00\x01\x00\x00\x00\x00\x00\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x9f\x86\x01\x00\x00\xf7\x07\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020220902000000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x87\x01\x00\x01\x01\x00\x00\x06,\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00'
+#-----------------------------------------------
+bacvaneovbat5=b'\x11\x01\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00D898FD6DC80FD88F_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0062C20D284D202339_##\x00\x14\x00\x00\x00105E41477A829A72_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_5.png\x00\x00\x00\x01\x00\x00\x00\x00\x00\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x9f\x86\x01\x00\x00\xf7\x07\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020220902000000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x87\x01\x00\x01\x01\x00\x00\x06,\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00'
+#-----------------------------------------------
+bacngokhongeovmacdinh=b"\x11\x01\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x07\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_1.png\x00\x01\x00\x01\x00\x00\x00\x00\x01\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x01\x00\x00\x00\x00\x90_\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020210318060000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xab'\x00\x00\x01\x01\x00\x00\x06:\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00"
+#-----------------------------------------------
+bacngokhongeovbat5=b"\x11\x01\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x07\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_5.png\x00\x01\x00\x01\x00\x00\x00\x00\x01\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x01\x00\x00\x00\x00\x90_\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020210318060000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xab'\x00\x00\x01\x01\x00\x00\x06:\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00"
+#-----------------------------------------------
+for IDMODSKIN in IDMODSKIN:
+    SKINEOV = ''
+    if IDMODSKIN == '13311':
+        SKINEOV = "r"
+    if IDMODSKIN == '16707':
+        SKINEOV = "b"
+    if IDMODSKIN == '15412':
+        SKINEOV = "y"
+    nhap_id = IDMODSKIN
+    file_actor = file_actor_mod
+    file_shop = file_shop_mod
+    IDCHECK = IDMODSKIN
+    IDSOUND_S = IDMODSKIN
+    phukien = ''
+    phukienv = ''
 
-for IDCHECK in IDMODSKIN:
-    ID = IDCHECK
-    Show = 'n'
-    IDB = int(ID).to_bytes(4, 'little')
-    IDH = int(ID[0:3]).to_bytes(4, 'little')
-    results = []
-    for File in FILES:
-        with open(File, "rb") as file:
-            Code = file.read()
-
-        All = []
-        Skin = b""
-        Find = -10
-        while True:
-            Find = Code.find(b"\x00\x00" + IDH, Find + 10)
-            if Find == -1:
-                break
-            elif str(int.from_bytes(Code[Find - 2:Find], 'little'))[:3] == ID[:3]:
-                VT2 = int.from_bytes(Code[Find - 6:Find - 4], 'little')
-                Code2 = Code[Find - 6:Find - 6 + VT2]
-                All.append(Code2)
-                if IDB in Code2:
-                    Skin = Code2
-
-        if not Skin:
-            print(Fore.RED + f"\nKhông tìm thấy ID trong file {File}" + Fore.RESET)
-            results.append((File.split("/")[-1], "Not Found!"))
-            IDNew = input(Fore.CYAN + "\nNhập ID thay thế: " + Fore.RESET)
-            IDK = int(IDNew).to_bytes(4, 'little')
-            IDH2 = int(IDNew[0:3]).to_bytes(4, 'little')
-            Find = Code.find(IDK + IDH2)
-            Sum = int.from_bytes(Code[Find - 4:Find - 2], 'little')
-            Skin = Code[Find - 4:Find - 4 + Sum]
-        else:
-            results.append((File.split("/")[-1], "Done!"))
-        for Id in All:
-            Cache = Skin.replace(Skin[4:6], Id[4:6], 1)
-            Cache = Cache.replace(Cache[35:44], Id[35:40] + Cache[40:44], 1)
-
-            if Show == "y":
-                if Id == Skin:
-                    Cache = Cache.replace(Skin[35:44], b"\x00" * 5 + b"\x14" + b"\x00" * 3, 1)
-                if Id == All[0]:
-                    Cache = Cache.replace(Id[35:44], Skin[35:44], 1)
-
-            Hero = hex(int(ID[0:3]))[2:]
-            if len(Hero) == 3:
-                Hero = Hero[1:3] + "0" + Hero[0]
+    if IDCHECK == '52007':
+        phukien1 = input("[1].Xanh ; [2].Đỏ ; [3].Không Dùng Phụ Kiện: ")
+        if phukien1 == "1":
+           phukien = 'xanh'
+        if phukien1 == "2":
+           phukien = 'do'
+    if IDCHECK == '13311':
+        phukien1v = input("[1].Vàng ; [2].Đỏ ; [3].Không Dùng Phụ Kiện: ")
+        if phukien1v == "1":
+           phukienv = 'vangv'
+        if phukien1v == "2":
+           phukienv = 'dov'
+    if IDCHECK not in ["10611", "13211", "13212"]:
+        def tim_id(data, chuoi_thay_the):
+            id_tim = b'\x00\x00' + int(data).to_bytes(4, 'little')
+            
+            vi_tri_truoc = chuoi_thay_the.find(id_tim) - 2
+            
+            vi_tri = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+4]
+            vi_tri_tim = int.from_bytes(vi_tri, 'little')
+            if vi_tri_tim > 100:
+                return True
             else:
-                Hero += "00"
-            Hero += "0000"
-            Hero = bytes.fromhex(Hero)
+                return False
 
-            Cache = Cache.replace(Cache[8:12], Hero, 1)
+        tat_ca_id = []
+        with open(file_actor, 'rb') as f:
+            chuoi_thay_the = f.read()
 
-            if File == file_actor_mod and Id == All[0]:
-                ID30 = b"\x07\x00\x00\x0030" + bytes(ID[0:3] + "0", "utf8") + b"\x00"
-                XYZ = Cache[64]
-                ID0 = Cache[64: 68 + XYZ]
-                Cache = Cache.replace(ID0, ID30, 1)
+        if nhap_id == '16707':
+            chuoi_thay_the = chuoi_thay_the.replace(iconngokhongeovmacdinh, iconngokhongeovbat5)
+        elif nhap_id == '16707':
+            chuoi_thay_the = chuoi_thay_the.replace(b'x00\x00301677\x00', b'x00\x00301677_2\x00').replace(b'x00\x00Share_16707.jpg\x00', b'x00\x00Share_16707_2.jpg\x00').replace(b'x00\x0016707.jpg\x00', b'x00\x0016707_2.jpg\x00').replace(b'x00\x00BG_Commons_01/BG_Commons_01_Platform\x00', b'x00\x00BG_wukongjuexing2/BG_wukongjuexing2_Platform\x00').replace(b'x00\x00301677head.jpg\x00', b'x00\x00301677_2head.jpg\x00')
+        elif nhap_id == '13311':
+            chuoi_thay_the = chuoi_thay_the.replace(iconvaneovmacdinh, iconvaneovbat5)
+        elif nhap_id == '13311':
+            chuoi_thay_the = chuoi_thay_the.replace(b'x00\x003013311\x00', b'x00\x003013311_2\x00').replace(b'x00\x00Share_13311.jpg\x00', b'x00\x00Share_13311_2.jpg\x00').replace(b'x00\x0013311.jpg\x00', b'x00\x0013311_2.jpg\x00').replace(b'x00\x00BG_Commons_01/BG_Commons_01_Platform\x00', b'x00\x00BG_DiRenJie_13312_T3/BG_yinyingzhishou_01_platform\x00').replace(b'x00\x003013311head.jpg\x00', b'x00\x003013311_2head.jpg\x00')
 
-                VT = Id.find(b"Hero_")
-                NumHero = Id[VT - 4]
-                HeroName = Id[VT - 4:VT + NumHero]
-                Cache = Cache.replace(b"jpg\x00\x01\x00\x00\x00\x00", b"jpg\x00" + HeroName)
+        for i in range(int(nhap_id[:3] + '00'), int(nhap_id[:3] + '99')):
+            if i != int(nhap_id):
+                kiem_tra_id = tim_id(i, chuoi_thay_the)
+                if kiem_tra_id:
+                    tat_ca_id.append(str(i))
 
-                Full = Cache.count(HeroName)
-                if Full > 1:
-                    Cache = Cache.replace(b"jpg\x00" + HeroName, b"jpg\x00\x01\x00\x00\x00\x00", Full - 1)
+        id_skin_moi = list(set(tat_ca_id))
 
-                EndTheCode = hex(len(Cache))
-                if len(EndTheCode) == 5:
-                    EndTheCode = EndTheCode[3:5] + "0" + EndTheCode[2:3]
+        vi_tri_id_tim_kiem = b'\x00\x00' + int(nhap_id).to_bytes(4, 'little')
+        vi_tri_truoc = chuoi_thay_the.find(vi_tri_id_tim_kiem) - 2
+        vi_tri = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+4]
+        vi_tri_tim = int.from_bytes(vi_tri, 'little')
+        vi_tri_mod = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+vi_tri_tim+4]
+
+        for i in id_skin_moi:
+            ll = i
+            vi_tri_mod1 = vi_tri_mod
+            vi_tri_id_tim_kiem = b'\x00\x00' + int(i).to_bytes(4, 'little')
+            vi_tri_truoc = chuoi_thay_the.find(vi_tri_id_tim_kiem) - 2
+            vi_tri = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+4]
+            vi_tri_tim = int.from_bytes(vi_tri, 'little')
+            vi_tri = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+vi_tri_tim+4]
+            
+            if i[3:] == '00':
+                if vi_tri_mod1[64:65] == b'\x07':
+                    i = nhap_id[:3] + nhap_id[4:]
+                    vi_tri_mod1 = vi_tri_mod1[:68] + vi_tri_mod1[68:73] + b'0' + vi_tri_mod1[74:]
+                    vi_tri_mod1 = vi_tri_mod1[:4] + int(ll).to_bytes(4, 'little') + vi_tri_mod1[8:]
+                    vi_tri_mod1 = vi_tri_mod1[:36] + b'\x00' + vi_tri_mod1[37:]
                 else:
-                    EndTheCode = EndTheCode[4:6] + EndTheCode[2:4]
-                EndTheCode = bytes.fromhex(EndTheCode)
-                Cache = Cache.replace(Cache[0:2], EndTheCode, 1)
-
-            Code = Code.replace(Id, Cache, 1)
-            dieukienmod1=[]
-            dieukienmod1.append(Cache)
-            for dieukienmod2 in dieukienmod1:
-                if b"Hero" in dieukienmod2:
-                    dieukienmod = dieukienmod2
-        with open(File, "wb") as file:
-            file.write(Code)
-    print('-'*53)
-    print(f"🎯 Mod Skin ID: {ID}")
-    for file_name, status in results:
-        prefix = "[-]" if status == "Done!" else "[x]"
-        print(f"   {prefix} {file_name:<25} {status}")
-        if len(IDMODSKIN1) == 3:
-            inp = file_mod_vien
-            with open(inp, 'rb') as f:
-                ab = f.read()
-
-            Sorted = sorted(IDMODSKIN1, key=int)
-            IdGlobal = {Sorted[0]: '6500', Sorted[1]: '6600', Sorted[2]: '6300'}
-
-            for IDCHECK in IDMODSKIN1:
-                id2 = IdGlobal[IDCHECK]
-                data = dieukienmod
-                target = b'\x00\x00\x10\x00\x00\x00Share_' + IDCHECK.encode() + b'.jpg'
-                index = data.find(target) - 2
-                two_bytes_before = data[index:index+2]
-                print(f"[{IDCHECK}] two_bytes_before: {two_bytes_before}")
-
-                if two_bytes_before != b'\x00\x00':
-                    a = two_bytes_before
-                    i = ab.find(a) - 4
-                    vt = ab[i:i+4]
-                    vtr = int.from_bytes(vt, byteorder='little')
-                    vt1 = ab[i:i+vtr]
-
-                    a1 = bytes.fromhex(id2)
-                    i1 = ab.find(a1) - 4
-                    vt11 = ab[i1:i1+4]
-                    vtr1 = int.from_bytes(vt11, byteorder='little')
-                    vt2 = ab[i1:i1+vtr1]
-
-                    vt1_moi = vt1.replace(a, a1)
-                    ab = ab.replace(vt2, vt1_moi)
-            with open(inp, 'wb') as go:
-                go.write(ab)
-
-for skin_id_input in IDMODSKIN:
-    sound_directory = Sound_Files
-    sound_files = os.listdir(sound_directory)
-    all_skin_ids = []
-    for i in range(21):
-        if i < 10:
-            i = "0" + str(i)
-        all_skin_ids.append(b"\x00" + int(skin_id_input[0:3] + str(i)).to_bytes(4, byteorder="little"))
-
-    initial_skin_id = all_skin_ids[0]
-    selected_skin_id = all_skin_ids[int(skin_id_input[3:])]
-
-    # Xóa selected và initial khỏi danh sách thay thế
-    all_skin_ids.remove(selected_skin_id)
-    all_skin_ids.remove(initial_skin_id)
-    results = []
-    for sound_file_name in sound_files:
-        with open(os.path.join(sound_directory, sound_file_name), "rb") as sound_file:
-            sound_data = sound_file.read()
-
-        # Patch đặc biệt theo từng skin cụ thể
-        if skin_id_input == "13311":
-            if sound_file_name == 'BattleBank.bytes':
-                sound_data = sound_data.replace(b'\x9dO\x14', b'\xff3\x00')\
-                                       .replace(b'\x9eO\x14', b'\xff3\x00')\
-                                       .replace(b'\x9fO\x14', b'\xff3\x00')\
-                                       .replace(b'\xa0O\x14', b'\xff3\x00')
-            if sound_file_name == 'ChatSound.bytes':
-                sound_data = sound_data.replace(b'\x9fO\x14', b'\xff3\x00')
-            if sound_file_name == 'HeroSound.bytes':
-                sound_data = sound_data.replace(b'\x9fO\x14', b'\xff3\x00')\
-                                       .replace(b'\xa0O\x14', b'\xff3\x00')
-            if sound_file_name == 'LobbyBank.bytes':
-                sound_data = sound_data.replace(b'\xa0O\x14', b'\xff3\x00')
-            if sound_file_name == 'LobbySound.bytes':
-                sound_data = sound_data.replace(b'\xa0O\x14', b'\xff3\x00')
-
-        if skin_id_input == "16707":
-            if sound_file_name == 'BattleBank.bytes':
-                sound_data = sound_data.replace(b'/~\x19', b'CA\x00')\
-                                       .replace(b'0~\x19', b'CA\x00')\
-                                       .replace(b'1~\x19', b'CA\x00')
-            if sound_file_name == 'ChatSound.bytes':
-                sound_data = sound_data.replace(b'0~\x19', b'CA\x00')
-            if sound_file_name == 'HeroSound.bytes':
-                sound_data = sound_data.replace(b'0~\x19', b'CA\x00')\
-                                       .replace(b'1~\x19', b'CA\x00')
-            if sound_file_name == 'LobbyBank.bytes':
-                sound_data = sound_data.replace(b'0~\x19', b'CA\x00')
-            if sound_file_name == 'LobbySound.bytes':
-                sound_data = sound_data.replace(b'0~\x19', b'CA\x00')
-        if sound_file_name != "CoupleSound.bytes":
-            for skin_id in all_skin_ids:
-                skin_id += b"\x00" * 8
-                sound_data = sound_data.replace(skin_id, b"\x0000" + b"\x00" * 10)
-        else:
-            for skin_id in all_skin_ids:
-                skin_id += b"\x02\x00\x00\x00\x01"
-                sound_data = sound_data.replace(skin_id, b"\x0000\x00\x00\x02\x00\x00\x00\x01")
-        if sound_data.find(selected_skin_id) != -1:
-            if sound_file_name != "CoupleSound.bytes":
-                sound_data = sound_data.replace(initial_skin_id + b"\x00" * 8, b"\x0000" + b"\x00" * 10)
-                sound_data = sound_data.replace(selected_skin_id + b"\x00" * 8, initial_skin_id + b"\x00" * 8)
+                    vi_tri_mod1 = vi_tri_mod1[:68] + vi_tri_mod1[68:73] + b'0' + vi_tri_mod1[75:]
+                    vi_tri_mod1 = (len(vi_tri_mod1[:64] + b'\x07' + vi_tri_mod1[65:]) - 4).to_bytes(4, 'little') + vi_tri_mod1[4:64] + b'\x07' + vi_tri_mod1[65:]
+                    vi_tri_mod1 = vi_tri_mod1[:4] + int(ll).to_bytes(4, 'little') + vi_tri_mod1[8:]
+                    vi_tri_mod1 = vi_tri_mod1[:36] + int(ll[3:]).to_bytes(1, 'little') + vi_tri_mod1[37:]
             else:
-                sound_data = sound_data.replace(initial_skin_id + b"\x02\x00\x00\x00\x01", b"\x0000\x00\x00\x02\x00\x00\x00\x01")
-                sound_data = sound_data.replace(selected_skin_id + b"\x02\x00\x00\x00\x01", initial_skin_id + b"\x02\x00\x00\x00\x01")
-        with open(os.path.join(sound_directory, sound_file_name), "wb") as sound_file:
-            sound_file.write(sound_data)
-        results.append((sound_file_name, "Đã xử lý"))
+                vi_tri_mod1 = vi_tri_mod1[:36] + int(i[3:]).to_bytes(1, 'little') + vi_tri_mod1[37:]
+                vi_tri_mod1 = vi_tri_mod1[:4] + int(ll).to_bytes(4, 'little') + vi_tri_mod1[8:]
 
-    sound_results = [r for r in results if r[0] not in ("heroSkin.bytes", "HeroSkinShop.bytes")]
-    if sound_results:
-        print('-'*53)
-        print(f" Mod Sound Databin - {skin_id_input}")
-        printed = set()
-        for file_name, status in sound_results:
-            if (file_name, status) not in printed:
-                print(f"   [-] {file_name:<25} {status}")
-                printed.add((file_name, status))
-        print('-'*53)
+            chuoi_thay_the = chuoi_thay_the.replace(vi_tri, vi_tri_mod1).replace(b'\x07\x00\x00\x00301330_2', b'\x07\x00\x00\x00301330').replace(b'\x07\x00\x00\x003016702', b'\x07\x00\x00\x00301670').replace(b'$\x03\x00\x00\xf43', b'"\x03\x00\x00\xf43').replace(b'g\x03\x00\x00<A', b'f\x03\x00\x00<A').replace(b'73F8D70E20CB6B44_##\x00\x00\x00\x00\x00\x14\x00\x00\x00C748BCA5990E9431_##\x00\x07\x00\x00\x00301330', b'73F8D70E20CB6B44_##\x00\x00\x00\x00\x00\x14\x00\x00\x00C748BCA5990E9431_##\x00\x07\x00\x00\x00301320')  # 13311and16707
 
+        with open(file_actor, 'wb') as f:
+            f.write(chuoi_thay_the)
+        dieukienmod = vi_tri_mod1
+        tat_ca_id_skin = []
+        with open(file_shop, 'rb') as f:
+            chuoi_thay_the = f.read()
+
+        if nhap_id == '16707':
+            chuoi_thay_the = chuoi_thay_the.replace(bacngokhongeovmacdinh, bacngokhongeovbat5)
+        if nhap_id == '16707':
+            chuoi_thay_the = chuoi_thay_the.replace(b'x00\x00Awake_Label_1.png\x00', b'x00\x00Awake_Label_5.png\x00')
+        elif nhap_id == '13311':
+            chuoi_thay_the = chuoi_thay_the.replace(bacvaneovmacdinh, bacvaneovbat5)
+        elif nhap_id == '13311':
+            chuoi_thay_the = chuoi_thay_the.replace(b'x00\x0013311.png\x00', b'x00\x00Awake_Label_5.png\x00')
+
+        for id_tim in range(int(nhap_id[:3] + '00'), int(nhap_id[:3] + '99')):
+            if str(id_tim) == nhap_id:
+                continue
+            vi_tri_id_tim_kiem = id_tim.to_bytes(4, 'little') + int(nhap_id[:3]).to_bytes(2, 'little') + b'\x00\x00\x14'
+            if chuoi_thay_the.find(vi_tri_id_tim_kiem) != -1:
+                tat_ca_id_skin.append(vi_tri_id_tim_kiem)
+
+        if chuoi_thay_the.find(int(nhap_id).to_bytes(4, 'little') + int(nhap_id[:3]).to_bytes(2, 'little') + b'\x00\x00\x14') != -1:
+            vi_tri_id_tim_kiem = int(nhap_id).to_bytes(4, 'little') + int(nhap_id[:3]).to_bytes(2, 'little') + b'\x00\x00\x14'
+            vi_tri_truoc = chuoi_thay_the.find(vi_tri_id_tim_kiem) - 4
+            vi_tri = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+4]
+            vi_tri_tim = int.from_bytes(vi_tri, 'little')
+            ma_skin_mod = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+vi_tri_tim+4]
+            for id1 in tat_ca_id_skin:
+                vi_tri_truoc = chuoi_thay_the.find(id1) - 4
+                vi_tri = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+4]
+                vi_tri_tim = int.from_bytes(vi_tri, 'little')
+                ma_skin_mod1 = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+vi_tri_tim+4]
+                ma_rpl = ma_skin_mod[:4] + id1[:4] + ma_skin_mod[8:]
+                chuoi_thay_the = chuoi_thay_the.replace(ma_skin_mod1, ma_rpl)
+
+        with open(file_shop, 'wb') as f:
+            f.write(chuoi_thay_the)
+        print('Actor - Shop Done')
+        
+    if IDCHECK in ["10611", "13211", "13212"]:
+        
+        
+        ID = IDCHECK
+        Show = 'y'
+        IDB = int(ID).to_bytes(4, byteorder="little")
+        IDH = int(ID[0:3]).to_bytes(4, byteorder="little")
+        Files = [file_actor, file_shop]
+        print("By Kunn_AOV")
+        print("-" *70)
+        for File in Files:
+            All = []
+            Skin = ""
+            file = open(File, "rb")
+            Code = file.read()
+            Find= -10
+            while True:
+                Find = Code.find(b"\x00\x00"+IDH, Find+10)
+                if Find == -1: break
+                elif str(int.from_bytes(Code[Find-2:Find], byteorder="little"))[0:3] == ID[0:3]:
+                    VT2 = int.from_bytes(Code[Find-6:Find-4], byteorder="little")
+                    Code2 = Code[Find-6:Find-6+VT2]
+                    All.append(Code2)
+                    if Code2.find(IDB) != -1: Skin=Code2
+            if Skin == "":
+                print("\n \033[1;31m The id couldn't be found in " + File + " file!")
+                IDNew = input("\n\033[1;36m  Enter an alternate skin ID: ")
+                IDK = int(IDNew).to_bytes(4, byteorder="little")
+                IDH2 = int(IDNew[0:3]).to_bytes(4, byteorder="little")
+                Find = Code.find(IDK+IDH2)
+                Sum = int.from_bytes(Code[Find-4:Find-2], byteorder="little")
+                Skin = Code[Find-4:Find-4+Sum]
+            for Id in All:
+                Cache = Skin.replace(Skin[4:6], Id[4:6], 1)
+                Cache = Cache.replace(Cache[35:44], Id[35:40]+Cache[40:44],1)
+                if Show == "y":
+                    if Id == Skin:
+                        Cache = Cache.replace(Skin[35:44], b"\x00" * 5 + b"\x14" + b"\x00" *3, 1)
+                    if Id == All[0]:
+                        Cache = Cache.replace(Id[35:44], Skin[35:44], 1)
+                Hero = hex(int(ID[0:3]))[2:]
+                if len(Hero) == 3: Hero = Hero[1:3] + "0" + Hero[0]
+                else: Hero+="00"
+                Hero += "0000"
+                Hero = bytes.fromhex(Hero)
+                Cache = Cache.replace(Cache[8:12],Hero,1)
+                if File == Files[0]:
+                    if Id == All[0]:
+                        ID30 = b"\x07\x00\x00\x0030" + bytes(ID[0:3] + "0", "utf8") + b"\x00"
+                        XYZ = Cache[64]
+                        ID0 = Cache[64: 68 + XYZ]
+                        Cache = Cache.replace(ID0, ID30, 1)
+                        VT = Id.find(b"Hero_")
+                        NumHero = Id[VT - 4]
+                        Hero = Id[VT - 4: VT + NumHero]
+                        Cache = Cache.replace(b"jpg\x00\x01\x00\x00\x00\x00", b"jpg\x00" + Hero)
+                        Full = Cache.count(Hero)
+                        if Full > 1:
+                            Cache = Cache.replace(b"jpg\x00" + Hero, b"jpg\x00\x01\x00\x00\x00\x00", Full - 1)
+                        EndTheCode = hex(len(Cache))
+                        if len(EndTheCode) == 5:
+                            EndTheCode = EndTheCode[3:5] + "0" + EndTheCode[2:3]
+                        else:
+                            EndTheCode = EndTheCode[4:6] + EndTheCode[2:4]
+                        EndTheCode = bytes.fromhex(EndTheCode)
+                        Cache = Cache.replace(Cache[0:2], EndTheCode, 1)
+                Code = Code.replace(Id, Cache, 1)
+                dieukienmod1=[]
+                dieukienmod1.append(Cache)
+                for dieukienmod2 in dieukienmod1:
+                    if b"Hero" in dieukienmod2:
+                         dieukienmod = dieukienmod2
+            file = open(File, "wb")
+            W = file.write(Code)
+
+
+
+            file.close()
+
+for IDMODSKIN in IDMODSKIN1:
+    if b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
+        skin_id_input = IDMODSKIN
+        print(f"\n------------Skin ID {skin_id_input} --------------")
+        sound_directory = Sound_Files
+        sound_files = os.listdir(sound_directory)
+
+        all_skin_ids = []
+        for i in range(21):
+            i_str = f"{i:02d}"  # 00 -> 20
+            all_skin_ids.append(b"\x00" + int(skin_id_input[:3] + i_str).to_bytes(4, "little"))
+
+        initial_skin_id = all_skin_ids[0]
+        selected_skin_id = all_skin_ids[int(skin_id_input[3:])]
+
+        all_skin_ids.remove(selected_skin_id)
+        all_skin_ids.remove(initial_skin_id)
+
+        for sound_file_name in sound_files:
+            with open(os.path.join(sound_directory, sound_file_name), "rb") as sound_file:
+                sound_data = sound_file.read()
+
+            # ID đặc biệt 13311
+            if skin_id_input == "13311":
+                if sound_file_name == 'BattleBank.bytes':
+                    sound_data = sound_data.replace(b'\x9dO\x14', b'\xff3\x00').replace(b'\x9eO\x14', b'\xff3\x00').replace(b'\x9fO\x14', b'\xff3\x00').replace(b'\xa0O\x14', b'\xff3\x00')
+                if sound_file_name == 'ChatSound.bytes':
+                    sound_data = sound_data.replace(b'\x9fO\x14', b'\xff3\x00')
+                if sound_file_name == 'HeroSound.bytes':
+                    sound_data = sound_data.replace(b'\x9fO\x14', b'\xff3\x00').replace(b'\xa0O\x14', b'\xff3\x00')
+                if sound_file_name == 'LobbyBank.bytes':
+                    sound_data = sound_data.replace(b'\xa0O\x14', b'\xff3\x00')
+                if sound_file_name == 'LobbySound.bytes':
+                    sound_data = sound_data.replace(b'\xa0O\x14', b'\xff3\x00')
+
+            # ID đặc biệt 16707
+            if skin_id_input == "16707":
+                if sound_file_name == 'BattleBank.bytes':
+                    sound_data = sound_data.replace(b'/~\x19', b'CA\x00').replace(b'0~\x19', b'CA\x00').replace(b'1~\x19', b'CA\x00')
+                if sound_file_name == 'ChatSound.bytes':
+                    sound_data = sound_data.replace(b'0~\x19', b'CA\x00')
+                if sound_file_name == 'HeroSound.bytes':
+                    sound_data = sound_data.replace(b'0~\x19', b'CA\x00').replace(b'1~\x19', b'CA\x00')
+                if sound_file_name == 'LobbyBank.bytes':
+                    sound_data = sound_data.replace(b'0~\x19', b'CA\x00')
+                if sound_file_name == 'LobbySound.bytes':
+                    sound_data = sound_data.replace(b'0~\x19', b'CA\x00')
+
+            # Xóa các skin ID khác
+            if sound_file_name != "CoupleSound.bytes":
+                for skin_id in all_skin_ids:
+                    skin_id += b"\x00" * 8
+                    sound_data = sound_data.replace(skin_id, b"\x0000" + b"\x00" * 10)
+            else:
+                for skin_id in all_skin_ids:
+                    skin_id += b"\x02\x00\x00\x00\x01"
+                    sound_data = sound_data.replace(skin_id, b"\x0000\x00\x00\x02\x00\x00\x00\x01")
+
+            # Gắn skin mới vào
+            if selected_skin_id in sound_data:
+                if sound_file_name != "CoupleSound.bytes":
+                    sound_data = sound_data.replace(initial_skin_id + b"\x00" * 8, b"\x0000" + b"\x00" * 10)
+                    sound_data = sound_data.replace(selected_skin_id + b"\x00" * 8, initial_skin_id + b"\x00" * 8)
+                else:
+                    sound_data = sound_data.replace(initial_skin_id + b"\x02\x00\x00\x00\x01", b"\x0000\x00\x00\x02\x00\x00\x00\x01")
+                    sound_data = sound_data.replace(selected_skin_id + b"\x02\x00\x00\x00\x01", initial_skin_id + b"\x02\x00\x00\x00\x01")
+
+            # Ghi lại file
+            with open(os.path.join(sound_directory, sound_file_name), "wb") as sound_file:
+                sound_file.write(sound_data)
+
+            # In từng file
+            print(f"[✓] Sound: {sound_file_name} cho ID {skin_id_input}")
+        print("-"*53)
 
 file_paths = [file_mod_skill1, file_mod_skill2]
 
-for user_id in IDMODSKIN:
+for user_id in IDMODSKIN1:
     user_id_bytes = bytes(f"fects/{user_id[0:3]}_", "utf8")
     matching_files = []
 
@@ -778,7 +651,7 @@ for user_id in IDMODSKIN:
         else:
             pass"""
 
-for ID in IDMODSKIN:
+for ID in IDMODSKIN1:
     AllID = []
     for i in range(21):
         if i < 10:
@@ -816,33 +689,45 @@ for ID in IDMODSKIN:
             CodeMD.append(code)
             CodeMD2.append(code)
 
+    idmod = None
     aw = 0
-    if len(CodeDB) > 1:
-        aw = 0
 
-    if len(CodeDB) > 0:
+    # Nếu có 2 điệu nhảy → hỏi người dùng
+    if len(CodeDB) > 1:
+        print(f"ID {ID} có {len(CodeDB)} điệu nhảy.")
+        print("Chọn điệu nhảy:")
+        for idx, code in enumerate(CodeDB, 1):
+            motion_id = int.from_bytes(code[21:25], 'little')
+            print(f"  [{idx}] ID Motion: {motion_id}")
+        while True:
+            try:
+                user_choice = int(input("Nhập số (1 hoặc 2): ").strip())
+                if user_choice in [1, 2]:
+                    aw = user_choice - 1
+                    break
+            except:
+                pass
         CodeR = CodeDB[aw]
         idmod = CodeR[21:25]
-        for i, code in enumerate(CodeMD):
-            for id in All_S:
-                vt = code.find(id)
-                if vt != -1:
-                    codet = code[vt+4:vt+8]
-                    code = code.replace(codet, idmod, 1)
-                else:
-                    break
-            CodeMD[i] = code
-    else:
-        for i, code in enumerate(CodeMD):
+
+    elif len(CodeDB) == 1:
+        CodeR = CodeDB[0]
+        idmod = CodeR[21:25]
+
+    elif len(CodeMD) > 0:
+        for code in CodeMD:
             vt = code.find(All_S[AllID.index(ID)])
-            idmod = code[vt+4:vt+8]
-            for id in All_S:
-                vt = code.find(id)
+            if vt != -1:
+                idmod = code[vt + 4:vt + 8]
+                break
+
+    if idmod:
+        for i, code in enumerate(CodeMD):
+            for sid in All_S:
+                vt = code.find(sid)
                 if vt != -1:
-                    codet = code[vt+4:vt+8]
+                    codet = code[vt + 4:vt + 8]
                     code = code.replace(codet, idmod, 1)
-                else:
-                    break
             CodeMD[i] = code
 
     with open(file_mod_Modtion, "rb") as f:
@@ -852,24 +737,25 @@ for ID in IDMODSKIN:
         y = y.replace(CodeMD2[i], CodeMD[i], 1)
 
     if len(CodeMD) + len(CodeDB) == 0:
-        for id in All_S:
-            y = y.replace(id, b"\x00\x00\x00", 1)
+        for sid in All_S:
+            y = y.replace(sid, b"\x00\x00\x00", 1)
 
     with open(file_mod_Modtion, "wb") as f:
         f.write(y)
-    print("-"*53)
-    print(f"  Mod Motion ID: {ID}")
-    if len(CodeMD) + len(CodeDB) > 0:
-        print(f"   [-] {os.path.basename(file_mod_Modtion):<25} Done!")
-    else:
-        print(f"   [x] ID Not Found")
 
-phukien == 'do'
+    print("—" * 53)
+    print(f"  Mod Motion ID: {ID}")
+    if idmod:
+        print(f"   [-] {os.path.basename(file_mod_Modtion):<25} Done! → Đã dùng Motion ID: {int.from_bytes(idmod, 'little')}")
+    else:
+        print(f"   [x] Không tìm thấy Motion tương ứng cho ID {ID}")
+
+phukien = 'do'
 for IDMODSKIN in IDMODSKIN1:
     zip_path = f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{IDMODSKIN[:3]}_Actions.pkg.bytes'
     Files_Directory_Path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4/'
     print("-"*53)
-    print(f'  Skill Ages - {IDMODSKIN}')
+    print(f'  Skill Ages - Actor_{IDMODSKIN[:3]}_Actions.pkg.bytes')
     with zipfile.ZipFile(zip_path, 'r') as zip_ref:
         zip_ref.extractall(Files_Directory_Path)
 
@@ -1110,9 +996,40 @@ for IDMODSKIN in IDMODSKIN1:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'      </Event>\r\n    </Track>\r\n    <Track trackName="AutoY" eventType="HitTriggerTick" guid="9749148c-8e56-47f6-89e8-70c4ed334ef0" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="HitTriggerTick" time="0.000" isDuration="false" guid="62578072-d0be-44f1-bf0d-d8c1de538873">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <int name="SelfSkillCombineID_1" value="130006" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="triggerId" id="-1" objectName="None" isTemp="false" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>',b'      </Event>\r\n    </Track>').replace(b'  <Action tag="" length="2.000" loop="false">', b'  <Action tag="" length="2.000" loop="false">\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="39adb49e-b73a-4b00-ab89-1cc90a2f6860" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.000" isDuration="true" guid="879c7677-a1d1-4da3-a387-a65149b7d0b7">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="true" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/130_gongbenwuzang/13011/gongbenwuzang_attack01_spell01" refParamName="" useRefParam="false" />\r\n        <Vector3 name="bindPosOffset" x="0.000" y="1.000" z="0.500" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <bool name="bUseRealScaling" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="bOnlyFollowPos" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="b1stTickParentRot" value="true" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+            if IDCHECK[:3] =='524' and 'A1E9.xml' in file_path:
+                with open(file_path, 'rb') as f:
+                    rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/524_Capheny/'+IDCHECK.encode()+b'/Atk1_FireRange',b'prefab_skill_effects/hero_skill_effects/524_Capheny/Atk1_FireRange')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDCHECK[:3] =='537' and 'S12.xml' in file_path:
+                with open(file_path, 'rb') as f:
+                    rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/537_Trip/Trip_attack_spell01_1prefab_skill_effects/hero_skill_effects/537_Trip/Trip_attack_spell01_1prefab_skill_effects/hero_skill_effects/537_Trip/Trip_attack_spell01_1_S',b'prefab_skill_effects/hero_skill_effects/537_Trip/Trip_attack_spell01_1_S')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+
+            if IDCHECK =='11119' and 'A1B1.xml' in file_path:
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="prefabName" value="prefab_characters/commonempty" refParamName="" useRefParam="false" />', b'<String name="prefabName" value="prefab_skill_effects/hero_skill_effects/111_sunshangxiang/11119/sunshangxiang_fly_01b" refParamName="" useRefParam="false" />\r\n        <Vector3i name="translation" x="0" y="750" z="0" refParamName="" useRefParam="false" />')
+                with open(file_path,'wb') as f: 
+                    f.write(rpl)
+                if IDCHECK =='11119' and 'A2B1.xml' in file_path:
+                    with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="prefabName" value="prefab_characters/commonempty" refParamName="" useRefParam="false" />',b'<String name="prefabName" value="prefab_skill_effects/hero_skill_effects/111_sunshangxiang/11119/sunshangxiang_fly_01b" refParamName="" useRefParam="false" />\r\n        <Vector3i name="translation" x="0" y="700" z="0" refParamName="" useRefParam="false" />')
+                    with open(file_path,'wb') as f: 
+                        f.write(rpl)
+                    
+            if IDCHECK =='13015' and 'A4.xml' in file_path:
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'<bool name="useNegateValue" value="true"', b'<bool name="useNegateValue" value="false"')
+                with open(file_path,'wb') as f: 
+                    f.write(rpl)
+                    
+            if IDCHECK =='53702' and 'S12.xml' in file_path:
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/537_Trip/53702/Trip_attack_spell01_1prefab_skill_effects/hero_skill_effects/537_Trip/53702/Trip_attack_spell01_1prefab_skill_effects/hero_skill_effects/537_Trip/53702/Trip_attack_spell01_1_S', b'Prefab_Skill_Effects/Hero_Skill_Effects/537_Trip/53702/Trip_attack_spell01_1_S')
+                with open(file_path,'wb') as f: 
+                    f.write(rpl)
+            if IDCHECK =='15012' and 'U1.xml' in file_path:
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="prefab" value="prefab_skill_effects/hero_skill_effects/150_Hanxin_spellC_01"',b'<String name="prefab" value="prefab_skill_effects/hero_skill_effects/150_hanxin/15012/150_Hanxin_spellC_01"')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
 #-----------------------------------------------
-    print("-" * 53)
-    print(f"\n  Sound Ages ID -{IDMODSKIN}")
     if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
         if IDCHECK not in ["13311", "16707"]:
             directory_path = Files_Directory_Path + f'{NAME_HERO}' + '/skill/'        
@@ -1155,7 +1072,7 @@ for IDMODSKIN in IDMODSKIN1:
 #-----------------------------------------------
     if IDCHECK == '15009':
         for file in ["BlueBuff.xml", "RedBuff_Slow.xml"]:
-            duongdan = f"{pack_name}/files/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/PassiveResource/{file}"
+            duongdan = f"{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/PassiveResource/{file}"
             giai(duongdan)
             with open(duongdan, 'rb') as f:
                 content = f.read().replace(
@@ -1697,12 +1614,15 @@ for IDCOUNTGIATOC in IDMODSKIN1:
 shutil.rmtree('mod5')
 #-----------------------------------------------
 IDMODSKININ = [str(num) for num in numbers]
+
 while True:
     for id_str in IDMODSKININ:
         IDINFO = int(id_str)
         IDINFO = str(IDINFO)
         if len(IDINFO) > 3 and IDINFO[3:4] == '0':
             IDINFO = IDINFO[:3] + IDINFO[4:]
+        if IDINFO in ['5208']:  # Hoặc thêm các ID khác tại đây nếu muốn
+            continue
         try:
             Files_Directory_Path = f'Prefab_Hero/mod{IDINFO}/'
             # Create directory if it doesn't exist
@@ -1735,7 +1655,6 @@ while True:
         # pack_name, version, NAME_HERO, IDCHECK, phukienv, phukien,
         # ngoaihinhvaneovvang, ngoaihinhvaneovdo, ngoaihinhvaneov,
         # ngoaihinhkhieov, ngoaihinhdoveres, ngoaihinhxanhveres
-        
         INFO_MOD = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/'
         
         try:
@@ -1785,7 +1704,6 @@ while True:
             mkcam = b''
             new1 = b''
             new1 += skincanmod(r)
-            
             if IDCHECK == '13311':
                 if phukienv == "vangv":
                     new1 = ngoaihinhvaneovvang
@@ -2042,11 +1960,294 @@ while True:
     tiep_tuc = 'n'
     if tiep_tuc != 'y':
         break
-    if PhuKien == 'Do':
-        if IDCHECK == '52007':
-            Directory = f'{sanitized_input}/Resources/1.58.1/Prefab_Characters/Prefab_Hero/mod52007/520_Veres_actorinfo.bytes'
-            process_directory(Directory, LC)
-os.remove('mod5')
+#-----------------------------------------------
+import xml.etree.ElementTree as ET
+from xml.dom import minidom
+
+class StringBytes:
+    def __init__(self, String):
+        self.String = String
+        self.OldString = String
+
+    def tell(self):
+        return len(self.OldString) - len(self.String)
+
+    def seek(self, I, O=0):
+        if O == 0:
+            self.String = self.OldString[I:]
+        elif O == 1:
+            self.String = self.String[I:]
+
+    def read(self, Int=None):
+        if Int is None:
+            return b""
+        R = self.String[:Int]
+        self.String = self.String[Int:]
+        return R
+
+
+class Bytes_XML:
+    def decode(String):
+        def get_int(A):
+            return int.from_bytes(A.read(4), 'little')
+
+        def get_str(A, pos=None):
+            if pos is not None:
+                A.seek(pos, 0)
+            ofs = get_int(A)
+            stri = A.read(ofs - 4)
+            return stri.decode()
+
+        def get_attr(A, pos=None):
+            if pos is None:
+                pos = A.tell()
+            ofs = get_int(A)
+            type = get_int(A)
+            if type == 5:
+                stri = A.read(ofs - 8).decode()[1:]
+                check_four(A)
+                A.seek(pos + ofs, 0)
+                return stri
+            else:
+                if type == 6:
+                    stri = A.read(ofs - 8).decode()
+                    if stri.startswith('JT'):
+                        if stri == 'JTArr':
+                            stri = 'Array'
+                        elif stri == 'JTPri':
+                            stri = 'String'
+                        else:
+                            stri = stri[2:]
+                        name = 'var'
+                    else:
+                        name = 'var_Raw'
+                elif type == 8:
+                    stri2 = A.read(ofs - 8).decode()
+                    if stri2.startswith('Type'):
+                        stri = stri2[4:]
+                        name = 'type'
+                    else:
+                        stri = stri2
+                        name = 'type_Raw'
+                else:
+                    stri = A.read(ofs - 8).decode()
+                    name = str(type)
+                    A.seek(pos + ofs, 0)
+                return {name: stri}
+
+        def check_four(A):
+            if get_int(A) != 4:
+                A.seek(-4, 1)
+
+        def get_node(A, fid=None, sta=None):
+            global i
+            ofs = get_int(A)
+            stri = get_str(A)
+            myid = i
+            i += 1
+            A.seek(4, 1)
+            aidx = get_int(A)
+            ite = False
+            attr = {}
+            for _ in range(aidx):
+                attr1 = get_attr(A)
+                if isinstance(attr1, str):
+                    text1 = attr1
+                    ite = True
+                else:
+                    attr.update(attr1)
+            if fid is None:
+                nod[myid] = ET.SubElement(root, stri, attrib=attr)
+            else:
+                nod[myid] = ET.SubElement(nod[fid], stri, attrib=attr)
+            if ite:
+                if text1 == '':
+                    nod[myid].set("value", " ")
+                else:
+                    nod[myid].set("value", text1)
+            check_four(A)
+            chk = sta + ofs - A.tell()
+            if chk > 12:
+                A.seek(4, 1)
+                sidx = get_int(A)
+                for _ in range(sidx):
+                    get_node(A, myid, A.tell())
+            A.seek(sta + ofs, 0)
+
+        A = StringBytes(String)
+        global i, nod, root
+        i = 0
+        nod = {}
+        ofs = get_int(A)
+        stri = get_str(A)
+        A.seek(4, 1)
+        aidx = get_int(A)
+        ite = False
+        attr = {}
+        for _ in range(aidx):
+            attr1 = get_attr(A)
+            if isinstance(attr1, str):
+                text1 = attr1
+                ite = True
+            else:
+                attr.update(attr1)
+        root = ET.Element(stri, attrib=attr)
+        if ite:
+            root.set("value", text1)
+        check_four(A)
+        chk = ofs - A.tell()
+        if chk > 12:
+            A.seek(4, 1)
+            sidx = get_int(A)
+            for _ in range(sidx):
+                get_node(A, None, A.tell())
+
+        try:
+            xml_str = minidom.parseString(ET.tostring(root, "utf-8").decode()).toprettyxml(indent="  ", newl="\r\n")
+            return xml_str.encode('utf-8')  # always return bytes
+        except Exception as e:
+            print("[LỖI decode] minidom thất bại:", e)
+            return ET.tostring(root, "utf-8")  # fallback: still bytes
+
+
+    def encode(xmlfile):
+        def byteint(num):
+            return num.to_bytes(4, byteorder='little')
+
+        def bytestr(stri):
+            outbyte = byteint(len(stri) + 4) + stri.encode()
+            return outbyte
+
+        def byteattr(key, attr):
+            if key == 'var':
+                stri = 'JT' + attr[key] if attr[key] not in ['Array', 'String'] else {'Array': 'JTArr', 'String': 'JTPri'}[attr[key]]
+                aid = 6
+            elif key == 'var_Raw':
+                stri = attr[key]
+                aid = 6
+            elif key == 'type':
+                stri = 'Type' + attr[key]
+                aid = 8
+            elif key == 'type_Raw':
+                stri = attr[key]
+                aid = 8
+            elif key == "value":
+                return b""
+            else:
+                stri = attr[key]
+                aid = int(key)
+            stripro = stri.encode()
+            return byteint(len(stripro) + 8) + byteint(aid) + stripro
+
+        def bytenode(node):
+            name = bytestr(node.tag)
+            attr_data = b''
+            aindex = len(node.attrib)
+            plus = 8
+            for key in node.attrib:
+                if key == "value":
+                    aindex -= 1
+                attr_data += byteattr(key, node.attrib)
+            if node.get("value") and not node.get("value").startswith('\n'):
+                val = node.get("value")
+                if val == " ":
+                    val = ""
+                stripro = ('V' + val).encode()
+                attr_data += byteint(len(stripro) + 8) + byteint(5) + stripro + byteint(4)
+                aindex += 1
+                plus = 4
+            attr_data = byteint(len(attr_data) + plus) + byteint(aindex) + attr_data + byteint(4)
+            child_data = b''
+            if len(node):
+                children = [bytenode(child) for child in node]
+                child_data = b''.join(children)
+                child_data = byteint(len(child_data) + 8) + byteint(len(children)) + child_data
+            else:
+                child_data = byteint(4)
+            return byteint(len(name + attr_data + child_data) + 4) + name + attr_data + child_data
+
+        tree = ET.fromstring(xmlfile)
+        return bytenode(tree)
+
+        
+#=========================================================================================================================                        
+def process_file(file_path_FL, LC):
+    with open(file_path_FL, "rb") as f:
+        G = f.read()
+
+    try:
+        if LC == "1":
+            decoded = Bytes_XML.decode(G)
+            if decoded:
+                with open(file_path_FL, "wb") as f1:
+                    f1.write(decoded)
+            else:
+                print(f"[LỖI] Không decode được file: {file_path_FL}")
+        elif LC == "2":
+            encoded = Bytes_XML.encode(G.decode())
+            with open(file_path_FL, "wb") as f1:
+                f1.write(encoded)
+    except Exception as e:
+        print(f"[LỖI] Lỗi khi xử lý file: {file_path_FL} → {e}")
+
+
+
+#=========================================================================================================================                        
+def process_directory(directory_path, LC):
+    process_file(directory_path, LC)
+#-----------------------------------------------
+IDPHUKIENDO = IDMODSKIN1[0]
+PhuKien = 'do'
+
+if IDPHUKIENDO == '52007': 
+    with zipfile.ZipFile('Resources/1.58.1/Prefab_Characters/Actor_520_Infos.pkg.bytes') as xs:
+        xs.extractall(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/')
+    
+    Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/520_Veres/520_Veres_actorinfo.bytes'
+    giai(Directory)
+    LC = '1'
+    process_directory(Directory, LC)
+
+    if PhuKien == 'do':
+        with open(Directory, 'rb') as f:
+            phukiendo = f.read()
+        phukiendo = (
+            phukiendo
+            .replace(b'5201_Veres_LOD', b'Component/5208_Veres_RT_3_LOD')
+            .replace(b'<Element var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/520_Veres/5201_Veres_idleShow1"/>', b'<Element var="String" type="System.String" value=" "/>')
+            .replace(b'<Element var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/520_Veres/5201_Veres_idleShow2"/>', b'<Element var="String" type="System.String" value=" "/>')
+            .replace(b'<Element var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/520_Veres/5201_Veres_Show3"/>', b'<Element var="String" type="System.String" value=" "/>')
+            .replace(b'5201_Veres_Show', b'Component/5208_Veres_RT_3_Show')
+            .replace(
+                b'<ArtSkinLobbyShowCamera var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/520_Veres/520_Veres_Cam"/>',
+                b'<ArtSkinLobbyShowCamera var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/520_Veres/5208_Veres_Cam"/>',
+                1
+            )
+            .replace(
+                b'  <CrossFadeTime var="String" type="System.Single" value="0"/>',
+                b'  <CamInterpolateTime var="String" type="System.Single" value="7"/>\n'
+                b'  <Cam02InterpolateTime var="String" type="System.Single" value="1.1"/>\n'
+                b'  <Cam02InterpolateDuration var="String" type="System.Single" value="2"/>\n'
+                b'  <PreloadAnimatorEffects var="Array" type="System.String[]"/>\n'
+                b'  <LookAt var="Com" type="Assets.Scripts.GameLogic.CameraLookAt"/>\n'
+                b'  <LightConfig var="Com" type="Assets.Scripts.GameLogic.PrepareBattleLightConfig"/>'
+            )
+        )
+
+        split_line = b'<Element var="String" type="System.String" value=" "/>'
+        parts = phukiendo.split(split_line)
+        if len(parts) > 2:
+            phukiendo = (
+                split_line.join(parts[:2]) +
+                b'<Element var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/520_Veres/Component/5208_Veres_RT_3_Show3"/>' +
+                split_line.join(parts[2:])
+            )
+        with open(Directory, 'wb') as f:
+            f.write(phukiendo)
+
+        LC = '2'
+        process_directory(Directory, LC)
+        print('Infos Veres Phụ Kiện Đỏ Done')
 Files_Directory = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4'
 for folder_name in os.listdir(Files_Directory):
     folder_path = os.path.join(Files_Directory, folder_name)
