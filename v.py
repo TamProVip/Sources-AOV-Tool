@@ -215,6 +215,229 @@ with zipfile.ZipFile('Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Common
     zipf.extractall(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/')
     giai(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml')
 #-----------------------------------------------
+class StringBytes:
+    def __init__(self,String):
+        self.String=String
+        self.OldString=String
+    def tell(self):
+        return len(self.OldString)-len(self.String)
+    def seek(self,I,O=0):
+        if O==0:
+            self.String=self.OldString[I:]
+        elif O==1:
+            self.String=self.String[I:]
+    def read(self,Int=None):
+        if Int==None:
+            if type(self.String)==str:
+                return ""
+            else:
+                return b""
+        R=self.String[:Int]
+        self.String=self.String[Int:]
+        return R
+class Bytes_XML:
+    def decode(String):
+        def get_int(A):
+            return int.from_bytes(A.read(4), 'little')        
+        def get_str(A, pos=None):
+            if pos is not None:
+                A.seek(pos, 0)
+            ofs = get_int(A)
+            stri = A.read(ofs-4)
+            return stri.decode()        
+        def get_node(A, fid=None, sta=None):
+            global i
+            ofs = get_int(A)
+            stri = get_str(A)
+            stri1 = stri
+            myid = i
+            i += 1
+            A.seek(4, 1)
+            aidx = get_int(A)
+            ite = False
+            attr = {}
+            for j in range(0, aidx):
+                attr1 = get_attr(A)
+                if type(attr1) == str:
+                    text1 = attr1
+                    ite = True
+                else:
+                    attr.update(attr1)
+            if fid is None:
+                nod[myid] = ET.SubElement(root, stri1, attrib=attr)
+            else:
+                nod[myid] = ET.SubElement(nod[fid], stri1, attrib=attr)
+            if ite:
+                if text1 == '':
+                    nod[myid].set("value",' ')
+                else:
+                    nod[myid].set("value",text1)
+            check_four(A)
+            chk = sta + ofs - A.tell()
+            if chk > 12:
+                A.seek(4, 1)
+                sidx = get_int(A)
+                for h in range(0, sidx):
+                    get_node(A, myid, A.tell())
+            A.seek(sta + ofs, 0)        
+        def get_attr(A, pos=None):
+            if pos is None:
+                pos = A.tell()
+            ofs = get_int(A)
+            type = get_int(A)
+            if type == 5:
+                stri = A.read(ofs - 8).decode()[1:]
+                check_four(A)
+                A.seek(pos + ofs, 0)
+                return stri
+            else:
+                if type == 6:
+                    stri = A.read(ofs - 8).decode()
+                    if stri[0:2] == 'JT':
+                        if stri == 'JTArr':
+                            stri = 'Array'
+                        elif stri == 'JTPri':
+                            stri = 'String'
+                        else:
+                            stri = stri[2:]
+                        name = 'var'
+                    else:
+                        name = 'var_Raw'
+                elif type == 8:
+                    stri2 = A.read(ofs - 8).decode()
+                    if stri2[0:4] == 'Type':
+                        stri = stri2[4:]
+                        name = 'type'
+                    else:
+                        stri = stri2
+                        name = 'type_Raw'
+                else:
+                    stri = A.read(ofs - 8).decode()
+                    name = str(type)
+                    A.seek(pos + ofs, 0)
+                return {name:stri}
+        def check_four(A):
+            if get_int(A) != 4:
+                A.seek(-4, 1)
+        A=StringBytes(String)
+        global i, nod, root
+        i = 0
+        nod = {}
+        ofs = get_int(A)
+        stri = get_str(A)
+        stri1 = stri
+        A.seek(4, 1)
+        aidx = get_int(A)
+        ite = False
+        attr = {}
+        for j in range(0, aidx):
+            attr1 = get_attr(A)
+            if type(attr1) == str:
+                text1 = attr1
+                ite = True
+            else:
+                attr.update(attr1)
+        root = ET.Element(stri1, attrib=attr)
+        if ite:
+            nod[myid].set("value",text1)
+        check_four(A)
+        chk = ofs - A.tell()
+        if chk > 12:
+            A.seek(4, 1)
+            sidx = get_int(A)
+            for h in range(0, sidx):
+                get_node(A, None, A.tell())
+        try:return minidom.parseString(ET.tostring(root,"utf-8").decode()).toprettyxml(indent="  ",newl="\r\n").encode()
+        except: return ET.tostring(root,"utf-8").decode()
+    def encode(xmlfile):
+        def byteint(num):
+            return num.to_bytes(4, byteorder='little')
+        def bytestr(stri):
+            outbyte = byteint(len(stri) + 4)
+            outbyte = outbyte + stri.encode()
+            return outbyte
+        def byteattr(key, attr):
+            if key == 'var':
+                if attr[key] == 'Array':
+                    stri = 'JTArr'
+                elif attr[key] == 'String':
+                    stri = 'JTPri'
+                else:
+                    stri = 'JT' + attr[key]
+                aid = 6
+            elif key == 'var_Raw':
+                stri = attr[key]
+                aid = 6
+            elif key == 'type':
+                stri = 'Type' + attr[key]
+                aid = 8
+            elif key == 'type_Raw':
+                stri = attr[key]
+                aid = 8
+            elif key == "value": return b""
+            else:
+                import unicodedata
+                if unicodedata.numeric(key):
+                    stri = attr[key]
+                    aid = int(key)
+            stripro = stri.encode()
+            outbyte = byteint(len(stripro) + 8) + byteint(aid) + stripro
+            return outbyte
+        def bytenode(node):
+            iftex = False
+            name1 = node.tag
+            name = bytestr(name1)
+            attr1 = b''
+            aindex = len(node.attrib)
+            plus = 8
+            for key in node.attrib:
+                if key=="value":aindex-=1
+                attr1 = attr1 + byteattr(key, node.attrib)
+            if (node.get("value") != None) and (node.get("value")[0:1] != '\n'):
+                if node.get("value") == ' ':
+                    stri1 = ''
+                else:
+                    stri1 = node.get("value")
+                iftex = True
+                stripro = ('V' + stri1).encode()
+                attr1 = attr1 + byteint(len(stripro) + 8) + byteint(5) + stripro + byteint(4)
+                aindex += 1
+                plus = 4
+            attr1 = byteint(len(attr1) + plus) + byteint(aindex) + attr1 + byteint(4)
+            alchild = b''
+            if len(node):
+                cindex = 0
+                for child in node:
+                    alchild = alchild + bytenode(child)
+                    cindex += 1
+                alchild = byteint(len(alchild) + 8) + byteint(cindex) + alchild
+            else:
+                if iftex == False:
+                    alchild = byteint(4)
+            bnode = name + attr1 + alchild
+            bnode = byteint(len(bnode) + 4) + bnode
+            return bnode
+        tree = ET.fromstring(xmlfile)
+        byt = bytenode(tree)
+        return byt
+        
+
+def process_file(file_path_FL, LC):
+    with open(file_path_FL, "rb") as f:
+        G = f.read()
+        with open(file_path_FL, "wb") as f1:
+            try:
+                if LC == "1":
+                    f1.write(Bytes_XML.decode(G))
+                elif LC == "2":
+                    f1.write(Bytes_XML.encode(G.decode()))
+            except Exception as e:
+                pass
+                     
+def process_directory(directory_path, LC):
+    file_path_FL = directory_path
+    process_file(file_path_FL, LC) 
+#-----------------------------------------------
 FILES = [file_actor_mod, file_shop_mod]
 
 for IDCHECK in IDMODSKIN:
@@ -641,7 +864,7 @@ for ID in IDMODSKIN:
     else:
         print(f"   [x] ID Not Found")
 
-
+phukien == 'do'
 for IDMODSKIN in IDMODSKIN1:
     zip_path = f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{IDMODSKIN[:3]}_Actions.pkg.bytes'
     Files_Directory_Path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4/'
@@ -760,6 +983,21 @@ for IDMODSKIN in IDMODSKIN1:
         )
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+            if IDMODSKIN[:3] == '521' and IDMODSKIN != '52108' and any(x in file_path for x in ['S1B3', 'S1B4']):
+                with open(file_path, 'rb') as f:
+                    rpl = f.read()
+                    rpl = rpl.replace(b'Florentino_spell01_bullet03_2"', b'Florentino_spell01_bullet03"')
+                    rpl = rpl.replace(b'Florentino_spell01_bullet03_fade_2"', b'Florentino_spell01_bullet03_fade"')
+                    rpl = rpl.replace(b'Florentino_spell01_bullet03_2_e"', b'Florentino_spell01_bullet03_e"')
+                    rpl = rpl.replace(b'Florentino_spell01_buff01_2"', b'Florentino_spell01_buff01"')
+                    rpl = rpl.replace(b'Florentino_spell01_bullet03_3"', b'Florentino_spell01_bullet03"')
+                    rpl = rpl.replace(b'Florentino_spell01_bullet03_fade_3"', b'Florentino_spell01_bullet03_fade"')
+                    rpl = rpl.replace(b'Florentino_spell01_bullet03_3_e"', b'Florentino_spell01_bullet03_e"')
+                    rpl = rpl.replace(b'Florentino_spell01_buff01_3"', b'Florentino_spell01_buff01"')
+
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+
             if IDMODSKIN == '10603' and 'death.xml' not in file_path.lower():
                 with open(file_path, 'rb') as f:
                     rpl = f.read().replace(
@@ -768,6 +1006,24 @@ for IDMODSKIN in IDMODSKIN1:
         )
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+            if IDMODSKIN == '54402' and 'A4B1.xml' in file_path:
+                with open(file_path, 'rb') as f:
+                    rpl = f.read()
+                    rpl = rpl.replace(b'prefab_skill_effects/hero_skill_effects/544_Painter/54402/Painter_Atk4_blue',b'prefab_skill_effects/hero_skill_effects/544_Painter/Painter_Atk4_blue').replace(b'prefab_skill_effects/hero_skill_effects/544_Painter/54402/Painter_Atk4_red',b'prefab_skill_effects/hero_skill_effects/544_Painter/Painter_Atk4_red')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN == '15412' and 'P12E2.xml' in file_path:
+                with open(file_path, 'rb') as f:
+                    rpl = f.read()
+                    rpl = rpl.replace(b'Prefab_Skill_Effects/Hero_Skill_Effects/154_HuaMuLan/15412/15413_HuaMuLan_Red', b'Prefab_Skill_Effects/Hero_Skill_Effects/154_HuaMuLan/15413_HuaMuLan_Red')
+                with open(file_path, 'wb') as f:
+                    f.write(rpl)
+            if IDMODSKIN =='52007':
+                    if phukien == "do":
+                        with open(file_path, 'rb') as f:
+                            rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/520_Veres/52007/',b'prefab_skill_effects/component_effects/52007/5200402/')
+                        with open(file_path, 'wb') as f:
+                            f.write(rpl)
             if IDMODSKIN == '13011' and 'S2B2_13011' in file_path and 'S2B3_13011' in file_path and 'S2B1.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read()
@@ -855,6 +1111,8 @@ for IDMODSKIN in IDMODSKIN1:
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
 #-----------------------------------------------
+    print("-" * 53)
+    print(f"\n  Sound Ages ID -{IDMODSKIN}")
     if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
         if IDCHECK not in ["13311", "16707"]:
             directory_path = Files_Directory_Path + f'{NAME_HERO}' + '/skill/'        
@@ -893,9 +1151,7 @@ for IDMODSKIN in IDMODSKIN1:
                 if modified:
                     with open(filepath, 'wb') as f:
                         f.write(content)
-                    print("-" * 53)
-                    print(f"\n  Sound Ages ID -{IDMODSKIN}")
-
+                    
 #-----------------------------------------------
     if IDCHECK == '15009':
         for file in ["BlueBuff.xml", "RedBuff_Slow.xml"]:
@@ -1155,8 +1411,6 @@ for IDMODSKIN in IDMODSKIN1:
                             replaced_lines.append(line)
                     check_skin_block_mod = '\n'.join(replaced_lines)
                     check_skin_block_mod = re.sub(r'^.*<SkinOrAvatarList[^>]*/>.*\n?', '', check_skin_block_mod, flags=re.MULTILINE)
-
-            # Phân loại block hiệu ứng và gohome/home
                     effect_blocks = []
                     gohome_home_blocks = []
 
@@ -1264,9 +1518,18 @@ for IDCOUNT in IDMODSKIN1:
     print('-'*53)
     print(f'Done-{IDCOUNT}')
 #-----------------------------------------------
-
 duonggia = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/HasteE1.xml'
 giai(duonggia)
+for id in IDMODSKIN1:
+    with open(duonggia, 'r', encoding='utf-8') as f:
+        text = f.read()
+    text = text.replace(
+        f'<int name="skinId" value="{id}" refParamName="" useRefParam="false" />',
+        f'<int name="skinId" value="{str(id)[:3]}00" refParamName="" useRefParam="false" />'
+    )
+    with open(duonggia, 'w', encoding='utf-8') as f:
+        f.write(text)
+
 with open(duonggia, 'r', encoding='utf-8') as f:
     lines = f.readlines()
 
@@ -1310,14 +1573,13 @@ if len(effect_blocks) < 2:
     print("[!] Không đủ block hiệu ứng.")
     exit()
 
-# Đếm Track ban đầu
-track_count = sum(1 for l in lines if '<Track trackName=' in l)
 insert_index = next((i for i in range(len(lines)-1, -1, -1) if '</Action>' in lines[i]), None)
 if insert_index is None:
     print("[!] Không tìm thấy </Action>")
     exit()
 
 all_inserted = []
+
 for IDCHECK in IDMODSKIN1:
     file_path = "Resources/1.58.1/Databin/Client/Actor/heroSkin.bytes"
     skin_id = IDCHECK
@@ -1374,26 +1636,21 @@ for IDCHECK in IDMODSKIN1:
         NAME_HERO = next((name for name in os.listdir(mod5_dir) if name.startswith(prefix + "_")), None)
         if not NAME_HERO:
             continue
+
         block_clone = []
         for l in block_skinid:
             if '<int name="skinId"' in l:
-        # Chỉ thay skinId thành HeroID + 00
                 l = l.replace(id_skin_goc, IDCHECK[:3] + '00')
             else:
                 l = l.replace(id_skin_goc, IDCHECK)
             block_clone.append(l)
+
         effect_clones = []
         for eff_block in effect_blocks:
             eff_clone = []
             for l in eff_block:
                 l = re.sub(r'common_effects', f'hero_skill_effects/{NAME_HERO}/{IDCHECK}', l)
                 eff_clone.append(l)
-            for i, line in enumerate(eff_clone):
-                if '<Track trackName=' in line:
-                    eff_clone[i] = re.sub(r'trackName="[^"]+"', f'trackName="TriggerParticle{track_count}"', line)
-                    eff_clone.insert(i+1, f'      <Condition id="{track_count}" guid="{str(uuid.uuid4())}" status="true" />\n')
-                    break
-            track_count += 1
             effect_clones.append(eff_clone)
 
         all_inserted += block_clone + effect_clones[0] + effect_clones[1]
@@ -1404,6 +1661,39 @@ with open(duonggia, 'w', encoding='utf-8') as f:
     f.writelines(lines[:insert_index] + all_inserted + lines[insert_index:])
 
 print(f"[✓] Gia Tốc: {os.path.basename(duonggia)} Done")
+for IDCOUNTGIATOC in IDMODSKIN1:
+    idkt = IDCOUNTGIATOC[:3] + "00"
+    lc = f'<int name="skinId" value="{idkt}" refParamName="" useRefParam="false" />'
+
+    fp = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/HasteE1.xml'
+    with open(fp, 'r', encoding='utf-8') as f:
+        ls = f.readlines()
+
+    nl = []
+    idx = 0
+    insert = False
+
+    for i in range(len(ls)):
+        l = ls[i]
+        if not insert and '<Track trackName=' in l:
+            idx += 1
+        if lc in l:
+            insert = True
+        elif insert and 'CheckSkinIdTick' in l and lc not in l:
+            insert = False
+
+        nl.append(l)
+
+        if insert and '<Track trackName=' in l:
+            gid = str(uuid.uuid4())
+            cd = f'      <Condition id="{idx - 1}" guid="{gid}" status="true" />\r\n'
+            nl.append(cd)
+
+    with open(fp, 'w', encoding='utf-8') as f:
+        f.writelines(nl)
+
+    print('-' * 53)
+    print(f'Done-{IDCOUNTGIATOC}')
 shutil.rmtree('mod5')
 #-----------------------------------------------
 IDMODSKININ = [str(num) for num in numbers]
@@ -1752,6 +2042,11 @@ while True:
     tiep_tuc = 'n'
     if tiep_tuc != 'y':
         break
+    if PhuKien == 'Do':
+        if IDCHECK == '52007':
+            Directory = f'{sanitized_input}/Resources/1.58.1/Prefab_Characters/Prefab_Hero/mod52007/520_Veres_actorinfo.bytes'
+            process_directory(Directory, LC)
+os.remove('mod5')
 Files_Directory = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4'
 for folder_name in os.listdir(Files_Directory):
     folder_path = os.path.join(Files_Directory, folder_name)
