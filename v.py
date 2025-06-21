@@ -74,7 +74,7 @@ print(IDMODSKIN1)
 
 if len(IDMODSKIN1) == 1:
     print(Fore.RED + "Chỉ 1 ID được nhập vào. Tool sẽ thoát." + Fore.RESET)
-    sys.exit()
+    #sys.exit()
 
 DANHSACH = IDD.split()
 
@@ -135,11 +135,11 @@ for pack_name in TENSKIN:
     print('-'*53)
     aaabbbcccnnn = pack_name
     ten_final = pack_name
-with open('List.txt', 'w', encoding='utf8') as f:
-    f.write(pack_name)
+    with open('List.txt', 'w', encoding='utf8') as f:
+        f.write(pack_name)
 
 print(Fore.YELLOW + '-' * 50 + Fore.RESET)
-if len(DANHSACH) > 1:
+if len(DANHSACH) >= 1:
     pack_name = input("Nhập Tên Pack Skin: ")
     os.mkdir(pack_name)
     base_path = f"{pack_name}/Resources/1.58.1/Databin/Client/"
@@ -248,17 +248,26 @@ for IDMODSKIN in IDMODSKIN:
     phukienv = ''
 
     if IDCHECK == '52007':
-        phukien1 = input("[1].Xanh ; [2].Đỏ ; [3].Không Dùng Phụ Kiện: ")
+        phukien1 = input("[1]. Xanh ; [2]. Đỏ ; [3]. Không dùng phụ kiện: ")
         if phukien1 == "1":
-           phukien = 'xanh'
-        if phukien1 == "2":
-           phukien = 'do'
+            phukien = 'xanh'
+        elif phukien1 == "2":
+            phukien = 'do'
+        elif phukien1 == "3":
+            phukien = ''
+        else:
+            print("Lựa chọn không hợp lệ cho Veres.")
+
     if IDCHECK == '13311':
-        phukien1v = input("[1].Vàng ; [2].Đỏ ; [3].Không Dùng Phụ Kiện: ")
+        phukien1v = input("[1]. Vàng ; [2]. Đỏ ; [3]. Không dùng phụ kiện: ")
         if phukien1v == "1":
-           phukienv = 'vangv'
-        if phukien1v == "2":
-           phukienv = 'dov'
+            phukienv = 'vangv'
+        elif phukien1v == "2":
+            phukienv = 'dov'
+        elif phukien1v == "3":
+            phukienv = ''
+        else:
+            print("Lựa chọn không hợp lệ cho Valhein.")
     if IDCHECK not in ["10611", "13211", "13212"]:
         def tim_id(data, chuoi_thay_the):
             id_tim = b'\x00\x00' + int(data).to_bytes(4, 'little')
@@ -750,7 +759,6 @@ for ID in IDMODSKIN1:
     else:
         print(f"   [x] Không tìm thấy Motion tương ứng cho ID {ID}")
 
-phukien = 'do'
 for IDMODSKIN in IDMODSKIN1:
     zip_path = f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{IDMODSKIN[:3]}_Actions.pkg.bytes'
     Files_Directory_Path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4/'
@@ -828,6 +836,7 @@ for IDMODSKIN in IDMODSKIN1:
             All = All.replace(b'bAllowEmptyEffect" value="true"', b'bAllowEmptyEffect" value="false"')
             with open(file_path, 'wb') as f:
                 f.write(All)
+#---------------—------------———----------------
             if IDMODSKIN == '10611' and 'U1B1.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read()
@@ -836,23 +845,27 @@ for IDMODSKIN in IDMODSKIN1:
                         b'<!-- ' + AABBCC.encode('utf-8') + b' -->', rpl)
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '10611' and 'A3.xml' in file_path: 
                 with open(file_path, 'rb') as f:
                     rpl = f.read().replace(b'<String name="clipName" value="Atk3"', b'<String name="clipName" value="Atk1"')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN[:3] == '531' and '531gm.xml' in file_path and '53107_Back.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read()
                     rpl = rpl.replace(b'531_Keera/53107/5318_Keera_S_LOD1', b'531_Keera/5318_Keera_S_LOD1')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN[:3] == '531' and '531gm_1.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read()
                     rpl = rpl.replace(b'531_Keera/53107/5318_Keera_LOD1', b'531_Keera/5318_Keera_LOD1')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '11107' and 'death.xml' not in file_path.lower():
                 with open(file_path, 'rb') as f:
                     rpl = f.read().replace(
@@ -861,6 +874,7 @@ for IDMODSKIN in IDMODSKIN1:
         )
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '15704' and 'death.xml' not in file_path.lower():
                 with open(file_path, 'rb') as f:
                     rpl = f.read().replace(
@@ -869,6 +883,7 @@ for IDMODSKIN in IDMODSKIN1:
         )
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN[:3] == '521' and IDMODSKIN != '52108' and any(x in file_path for x in ['S1B3', 'S1B4']):
                 with open(file_path, 'rb') as f:
                     rpl = f.read()
@@ -883,7 +898,7 @@ for IDMODSKIN in IDMODSKIN1:
 
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
-
+#---------------—------------———----------------
             if IDMODSKIN == '10603' and 'death.xml' not in file_path.lower():
                 with open(file_path, 'rb') as f:
                     rpl = f.read().replace(
@@ -892,24 +907,44 @@ for IDMODSKIN in IDMODSKIN1:
         )
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '54402' and 'A4B1.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read()
                     rpl = rpl.replace(b'prefab_skill_effects/hero_skill_effects/544_Painter/54402/Painter_Atk4_blue',b'prefab_skill_effects/hero_skill_effects/544_Painter/Painter_Atk4_blue').replace(b'prefab_skill_effects/hero_skill_effects/544_Painter/54402/Painter_Atk4_red',b'prefab_skill_effects/hero_skill_effects/544_Painter/Painter_Atk4_red')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '15412' and 'P12E2.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read()
                     rpl = rpl.replace(b'Prefab_Skill_Effects/Hero_Skill_Effects/154_HuaMuLan/15412/15413_HuaMuLan_Red', b'Prefab_Skill_Effects/Hero_Skill_Effects/154_HuaMuLan/15413_HuaMuLan_Red')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN =='52007':
-                    if phukien == "do":
-                        with open(file_path, 'rb') as f:
-                            rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/520_Veres/52007/',b'prefab_skill_effects/component_effects/52007/5200402/')
-                        with open(file_path, 'wb') as f:
-                            f.write(rpl)
+                chon = input("1. Đỏ  |  2. Xanh: ").strip()
+                if chon == "1":
+                    phukien = "do"
+                elif chon == "2":
+                    phukien = "xanh"
+                else:
+                    phukien = ""
+
+                if phukien == "do":
+                    with open(file_path, 'rb') as f:
+                        rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/520_Veres/52007/',b'prefab_skill_effects/component_effects/52007/5200402/')
+                    with open(file_path, 'wb') as f:
+                        f.write(rpl)
+                elif phukien == "xanh":
+                    with open(file_path, 'rb') as f:
+                        rpl = f.read().replace(
+                b'prefab_skill_effects/hero_skill_effects/520_Veres/52007/',
+                b'prefab_skill_effects/component_effects/52007/5200401/'
+            )
+                    with open(file_path, 'wb') as f:
+                        f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '13011' and 'S2B2_13011' in file_path and 'S2B3_13011' in file_path and 'S2B1.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read()
@@ -918,25 +953,30 @@ for IDMODSKIN in IDMODSKIN1:
                     b'      </Event>\n      <SkinOrAvatarList id="13011"/>', 1)
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '13011' and 'A1.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read()
                     rpl = rpl.replace(b'  </Action>', b'    <Track trackName="AnhYeuEm" eventType="GetHolidayResourcePathTick" guid="9e8a16b4-5d54-4b43-b149-8160e9054175" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="25" guid="Cut" status="true"/>\n      <Event eventName="GetHolidayResourcePathTick" time="0.000" isDuration="false" guid="5f29c189-96ab-44ff-9fdc-82c83264c461">\n        <String name="holidayResourcePathPrefix" value="prefab_skill_effects/Inner_game_effect/returncity_holidays/holiday0/huijidi" refParamName="" useRefParam="false"/>\n        <String name="outPathParamName" value="AnhYeuEm" refParamName="" useRefParam="false"/>\n      </Event>\n    </Track>\n    <Track trackName="AnhYeuEm" eventType="GetHolidayResourcePathTick" guid="345352d8-7e2b-4e5c-98e1-e66c22f47551" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="25" guid="Cut" status="true"/>\n      <Event eventName="GetHolidayResourcePathTick" time="0.000" isDuration="false" guid="7b59dc67-c1aa-4b8b-8643-01f4e0cc03fd">\n        <String name="holidayResourcePathPrefix" value="prefab_skill_effects/hero_skill_effects/130_GongBenWuZang/13011/huicheng_tongyong_01" refParamName="" useRefParam="false"/>\n        <String name="outPathParamName" value="AnhYeuEm" refParamName="" useRefParam="false"/>\n      </Event>\n    </Track>\n    <Track trackName="AnhYeuEm" eventType="GetHolidayResourcePathTick" guid="87f96f4c-55cd-4b02-813b-27e638fcae38" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="26" guid="Cut" status="true"/>\n      <Event eventName="GetHolidayResourcePathTick" time="0.000" isDuration="false" guid="187465f4-e4e7-4c6d-9c38-add261d99fa9">\n        <String name="holidayResourcePathPrefix" value="prefab_skill_effects/hero_skill_effects/130_GongBenWuZang/13011/jiasu_tongyong_01" refParamName="" useRefParam="false"/>\n        <String name="outPathParamName" value="AnhYeuEm" refParamName="" useRefParam="false"/>\n      </Event>\n    </Track>\n  </Action>')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '13011' and 'UCS.xml' in file_path:
                     with open(file_path, 'rb') as f: 
                         rpl = f.read().replace(b'  <Action tag="" length="0.600" loop="false">\r\n    <Track trackName="CameraShakeDuration0" eventType="CameraShakeDuration" guid="20c9a92f-6c8b-4320-bec5-eb48f5e4b418" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="CameraShakeDuration" time="0.000" length="0.600" isDuration="true" guid="54e19b05-d68f-4c09-90dd-4ad5d3422cae">\r\n        <bool name="useMainCamera" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="filter_self" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="canBeCover" value="false" refParamName="" useRefParam="false" />\r\n        <Vector3 name="shakeRange" x="0.200" y="0.400" z="0.200" refParamName="" useRefParam="false" />\r\n        <bool name="bUseCustomCurveMode" value="true" refParamName="" useRefParam="false" />\r\n        <String name="curvesPath" value="Prefab_Skill_Assets/CameraShakeCurves/nor04" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>',b'  <Action tag="" length="1.000" loop="false">\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="f7cc90e1-0903-43fb-91ec-7fa8e0998295" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.000" isDuration="true" guid="f720cf9e-c348-4163-a5e5-c13004eafd10">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/130_gongbenwuzang/13011/gongbenwuzang_attack01_spell01_1" refParamName="" useRefParam="false" />\r\n        <Vector3 name="bindPosOffset" x="0.000" y="1.000" z="0.500" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <bool name="bUseRealScaling" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="bOnlyFollowPos" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="b1stTickParentRot" value="true" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>')
                     with open(file_path, 'wb') as f:
                          f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '13011' and "S2.xml" in file_path and "S21.xml" in file_path and "S22.xml" in file_path:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'"PlayAnimDuration" guid="9d243092-f160-4189-a9da-f132595032c9" enabled="true"',b'"PlayAnimDuration" guid="9d243092-f160-4189-a9da-f132595032c9" enabled="false"').replace(b'        <bool name="bEqual" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="bSkipLogicCheck" value="false" refParamName="" useRefParam="false" />', b'').replace(b'        <bool name="bEqual" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="bSkipLogicCheck" value="true" refParamName="" useRefParam="false" />', b'        <bool name="bSkipLogicCheck" value="true" refParamName="" useRefParam="false" />').replace(b'        <bool name="bEqual" value="false" refParamName="" useRefParam="false" />\r\n        <bool name="bSkipLogicCheck" value="false" refParamName="" useRefParam="false" />', b'     <bool name="bEqual" value="false" refParamName="" useRefParam="false" />').replace(b'        <bool name="useNegateValue" value="false" refParamName="" useRefParam="false" />\r\n        <Array name="skinIdArray" refParamName="" useRefParam="false" type="int" />\r\n      </Event>\r\n    </Track>', b'      </Event>\r\n    </Track>')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '13011' and 'S2.xml' in file_path:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'    <Track trackName="13011_22" eventType="PlayAnimDuration" guid="346663c5-53c1-4f57-9196-8ea5aec7bafb" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="5" guid="1d2453a9-f234-4489-90f4-dde12f642d17" status="true" />',b'    <Track trackName="13011_22" eventType="PlayAnimDuration" guid="346663c5-53c1-4f57-9196-8ea5aec7bafb" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">').replace(b'    <Track trackName="ChangeSpringDuration5" eventType="ChangeSpringDuration" guid="fc54f26a-3264-4759-b526-2609b8aa6fc0" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="5" guid="1d2453a9-f234-4489-90f4-dde12f642d17" status="true" />', b'    <Track trackName="ChangeSpringDuration5" eventType="ChangeSpringDuration" guid="fc54f26a-3264-4759-b526-2609b8aa6fc0" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '13011' and 'S21.xml' in file_path:
                 ABCD = []
                 with open(file_path, 'rb') as file:
@@ -964,6 +1004,7 @@ for IDMODSKIN in IDMODSKIN1:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'    <Track trackName="13011_22" eventType="PlayAnimDuration" guid="346663c5-53c1-4f57-9196-8ea5aec7bafb" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="5" guid="753f3471-d461-40e5-b0d9-9305c2d4615d" status="true" />',b'    <Track trackName="13011_22" eventType="PlayAnimDuration" guid="346663c5-53c1-4f57-9196-8ea5aec7bafb" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">').replace(b'prefab_skill_effects/hero_skill_effects/130_gongbenwuzang/13011/GongBenWuZang_attack01_spell01_2', b'Nhung').replace(b'    <Track trackName="ChangeSpringDuration6" eventType="ChangeSpringDuration" guid="6d7eb5bc-f19e-4c58-ac74-9ef746b58e86" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="5" guid="753f3471-d461-40e5-b0d9-9305c2d4615d" status="true" />', b'    <Track trackName="ChangeSpringDuration6" eventType="ChangeSpringDuration" guid="6d7eb5bc-f19e-4c58-ac74-9ef746b58e86" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '13011' and 'S22.xml' in file_path:
                 ABCD = []
                 with open(file_path, 'rb') as file:
@@ -992,43 +1033,78 @@ for IDMODSKIN in IDMODSKIN1:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'    <Track trackName="13011_22" eventType="PlayAnimDuration" guid="346663c5-53c1-4f57-9196-8ea5aec7bafb" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="5" guid="cea185dc-6db5-47e8-9a5f-fbf0f2aabacb" status="true" />',b'    <Track trackName="13011_22" eventType="PlayAnimDuration" guid="346663c5-53c1-4f57-9196-8ea5aec7bafb" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">').replace(b'    <Track trackName="ChangeSpringDuration7" eventType="ChangeSpringDuration" guid="4e903727-596c-4844-9b0c-c882335080b9" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="5" guid="cea185dc-6db5-47e8-9a5f-fbf0f2aabacb" status="true" />', b'    <Track trackName="ChangeSpringDuration7" eventType="ChangeSpringDuration" guid="4e903727-596c-4844-9b0c-c882335080b9" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDMODSKIN == '13011' and 'S2B1.xml' in file_path:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'      </Event>\r\n    </Track>\r\n    <Track trackName="AutoY" eventType="HitTriggerTick" guid="9749148c-8e56-47f6-89e8-70c4ed334ef0" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="HitTriggerTick" time="0.000" isDuration="false" guid="62578072-d0be-44f1-bf0d-d8c1de538873">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <int name="SelfSkillCombineID_1" value="130006" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="triggerId" id="-1" objectName="None" isTemp="false" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>',b'      </Event>\r\n    </Track>').replace(b'  <Action tag="" length="2.000" loop="false">', b'  <Action tag="" length="2.000" loop="false">\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="39adb49e-b73a-4b00-ab89-1cc90a2f6860" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.000" isDuration="true" guid="879c7677-a1d1-4da3-a387-a65149b7d0b7">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="true" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/130_gongbenwuzang/13011/gongbenwuzang_attack01_spell01" refParamName="" useRefParam="false" />\r\n        <Vector3 name="bindPosOffset" x="0.000" y="1.000" z="0.500" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <bool name="bUseRealScaling" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="bOnlyFollowPos" value="true" refParamName="" useRefParam="false" />\r\n        <bool name="b1stTickParentRot" value="true" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDCHECK[:3] =='524' and 'A1E9.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/524_Capheny/'+IDCHECK.encode()+b'/Atk1_FireRange',b'prefab_skill_effects/hero_skill_effects/524_Capheny/Atk1_FireRange')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
             if IDCHECK[:3] =='537' and 'S12.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/537_Trip/Trip_attack_spell01_1prefab_skill_effects/hero_skill_effects/537_Trip/Trip_attack_spell01_1prefab_skill_effects/hero_skill_effects/537_Trip/Trip_attack_spell01_1_S',b'prefab_skill_effects/hero_skill_effects/537_Trip/Trip_attack_spell01_1_S')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
-
+#---------------—------------———----------------
             if IDCHECK =='11119' and 'A1B1.xml' in file_path:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="prefabName" value="prefab_characters/commonempty" refParamName="" useRefParam="false" />', b'<String name="prefabName" value="prefab_skill_effects/hero_skill_effects/111_sunshangxiang/11119/sunshangxiang_fly_01b" refParamName="" useRefParam="false" />\r\n        <Vector3i name="translation" x="0" y="750" z="0" refParamName="" useRefParam="false" />')
                 with open(file_path,'wb') as f: 
                     f.write(rpl)
+#---------------—------------———----------------
                 if IDCHECK =='11119' and 'A2B1.xml' in file_path:
                     with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="prefabName" value="prefab_characters/commonempty" refParamName="" useRefParam="false" />',b'<String name="prefabName" value="prefab_skill_effects/hero_skill_effects/111_sunshangxiang/11119/sunshangxiang_fly_01b" refParamName="" useRefParam="false" />\r\n        <Vector3i name="translation" x="0" y="700" z="0" refParamName="" useRefParam="false" />')
                     with open(file_path,'wb') as f: 
                         f.write(rpl)
-                    
+#---------------—------------———----------------
             if IDCHECK =='13015' and 'A4.xml' in file_path:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'<bool name="useNegateValue" value="true"', b'<bool name="useNegateValue" value="false"')
                 with open(file_path,'wb') as f: 
                     f.write(rpl)
-                    
+#---------------—------------———----------------
             if IDCHECK =='53702' and 'S12.xml' in file_path:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/537_Trip/53702/Trip_attack_spell01_1prefab_skill_effects/hero_skill_effects/537_Trip/53702/Trip_attack_spell01_1prefab_skill_effects/hero_skill_effects/537_Trip/53702/Trip_attack_spell01_1_S', b'Prefab_Skill_Effects/Hero_Skill_Effects/537_Trip/53702/Trip_attack_spell01_1_S')
                 with open(file_path,'wb') as f: 
                     f.write(rpl)
+#---------------—------------———----------------
             if IDCHECK =='15012' and 'U1.xml' in file_path:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="prefab" value="prefab_skill_effects/hero_skill_effects/150_Hanxin_spellC_01"',b'<String name="prefab" value="prefab_skill_effects/hero_skill_effects/150_hanxin/15012/150_Hanxin_spellC_01"')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
+#---------------—------------———----------------
+            if IDCHECK == '13311':
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/133_direnjie/13311/',b'prefab_skill_effects/component_effects/13311/13311_5/').replace(b'"Play_DiRenJie_Attack_1"', b'"Play_DiRenJie_Attack_1_Skin11_AW2"').replace(b'"Play_DiRenJie_Voice_Short"', b'"Play_DiRenJie_Voice_Short_Skin11_AW3"').replace(b'"Play_DiRenJie_Attack_Hit_1"', b'"Play_DiRenJie_Attack_Hit_1_Skin11_AW2"').replace(b'"Play_DiRenJie_Skill_A"', b'"Play_DiRenJie_Skill_A_Skin11_AW2"').replace(b'"Play_DiRenJie_Voice_Anger"', b'"Play_DiRenJie_Voice_Anger_Skin11_AW3"').replace(b'"Play_DiRenJie_Skill_A_Hit"', b'"Play_DiRenJie_Skill_A_Hit_Skin11_AW2"').replace(b'"Play_DiRenJie_Attack_Hit_2"', b'"Play_DiRenJie_Attack_Hit_2_Skin11_AW2"').replace(b'"Play_DiRenJie_Skill_B"', b'"Play_DiRenJie_Skill_B_Skin11_AW2"').replace(b'"Play_DiRenJie_Skill_B_Hit"', b'"Play_DiRenJie_Skill_B_Hit_Skin11_AW2"').replace(b'"Play_DiRenJie_Card_Red"', b'"Play_DiRenJie_Card_Red_Skin11_AW2"').replace(b'"Play_DiRenJie_Card_Blue"', b'"Play_DiRenJie_Card_Blue_Skin11_AW2"').replace(b'"Play_DiRenJie_Card_Yellow"', b'"Play_DiRenJie_Card_Yellow_Skin11_AW2"').replace(b'"Play_DiRenJie_Voice_Dead"', b'"Play_DiRenJie_Voice_Dead_Skin11_AW3"').replace(b'"Play_DiRenJie_Voice_Skill_B"', b'"Play_DiRenJie_Voice_Skill_B_Skin11_AW3"').replace(b'"Play_DiRenJie_Skill_C"', b'"Play_DiRenJie_Skill_C_Skin11_AW2"').replace(b'"Play_DiRenJie_Voice_Skill_C"', b'"Play_DiRenJie_Voice_Skill_C_Skin11_AW3"').replace(b'"Play_DiRenJie_Skill_C_Hit"', b'"Play_DiRenJie_Skill_C_Hit_Skin11_AW2"')
+                with open(file_path,'wb') as f: 
+                    f.write(rpl)
+#---------------—------------———----------------
+            if IDCHECK == '13311' and 'U1' in file_path:
+                if phukienv == "dov":
+                    with open(file_path, 'rb') as f:
+                        rpl = f.read().replace(b'prefab_skill_effects/component_effects/13311/13311_5/',b'prefab_skill_effects/component_effects/13311/1331102/')
+                    with open(file_path, 'wb') as f:
+                        f.write(rpl)
+#---------------—------------———----------------
+            if IDCHECK == '16707':
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/167_wukong/16707/',b'prefab_skill_effects/component_effects/16707/16707_5/').replace(b'"Play_Back_WuKong"', b'"Play_Back_WuKong_Skin7_AW3"').replace(b'"Play_WuKong_Attack_1"', b'"Play_WuKong_Attack_1_Skin7_AW3"').replace(b'"Play_WuKong_VO_Short"', b'"Play_WuKong_VO_Short_Skin7_AW4"').replace(b'"Play_WuKong_Attack_Hit_1"', b'"Play_WuKong_Attack_Hit_1_Skin7_AW3"').replace(b'"Play_WuKong_Attack_2"', b'"Play_WuKong_Attack_2_Skin7_AW3"').replace(b'"Play_WuKong_VO_Anger"', b'"Play_WuKong_VO_Anger_Skin7_AW4"').replace(b'"Play_WuKong_Skill_Passive_Hit1"', b'"Play_WuKong_Skill_Passive_Hit1_Skin7_AW3"').replace(b'"Play_WuKong_Skill_Passive_Hit2"', b'"Play_WuKong_Skill_Passive_Hit2_Skin7_AW3"').replace(b'"Play_WuKong_Skill_Passive_Hit3"', b'"Play_WuKong_Skill_Passive_Hit3_Skin7_AW3"').replace(b'"Play_WuKong_Skill_B_2"', b'"Play_WuKong_Skill_B_2_Skin7_AW3"').replace(b'"Play_WuKong_Skill_B_Hit"', b'"Play_WuKong_Skill_B_Hit_Skin7_AW3"').replace(b'"Play_WuKong_VO_Dead"', b'"Play_WuKong_VO_Dead_Skin7_AW4"').replace(b'"Play_WuKong_Skill_A_2"', b'"Play_WuKong_Skill_A_2_Skin7_AW3"').replace(b'"Play_WuKong_Skill_A_Hit"', b'"Play_WuKong_Skill_A_Hit_Skin7_AW3"').replace(b'"Play_WuKong_Skill_A_1"', b'"Play_WuKong_Skill_A_1_Skin7_AW3"').replace(b'"Play_WuKong_VO_Skill_A"', b'"Play_WuKong_VO_Skill_A_Skin7_AW4"').replace(b'"Play_WuKong_Skill_A_Run"', b'"Play_WuKong_Skill_A_Run_Skin7_AW3"').replace(b'"Stop_WuKong_Skill_A_Run"', b'"Stop_WuKong_Skill_A_Run_Skin7_AW3"').replace(b'"Play_WuKong_Skill_B_1"', b'"Play_WuKong_Skill_B_1_Skin7_AW3"').replace(b'"Play_WuKong_VO_Skill_B"', b'"Play_WuKong_VO_Skill_B_Skin7_AW4"').replace(b'"Play_WuKong_Skill_C"', b'"Play_WuKong_Skill_C_Skin7_AW3"').replace(b'"Play_WuKong_VO_Skill_C"', b'"Play_WuKong_VO_Skill_C_Skin7_AW4"').replace(b'"Play_WuKong_Skill_C_01"', b'"Play_WuKong_Skill_C_01_Skin7_AW3"').replace(b'"Play_WuKong_Skill_C_02"', b'"Play_WuKong_Skill_C_02_Skin7_AW3"').replace(b'"Play_WuKong_Skill_C_Hit"', b'"Play_WuKong_Skill_C_Hit_Skin7_AW3"')
+                with open(file_path,'wb') as f: f.write(rpl)
+#---------------—------------———----------------
+            if IDCHECK == '16707' and 'U1B0.xml' in file_path:
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="resourceName" value="prefab_skill_effects/component_effects/16707/16707_5/wukong_attack_spell03" refParamName="" useRefParam="false" />', b'<String name="resourceName" value="prefab_skill_effects/component_effects/16707/16707_5/wukong_attack_spell03_1" refParamName="" useRefParam="false" />\r\n         <String name="resourceName2" value="prefab_skill_effects/component_effects/16707/16707_5/wukong_attack_spell03_1" refParamName="" useRefParam="false" />')
+                with open(file_path,'wb') as f: f.write(rpl)
+#---------------—------------———----------------
+            if IDCHECK == "14111_Back.xml" in file_path:
+                with open(file_path, 'rb') as f:
+                    rpl = f.read()
+                    rpl = rpl.replace(b'<Action tag="" length="9.000" loop="false">\n    <Track trackName="SetObjectDirectionTick0" eventType="SetObjectDirectionTick" guid="2b767094-bee5-4ffd-807c-e2759b06b84e" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Event eventName="SetObjectDirectionTick" time="0.000" isDuration="false" guid="d62f8fb3-84f5-4c4a-9a27-b823160e32d1">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="rotationY" value="230" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>', b'<Action tag="" length="0.300" loop="false">\n    <Track trackName="14111专用子弹" eventType="CheckSkinIdTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Event eventName="CheckSkinIdTick" time="0.000" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="skinId" value="14111" refParamName="" useRefParam="false" />\n        <bool name="bEqual" value="false" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="ciyuan1普工" eventType="HitTriggerTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="0" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="HitTriggerTick" time="0.000" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="SelfSkillCombineID_1" value="130912" refParamName="" useRefParam="false" />\n        <TemplateObject name="triggerId" id="-1" objectName="None" isTemp="false" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="ciyuan2普工" eventType="HitTriggerTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="0" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="HitTriggerTick" time="0.080" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="SelfSkillCombineID_1" value="130913" refParamName="" useRefParam="false" />\n        <TemplateObject name="triggerId" id="-1" objectName="None" isTemp="false" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="RemoveBuffTick0" eventType="RemoveBuffTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="0" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="RemoveBuffTick" time="0.160" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="buffId" value="130912" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="RemoveBuffTick0" eventType="RemoveBuffTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="0" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="RemoveBuffTick" time="0.240" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="buffId" value="130913" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="0" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="SpawnBulletTick" time="0.240" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/14111_back" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>')     
+        if IDCHECK == '14111' and "S1.xml" in file_path:
+            with open(file_path, 'rb') as f:
+                rpl = f.read()
+                rpl = rpl.replace(b'<Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="d6b86049-520f-4922-9aad-3dfda1b6e89b" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="2a6ab8c3-3cba-4002-95c5-b9f3cfa702ef" status="true" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="633f8c27-b5e1-4ad3-9e4b-eec64807b014">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s1b2" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>', b'<Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="false" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s1b2" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>').replace(b'<Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="ec27549a-f5de-4f44-a084-6e733b00f3cc" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="23" guid="0bbb2edb-0717-4137-9771-3c0ed1c0ff0a" status="false" />\n      <Condition id="20" guid="c26bb31c-a046-42ee-bc75-0857b87baea5" status="true" />\n      <Condition id="8" guid="fd20a444-1b70-42c0-94a6-4783d23ab256" status="true" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="1d185159-f388-45bd-80c5-015c5f38670f">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s1b12" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>', b'<Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="23" guid="14111_LAURIEL_TNVT" status="false" />\n      <Condition id="20" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="8" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s1b11" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>').replace(b'</Action>\n</Project>', b'  <Track trackName="BUFF" eventType="CheckSkillCombineConditionTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="CheckSkillCombineConditionTick" time="0.000" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="skillCombineId" value="141920" refParamName="" useRefParam="false" />\n        <Enum name="checkOPType" value="5" refParamName="" useRefParam="false" />\n        <int name="skillCombineLevel" value="1" refParamName="" useRefParam="false" />\n        <bool name="bCopyActorUseSrcActor" value="true" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="28" guid="14111_LAURIEL_TNVT" status="false" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s1b2" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="BUFF1" eventType="CheckSkillCombineConditionTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="CheckSkillCombineConditionTick" time="0.000" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="skillCombineId" value="130912" refParamName="" useRefParam="false" />\n        <Enum name="checkOPType" value="3" refParamName="" useRefParam="false" />\n        <int name="skillCombineLevel" value="1" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="BUFF2" eventType="CheckSkillCombineConditionTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="CheckSkillCombineConditionTick" time="0.000" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="skillCombineId" value="130913" refParamName="" useRefParam="false" />\n        <Enum name="checkOPType" value="3" refParamName="" useRefParam="false" />\n        <int name="skillCombineLevel" value="1" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="30" guid="14111_LAURIEL_TNVT" status="false" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s2b11" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="30" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s1b12" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="28" guid="14111_LAURIEL_TNVT" status="false" />\n      <Event eventName="TriggerParticle" time="0.000" length="1.700" isDuration="true" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="-1" objectName="None" isTemp="false" refParamName="" useRefParam="false" />\n        <TemplateObject name="objectSpaceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/141_diaochan/14111_spell01_A" refParamName="" useRefParam="false" />\n        <Vector3 name="bindPosOffset" x="0.000" y="0.500" z="1.200" refParamName="" useRefParam="false" />\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="28" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="TriggerParticle" time="0.000" length="1.700" isDuration="true" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="-1" objectName="None" isTemp="false" refParamName="" useRefParam="false" />\n        <TemplateObject name="objectSpaceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/141_diaochan/14111_spell01_B" refParamName="" useRefParam="false" />\n        <Vector3 name="bindPosOffset" x="0.000" y="0.500" z="1.200" refParamName="" useRefParam="false" />\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="28" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="30" guid="14111_LAURIEL_TNVT" status="false" />\n      <Condition id="31" guid="14111_LAURIEL_TNVT" status="false" />\n      <Event eventName="SpawnBulletTick" time="0.000" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/14111_back" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n  </Action>\n</Project>')
+#---------------—------------———----------------
 #-----------------------------------------------
     if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
         if IDCHECK not in ["13311", "16707"]:
@@ -1621,8 +1697,6 @@ while True:
         IDINFO = str(IDINFO)
         if len(IDINFO) > 3 and IDINFO[3:4] == '0':
             IDINFO = IDINFO[:3] + IDINFO[4:]
-        if IDINFO in ['5208']:  # Hoặc thêm các ID khác tại đây nếu muốn
-            continue
         try:
             Files_Directory_Path = f'Prefab_Hero/mod{IDINFO}/'
             # Create directory if it doesn't exist
@@ -2196,58 +2270,84 @@ def process_file(file_path_FL, LC):
 def process_directory(directory_path, LC):
     process_file(directory_path, LC)
 #-----------------------------------------------
-IDPHUKIENDO = IDMODSKIN1[0]
-PhuKien = 'do'
+for IdCheck in IDMODSKIN1:
+    phukien = ''
+    phukienv = ''
 
-if IDPHUKIENDO == '52007': 
-    with zipfile.ZipFile('Resources/1.58.1/Prefab_Characters/Actor_520_Infos.pkg.bytes') as xs:
-        xs.extractall(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/')
-    
-    Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/520_Veres/520_Veres_actorinfo.bytes'
-    giai(Directory)
-    LC = '1'
-    process_directory(Directory, LC)
+    # ======= Veres =======
+    if IdCheck == '52007':
+        print(f"[✓] Chọn phụ kiện cho Veres ({IdCheck}):")
+        phukien1 = input("[1] Xanh  | [2] Đỏ | [3] Không dùng phụ kiện: ").strip()
+        if phukien1 == "1":
+            phukien = 'xanh'
+        elif phukien1 == "2":
+            phukien = 'do'
+        elif phukien1 == "3":
+            phukien = ''
+        else:
+            print("[-] Lựa chọn không hợp lệ cho Veres.")
 
-    if PhuKien == 'do':
+    # ======= Valhein =======
+    if IdCheck == '13311':
+        print(f"[✓] Chọn phụ kiện cho Valhein ({IdCheck}):")
+        phukien1v = input("[1] Vàng | [2] Đỏ | [3] Không dùng phụ kiện: ").strip()
+        if phukien1v == "1":
+            phukienv = 'vangv'
+        elif phukien1v == "2":
+            phukienv = 'dov'
+        elif phukien1v == "3":
+            phukienv = ''
+        else:
+            print("[-] Lựa chọn không hợp lệ cho Valhein.")
+
+    # ======= Mod phụ kiện Veres (Đỏ) =======
+    if phukien == 'do' and IdCheck == '52007':
+        Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/520_Veres/520_Veres_actorinfo.bytes'
+        LC = '1'
+        process_directory(Directory, LC)
+
         with open(Directory, 'rb') as f:
-            phukiendo = f.read()
-        phukiendo = (
-            phukiendo
-            .replace(b'5201_Veres_LOD', b'Component/5208_Veres_RT_3_LOD')
-            .replace(b'<Element var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/520_Veres/5201_Veres_idleShow1"/>', b'<Element var="String" type="System.String" value=" "/>')
-            .replace(b'<Element var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/520_Veres/5201_Veres_idleShow2"/>', b'<Element var="String" type="System.String" value=" "/>')
-            .replace(b'<Element var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/520_Veres/5201_Veres_Show3"/>', b'<Element var="String" type="System.String" value=" "/>')
-            .replace(b'5201_Veres_Show', b'Component/5208_Veres_RT_3_Show')
-            .replace(
-                b'<ArtSkinLobbyShowCamera var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/520_Veres/520_Veres_Cam"/>',
-                b'<ArtSkinLobbyShowCamera var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/520_Veres/5208_Veres_Cam"/>',
-                1
-            )
-            .replace(
-                b'  <CrossFadeTime var="String" type="System.Single" value="0"/>',
-                b'  <CamInterpolateTime var="String" type="System.Single" value="7"/>\n'
-                b'  <Cam02InterpolateTime var="String" type="System.Single" value="1.1"/>\n'
-                b'  <Cam02InterpolateDuration var="String" type="System.Single" value="2"/>\n'
-                b'  <PreloadAnimatorEffects var="Array" type="System.String[]"/>\n'
-                b'  <LookAt var="Com" type="Assets.Scripts.GameLogic.CameraLookAt"/>\n'
-                b'  <LightConfig var="Com" type="Assets.Scripts.GameLogic.PrepareBattleLightConfig"/>'
-            )
-        )
+            InfosVeres = f.read()
+            InfosVeres = InfosVeres.replace(b'5208_Veres_LOD', b'Component/5208_Veres_RT_3_LOD').replace(b'5208_Veres_Show', b'Component/5208_Veres_RT_3_Show')
 
-        split_line = b'<Element var="String" type="System.String" value=" "/>'
-        parts = phukiendo.split(split_line)
-        if len(parts) > 2:
-            phukiendo = (
-                split_line.join(parts[:2]) +
-                b'<Element var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/520_Veres/Component/5208_Veres_RT_3_Show3"/>' +
-                split_line.join(parts[2:])
-            )
         with open(Directory, 'wb') as f:
-            f.write(phukiendo)
+            f.write(InfosVeres)
 
         LC = '2'
         process_directory(Directory, LC)
-        print('Infos Veres Phụ Kiện Đỏ Done')
+        print('✓ Infos Veres - Phụ Kiện Đỏ: Đã Mod Xong')
+
+    # ======= Mod phụ kiện Valhein (Đỏ) =======
+    elif phukienv == 'dov' and IdCheck == '13311':
+        Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/133_DiRenJie/133_DiRenJie_actorinfo.bytes'
+        LC = '1'
+        process_directory(Directory, LC)
+
+        with open(Directory, 'rb') as f:
+            InfosValhein = f.read()
+            InfosValhein = InfosValhein.replace(b'13312_DiRenJie_AW1_LOD', b'Awaken/13312_DiRenJie_04_LOD')\
+                                       .replace(b'13312_DiRenJie_AW1_Show', b'Component/13312_DiRenJie_AW5_RT_3_Show')\
+                                       .replace(b'1331_DiRenJie_Cam', b'Awaken/13312_DiRenJie_AW5_Cam')
+
+        with open(Directory, 'wb') as f:
+            f.write(InfosValhein)
+
+        LC = '2'
+        process_directory(Directory, LC)
+        print('✓ Infos Valhein - Phụ Kiện Đỏ Ver: Đã Mod Xong')
+
+    else:
+        print(f'[-] ID {IdCheck} không dùng phụ kiện hoặc không hỗ trợ – Bỏ qua.')
+
+"""    if IDCHECK == '16707':
+        Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/167_WuKong/167_WuKong_actorinfo.bytes'
+        LC = '1'
+        process_directory(Directory, LC)
+        with open(Directory, 'rb') as f:
+            InfosWukong = f.read()
+            InfosWukong = InfosWukong.replace(b'Prefab_Characters/Prefab_Hero/167_WuKong/1678_SunWuKong_AW1_LOD', b'Prefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_sunwukong_03_LOD').replace(b'Prefab_Characters/Prefab_Hero/167_WuKong/1678_SunWuKong_AW1_Show', b'Prefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_sunwukong_03_Show').replace(b'Prefab_Characters/Prefab_Hero/167_WuKong/1678_SunWuKong_AW1_Cam', b'Prefab_Characters/Prefab_Hero/167_wukong/Awaken/1678_sunwukong_03_Cam')"""
+
+#-----------------------------------------------
 Files_Directory = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4'
 for folder_name in os.listdir(Files_Directory):
     folder_path = os.path.join(Files_Directory, folder_name)
