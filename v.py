@@ -60,7 +60,6 @@ def process_input_numbers(numbers):
     return results
 
 input_numbers = input('\n\t' + "ID: ")
-AABBCC = input('\n\tNhập Nguồn :')
 numbers = [int(num) for num in input_numbers.split()]
 results = process_input_numbers(numbers)
 
@@ -130,13 +129,10 @@ for mapp in FILES_MAP:
                 continue 
 aaabbbcccnnn = ''
 for pack_name in TENSKIN:
-    print('-'*53)
-    print(pack_name)
-    print('-'*53)
     aaabbbcccnnn = pack_name
     ten_final = pack_name
-    with open('List.txt', 'w', encoding='utf8') as f:
-        f.write(pack_name)
+    with open('List.txt', 'a', encoding='utf8') as f: 
+        f.write(pack_name + '\n')
 
 print(Fore.YELLOW + '-' * 50 + Fore.RESET)
 if len(DANHSACH) >= 1:
@@ -228,6 +224,11 @@ bacngokhongevo5 = b'CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_#
 
 #-----------------------------------------------
 for IDMODSKIN in IDMODSKIN:
+    index = DANHSACH.index(IDMODSKIN)
+    TENSKIN_NOW = TENSKIN[index] 
+    print('-' * 53)
+    print(f"{TENSKIN_NOW:^53}")
+    print('-' * 53)
     SKINEOV = ''
     if IDMODSKIN == '13311':
         SKINEOV = "r"
@@ -360,40 +361,54 @@ for IDMODSKIN in IDMODSKIN:
 
         with open(File, "wb") as file:
             file.write(Code)
-    print('Actor - Shop Done')
-
     if len(IDMODSKIN1) == 1:
-        if b'Skin_Icon_HeadFrame' in dieukienmod:                
-            data = dieukienmod
-            target = b'\x00\x00\x10\x00\x00\x00Share_'+IDCHECK.encode()+b'.jpg'
-            index = data.find(target) - 2
-            two_bytes_before = data[index:index+2]
-            print(two_bytes_before)
+        if b'Skin_Icon_HeadFrame' in dieukienmod:
+            chedovien='1'
+            if chedovien == '1':
+                data = dieukienmod
+                target = b'\x00\x00\x10\x00\x00\x00Share_'+IDCHECK.encode()+b'.jpg'
+                index = data.find(target) - 2
+                two_bytes_before = data[index:index+2]
+                print(two_bytes_before)
+            if chedovien == '2':
+                idvien=input('viền cần mod : ')
+                two_bytes_before=bytes.fromhex(str(idvien))
             if two_bytes_before != b'\x00\x00':
-                inp=file_mod_vien
-                with open(inp,'rb') as f:
-                    ab=f.read()
-                a=two_bytes_before
-                i=ab.find(a)-4
-                vt=ab[i:i+4]
-                vtr=int.from_bytes(vt,byteorder='little')
-                vt1=ab[i:i+vtr]
-                id2='6500'
-                a1=bytes.fromhex(str(id2))
-                f.close()
-                i1=ab.find(a1)-4
-                vt11=ab[i1:i1+4]
-                vtr1=int.from_bytes(vt11,byteorder='little')
-                vt2=ab[i1:i1+vtr1]
-                vt1=vt1.replace(a,a1)
-                vt11=ab.replace(vt2,vt1)
-                with open(inp,'wb') as go:
-                    go.write(vt11)
-        else:
-            pass
+                if chedovien in ['1', '2']:
+
+                    inp=file_mod_vien
+                    with open(inp,'rb') as f:
+                        ab=f.read()
+                    a=two_bytes_before
+                    i=ab.find(a)-4
+                    vt=ab[i:i+4]
+                    vtr=int.from_bytes(vt,byteorder='little')
+                    vt1=ab[i:i+vtr]
+                    print(f"[vt1 block hex] {vt1.hex()}")
+                    
+                    id2='6500'
+                    a1=bytes.fromhex(str(id2))
+                    f.close()
+                    i1=ab.find(a1)-4
+                    vt11=ab[i1:i1+4]
+                    vtr1=int.from_bytes(vt11,byteorder='little')
+                    print(f"[vt2] offset = {i1}, length = {vtr1}")
+                    vt2=ab[i1:i1+vtr1]
+                    print(f"[vt2 block hex] {vt2.hex()}")
+                    vt1=vt1.replace(a,a1)
+                    print(f"[vt1_new] Modified block size: {len(vt1)}")
+                    vt11=ab.replace(vt2,vt1)
+                    print(f"[ab check] vt2 exists after replace: {vt2 in vt11}")
+                    print(f"[count vt2] Leftover count: {vt11.count(vt2)}")
+                    with open(inp,'wb') as go:
+                        go.write(vt11)
+            else:
+                print('không tìm thấy viền (vui lòng nhập thủ công)')
+
+
+    print('[✓] Âm Thanh Databin')
     if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
         skin_id_input = IDMODSKIN
-        print(f"\n------------Skin ID {skin_id_input} --------------")
         sound_directory = Sound_Files
         sound_files = os.listdir(sound_directory)
 
@@ -460,11 +475,11 @@ for IDMODSKIN in IDMODSKIN:
             # Ghi lại file
             with open(os.path.join(sound_directory, sound_file_name), "wb") as sound_file:
                 sound_file.write(sound_data)
-
+            
             # In từng file
-            print(f"[✓] Sound: {sound_file_name} cho ID {skin_id_input}")
+            print(f"     Sound: {sound_file_name}  Done")
         #print("-"*53)
-
+    print(f"{'+ Trạng Thái Mod':<25}")
     if IDCHECK == "53002" or b"Skin_Icon_Skill" in dieukienmod or b"Skin_Icon_BackToTown" in dieukienmod:
         file_paths = [file_mod_skill1, file_mod_skill2]
         matching_files = []
@@ -531,12 +546,12 @@ for IDMODSKIN in IDMODSKIN:
             with open(file, "wb") as f:
                 f.write(original_content)
     #print('-'*53)
-    print(f"  Mod Skill Effect ID: {user_id}")
+    print(f"    Mod Skill Effect ID: {user_id}")
     if matching_files:
         for file in matching_files:
             print(f"   [-] {os.path.basename(file):<25} Done!")
     else:
-        print("   [x] Not Found")
+        print("    [x] SkillMark Not Found")
         
     file_path = file_mod_Modtion
     skin_id = IDMODSKIN
@@ -623,12 +638,11 @@ for IDMODSKIN in IDMODSKIN:
     with open(file_path, "wb") as file:
         file.write(content)
     #print("—" * 53)
-    print(f"  Mod Motion ID: {ID}")
-
+    print(f"    Mod Motion ID: {ID}")
+#-----------------------------------------------
     zip_path = f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{IDMODSKIN[:3]}_Actions.pkg.bytes'
     Files_Directory_Path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4/'
-    #print("-"*53)
-    print(f'  Skill Ages - Actor_{IDMODSKIN[:3]}_Actions.pkg.bytes')
+    print(f'    Skill Ages - Actor_{IDMODSKIN[:3]}_Actions.pkg.bytes')
     phukien = ""
     if IDMODSKIN == '52007':
         print(f"[✓] Chọn phụ kiện Veres ({IDMODSKIN}):")
@@ -712,6 +726,7 @@ for IDMODSKIN in IDMODSKIN:
                 All = b'\r\n'.join(new_lines)
 
             
+            # Regex linh hoạt: bắt <int ... name="skinId" ... value="16307" ... />
             CheckSkinIdTick = ('<int name="skinId" value="'+IDMODSKIN+'" refParamName="" useRefParam="false" />').encode()
             CheckSkinIdTick0 = ('<int name="skinId" value="'+IDMODSKIN[:3]+'00'+'" refParamName="" useRefParam="false" />').encode()
             if CheckSkinIdTick in All:
@@ -720,6 +735,7 @@ for IDMODSKIN in IDMODSKIN:
             All = All.replace(b'bAllowEmptyEffect" value="true"', b'bAllowEmptyEffect" value="false"')
             with open(file_path, 'wb') as f:
                 f.write(All)
+            AABBCC = 'YtbTâmModAOV'
 #---------------—------------———----------------
             if IDMODSKIN == '10611' and 'U1B1.xml' in file_path:
                 with open(file_path, 'rb') as f:
@@ -972,7 +988,62 @@ for IDMODSKIN in IDMODSKIN:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="resourceName" value="prefab_skill_effects/component_effects/16707/16707_5/wukong_attack_spell03" refParamName="" useRefParam="false" />', b'<String name="resourceName" value="prefab_skill_effects/component_effects/16707/16707_5/wukong_attack_spell03_1" refParamName="" useRefParam="false" />\r\n         <String name="resourceName2" value="prefab_skill_effects/component_effects/16707/16707_5/wukong_attack_spell03_1" refParamName="" useRefParam="false" />')
                 with open(file_path,'wb') as f: f.write(rpl)
 #---------------—------------———----------------
+            if IDMODSKIN == '16307' and 'P2.xml' in file_path:
+                with open(file_path, 'rb') as f:
+                    rpl = f.read()
+                    rpl = rpl.replace(b'"skinId" value="16307"', b'"skinId" value="16300"')
+                with open(file_path,'wb') as f:
+                    f.write(rpl)
 #---------------—------------———----------------
+            if IDMODSKIN =='15012' and 'U1.xml' in file_path:
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="prefab" value="prefab_skill_effects/hero_skill_effects/150_Hanxin_spellC_01"',b'<String name="prefab" value="prefab_skill_effects/hero_skill_effects/150_hanxin/15012/150_Hanxin_spellC_01"')
+                with open(file_path, 'wb') as f: f.write(rpl)
+#---------------—------------———----------------
+            if IDMODSKIN == '13210' and 'S1E1.xml' in file_path:
+                with open(file_path, 'rb') as f: rpl = f.read().replace(b'\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/132_makeboluo/Makeboluo_hurt_01" refParamName="" useRefParam="false" />', b'\r\n        <String name="resourceName" value="Prefab_Skill_Effects/Hero_Skill_Effects/132_MaKeBoLuo/13210/Makeboluo_spell01_hurt_01" refParamName="" useRefParam="false" />\r        <String name="resourceName2" value="Prefab_Skill_Effects/Hero_Skill_Effects/132_MaKeBoLuo/13210/Makeboluo_spell01_hurt_02" refParamName="" useRefParam="false" />\r        <String name="resourceName3" value="Prefab_Skill_Effects/Hero_Skill_Effects/132_MaKeBoLuo/13210/Makeboluo_spell01_hurt_03" refParamName="" useRefParam="false" />')
+                with open(file_path,'wb') as f: f.write(rpl)
+            if IDMODSKIN == '13210':
+                def checkskin(a,ID):
+                    pz=a.split(b'</Track>')
+                    b=[]
+                    for code in pz:
+                        if b'CheckSkinIdTick' in code and b'<int name="skinId" value="'+ID in code and b'bEqual" value="f' not in code:
+                            a=a.replace(code,code.replace(b'<int name="skinId" value="'+ID,b'<int name="skinId" value="'+ID[:3]+'00'))
+                        if b'CheckSkinIdTick' in code and b'<int name="skinId" value="'+ID in code and b'bEqual" value="f' in code:
+                            condition=code[code.find(b'guid="'):code.find(b'" enabled="',code.find(b'guid="'))]
+                            b.append(condition)
+                    p=a.find(b'<Track trackName="')
+                    while p!=-1:
+                        p2=a.find(b'</Track>',p)
+                        code=a[p:p2]
+                        for z in b:
+                            if z in code :
+                                a=a.replace(code,code.replace(b'" enabled="true"',b'" enabled="false"'))
+                        p=a.find(b'<Track trackName="',p2)
+                    return a
+                def fix_condition(a):
+                    p=a.find(b'<Condition id="')
+                    while p!=-1:
+                        p2=a.find(b'" guid="',p)
+                        condition=a[p:a.find(b'" status="',p)]
+                        ID=a[p2:a.find(b'" status="',p2)]
+                        check=a[p+15:a.find(b'"',p+15)]
+                        if len(ID)>10:
+                            pz=a.split(b'</Track>')
+                            for i in range(len(pz)):
+                                if ID in pz[i] and condition not in pz[i]:
+                                    if check.decode()!=str(i):
+                                        a=a.replace(condition,b'<Condition id="'+str(i).encode('utf-8')+ID)
+                        p=a.find(b'<Condition id="',p2)
+                    return a
+                with open(file_path,'rb') as f:
+                    a=f.read()
+            if IDMODSKIN == '13210' and any(x in file_path for x in ['S1B0.xml', 'S11B0.xml', 'S12B0.xml']):
+                a=a.replace(b'hero_skill_effects/132_makeboluo/',b'hero_skill_effects/132_makeboluo/TamDepTrai/')
+                a=a.replace(b'  </Action>',b'    <Track trackName="1" eventType="CheckSkillCombineConditionTick" guid="Mod_By_TamDepTrai_Mod_132111" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="CheckSkillCombineConditionTick" time="0.000" isDuration="false" guid="b0dbc04b-5f6d-4610-a37b-b5240f304825">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <int name="skillCombineId" value="132111" refParamName="" useRefParam="false" />\r\n        <Enum name="checkOPType" value="3" refParamName="" useRefParam="false" />\r\n        <int name="skillCombineLevel" value="1" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="2" eventType="CheckSkillCombineConditionTick" guid="Mod_By_TamDepTrai_Mod_132112" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="CheckSkillCombineConditionTick" time="0.000" isDuration="false" guid="fb9ffe1e-fc80-463c-aa04-7e4749711ab8">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <int name="skillCombineId" value="132112" refParamName="" useRefParam="false" />\r\n        <Enum name="checkOPType" value="3" refParamName="" useRefParam="false" />\r\n        <int name="skillCombineLevel" value="1" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="3" eventType="CheckSkillCombineConditionTick" guid="Mod_By_TamDepTrai_Mod_132113" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Event eventName="CheckSkillCombineConditionTick" time="0.000" isDuration="false" guid="6786a65e-f11b-484a-a0ae-613c7521f69e">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <int name="skillCombineId" value="132113" refParamName="" useRefParam="false" />\r\n        <Enum name="checkOPType" value="3" refParamName="" useRefParam="false" />\r\n        <int name="skillCombineLevel" value="1" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="91aaf49d-c92c-4481-9957-e3b0448f1479" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132111" status="true" />\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.400" isDuration="true" guid="51311a35-66be-4940-9a41-431050e09e2b">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="objectSpaceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/132_makeboluo/Makeboluo_spell01_attack_01" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="91aaf49d-c92c-4481-9957-e3b0448f1479" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132111" status="true" />\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.400" isDuration="true" guid="51311a35-66be-4940-9a41-431050e09e2b">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="objectSpaceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/132_makeboluo/Makeboluo_spell01_attack_01_1" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="91aaf49d-c92c-4481-9957-e3b0448f1479" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132112" status="true" />\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.400" isDuration="true" guid="51311a35-66be-4940-9a41-431050e09e2b">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="objectSpaceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/132_makeboluo/Makeboluo_spell01_attack_02" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="91aaf49d-c92c-4481-9957-e3b0448f1479" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132112" status="true" />\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.400" isDuration="true" guid="51311a35-66be-4940-9a41-431050e09e2b">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="objectSpaceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/132_makeboluo/Makeboluo_spell01_attack_02_1" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="91aaf49d-c92c-4481-9957-e3b0448f1479" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132113" status="true" />\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.400" isDuration="true" guid="51311a35-66be-4940-9a41-431050e09e2b">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="objectSpaceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/132_makeboluo/Makeboluo_spell01_attack_03" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="91aaf49d-c92c-4481-9957-e3b0448f1479" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132113" status="true" />\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.400" isDuration="true" guid="51311a35-66be-4940-9a41-431050e09e2b">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="objectSpaceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/132_makeboluo/Makeboluo_spell01_attack_03_1'+b'  </Action>')
+                a=a.replace(b'  </Action>',b'" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="91aaf49d-c92c-4481-9957-e3b0448f1479" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132111" status="false" />\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132112" status="false" />\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132113" status="false" />\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.400" isDuration="true" guid="51311a35-66be-4940-9a41-431050e09e2b">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="objectSpaceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/132_makeboluo/Makeboluo_spell01_attack_01" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="91aaf49d-c92c-4481-9957-e3b0448f1479" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132111" status="false" />\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132112" status="false" />\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132113" status="false" />\r\n      <Event eventName="TriggerParticle" time="0.000" length="1.400" isDuration="true" guid="51311a35-66be-4940-9a41-431050e09e2b">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="objectSpaceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/132_makeboluo/Makeboluo_spell01_attack_01_1" refParamName="" useRefParam="false" />\r\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\r\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\r\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="T2\xe9\x9a\x8f\xe6\x9c\xba1 \xe9\x9f\xb3\xe6\x95\x88" eventType="PlayHeroSoundTick" guid="f92f38f7-c71a-4ea3-abfc-c8e4eb5b3865" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132111" status="true" />\r\n      <Event eventName="PlayHeroSoundTick" time="0.000" isDuration="false" guid="9b862449-dea5-4cee-b1f0-8b1b3724ca8f">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="sourceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="eventName" value="Play_13210_Hayate_SkillA_03" refParamName="" useRefParam="false" />\r\n        <bool name="useSkinSwitch" value="false" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="T2\xe9\x9a\x8f\xe6\x9c\xba2 \xe9\x9f\xb3\xe6\x95\x88" eventType="PlayHeroSoundTick" guid="c7107416-30e0-4ee8-83fa-5f97bb948faf" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132112" status="true" />\r\n      <Event eventName="PlayHeroSoundTick" time="0.000" isDuration="false" guid="4a8d55af-a3b6-4c1a-b7b9-830ea761ccf9">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="sourceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="eventName" value="Play_13210_Hayate_SkillA_01" refParamName="" useRefParam="false" />\r\n        <bool name="useSkinSwitch" value="false" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="T2\xe9\x9a\x8f\xe6\x9c\xba3 \xe9\x9f\xb3\xe6\x95\x88" eventType="PlayHeroSoundTick" guid="bca0dd8d-b83a-49da-982c-6cadaef3966a" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132113" status="true" />\r\n      <Event eventName="PlayHeroSoundTick" time="0.000" isDuration="false" guid="129a0664-39ba-43af-9d93-43c6b7d64878">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="sourceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="eventName" value="Play_13210_Hayate_SkillA_02" refParamName="" useRefParam="false" />\r\n        <bool name="useSkinSwitch" value="false" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="T2\xe9\x9a\x8f\xe6\x9c\xba1 \xe9\x9f\xb3\xe6\x95\x88" eventType="PlayHeroSoundTick" guid="f92f38f7-c71a-4ea3-abfc-c8e4eb5b3865" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132111" status="false" />\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132112" status="false" />\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132113" status="false" />\r\n      <Event eventName="PlayHeroSoundTick" time="0.000" isDuration="false" guid="9b862449-dea5-4cee-b1f0-8b1b3724ca8f">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="sourceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <String name="eventName" value="Play_13210_Hayate_SkillA_03" refParamName="" useRefParam="false" />\r\n        <bool name="useSkinSwitch" value="false" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n    <Track trackName="T2\xe9\x9a\x8f\xe6\x9c\xba1" eventType="HitTriggerTick" guid="810de6b2-8b68-4614-8762-84bbafe2e77a" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132111" status="false" />\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132112" status="false" />\r\n      <Condition id="TamDepTrai" guid="Mod_By_TamDepTrai_Mod_132113" status="false" />\r\n      <Event eventName="HitTriggerTick" time="0.000" isDuration="false" guid="06468bb9-532f-4c15-819f-4ea3434f2a47">\r\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\r\n        <int name="SelfSkillCombineID_1" value="132111" refParamName="" useRefParam="false" />\r\n        <TemplateObject name="triggerId" id="-1" objectName="None" isTemp="false" refParamName="" useRefParam="false" />\r\n      </Event>\r\n    </Track>\r\n'+b'  </Action>')
+                a=fix_condition(a)
+                with open(file_path,'wb') as f:f.write(a)
 #-----------------------------------------------
     if IDCHECK not in ["13311", "16707"]:
         directory_path = Files_Directory_Path + f'{NAME_HERO}' + '/skill/'        
@@ -1081,7 +1152,6 @@ for IDMODSKIN in IDMODSKIN:
         organSkin_mod = f"{pack_name}/Resources/1.58.1/Databin/Client/Actor/organSkin.bytes"
         shutil.copy(organSkin, organSkin_mod)
         giai(organSkin_mod)
-        print("-"*70)
 
     if IDCHECK in ("50108","14111","11107","15009","13015"):
         ID = IDCHECK
@@ -1157,11 +1227,12 @@ for IDMODSKIN in IDMODSKIN:
 
 #-----------------------------------------------
     if b"Skin_Icon_BackToTown" in dieukienmod or b"Skin_Icon_Animation" in dieukienmod:
+        import uuid, os, re
+
         def extract_blocks(xml_content):
             result = []
             seen_resource_lines = set()
             seen_clipnames = {"home": False, "gohome": False}
-
             lines = xml_content.splitlines()
             inside_track = False
             block = []
@@ -1169,7 +1240,6 @@ for IDMODSKIN in IDMODSKIN:
             current_resource_line = ""
             current_clipname = ""
             is_check_skin_block = False
-
             for line in lines:
                 if '<Track ' in line:
                     inside_track = True
@@ -1188,7 +1258,7 @@ for IDMODSKIN in IDMODSKIN:
                         elif 'value="gohome"' in lower_line:
                             current_clipname = "gohome"
                     if 'eventname="checkskinidtick"' in lower_line:
-                            is_check_skin_block = True
+                        is_check_skin_block = True
                     if '</Track>' in line:
                         track_str = '\n'.join(block)
                         if is_check_skin_block and check_skin_block is None:
@@ -1204,34 +1274,32 @@ for IDMODSKIN in IDMODSKIN:
             if check_skin_block:
                 return [check_skin_block] + result
             return result
+
         def remove_unwanted_lines(text):
             lines = text.splitlines()
-            filtered_lines = []
-            for line in lines:
-                if ('<String name="parentResourceName"' in line or
-					'<Enum name="ReplacementUsage"' in line or
-					'<Enum name="ReplacementSubUsage"' in line or
-					'<SkinOrAvatarList' in line):
-                    continue
-                filtered_lines.append(line)
-            return '\n'.join(filtered_lines)
+            return '\n'.join([
+                line for line in lines if not any(x in line for x in [
+                    '<String name="parentResourceName"',
+                    '<Enum name="ReplacementUsage"',
+                    '<Enum name="ReplacementSubUsage"',
+                    '<SkinOrAvatarList'
+                ])
+            ])
+
         def replace_resource_lines(text, NAME_HERO, IDMODSKIN):
             text = text.replace(
-				'<String name="resourceName" value="" refParamName="strReturnCityFall" useRefParam="true" />',
-				f'<String name="resourceName" value="prefab_skill_effects/hero_skill_effects/{NAME_HERO}/{IDMODSKIN}/huijidi_01" refParamName="" useRefParam="false" />'
-			)
+                '<String name="resourceName" value="" refParamName="strReturnCityFall" useRefParam="true" />',
+                f'<String name="resourceName" value="prefab_skill_effects/hero_skill_effects/{NAME_HERO}/{IDMODSKIN}/huijidi_01" refParamName="" useRefParam="false" />'
+            )
             text = text.replace(
-				'<String name="resourceName" value="" refParamName="strReturnCityEffectPath" useRefParam="true" />',
-				f'<String name="resourceName" value="prefab_skill_effects/hero_skill_effects/{NAME_HERO}/{IDMODSKIN}/huicheng_tongyong_01" refParamName="" useRefParam="false" />'
-			)
-            new_lines = []
-            for line in text.splitlines():
-                if '<int name="skinId"' in line:
-                    new_lines.append(f'<int name="skinId" value="{IDMODSKIN[:3]}00" refParamName="" useRefParam="false" />')
-                else:
-                    new_lines.append(line)
-            text = '\n'.join(new_lines)
-            return text
+                '<String name="resourceName" value="" refParamName="strReturnCityEffectPath" useRefParam="true" />',
+                f'<String name="resourceName" value="prefab_skill_effects/hero_skill_effects/{NAME_HERO}/{IDMODSKIN}/huicheng_tongyong_01" refParamName="" useRefParam="false" />'
+            )
+            return '\n'.join([
+                f'<int name="skinId" value="{IDMODSKIN[:3]}00" refParamName="" useRefParam="false" />' if '<int name="skinId"' in line else line
+                for line in text.splitlines()
+            ])
+
         def insert_blocks_before_action_close(xml_content, blocks):
             lines = xml_content.splitlines()
             output = []
@@ -1243,257 +1311,174 @@ for IDMODSKIN in IDMODSKIN:
                     inserted = True
                 output.append(line)
             return '\n'.join(output)
-        with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "r", encoding="utf-8") as f:
-            original_content = f.read()
-        final_content = original_content
-        for IDMODSKIN in IDMODSKIN1:
-            try:
-                if b"Skin_Icon_BackToTown" in dieukienmod or b"Skin_Icon_Animation" in dieukienmod:
-                    NAME_HERO = None
-                    HERO_NAME_LIST = os.listdir(Files_Directory_Path)
-                    for HERO_NAME_ITEM in HERO_NAME_LIST:
-                        if HERO_NAME_ITEM.startswith(IDMODSKIN[:3] + "_"):
-                            NAME_HERO = HERO_NAME_ITEM
-                            break
-                    if NAME_HERO is None:
-                        pass
-                        continue
-                    with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "r", encoding="utf-8") as f:
-                        content = f.read()
-                    content = re.sub(r'\s*SkinAvatarFilterType="\d+"', '', content)
-                    base_blocks = extract_blocks(content)
 
-                    if len(base_blocks) < 3:
-                        print("❌ Không tìm thấy đủ block phù hợp!")
-                        continue
-
-                    check_skin_block = base_blocks[0]
-                    other_blocks = base_blocks[1:]
-
-                    lines = check_skin_block.splitlines()
-                    replaced_lines = []
-                    for line in lines:
-                        if '<int name="skinId"' in line:
-                            replaced_lines.append(
-                        f'        <int name="skinId" value="{IDMODSKIN[:3]}00" refParamName="" useRefParam="false" />'
-                    )
-                        else:
-                            replaced_lines.append(line)
-                    check_skin_block_mod = '\n'.join(replaced_lines)
-                    check_skin_block_mod = re.sub(r'^.*<SkinOrAvatarList[^>]*/>.*\n?', '', check_skin_block_mod, flags=re.MULTILINE)
-                    effect_blocks = []
-                    gohome_home_blocks = []
-
-                    for block in other_blocks:
-                        clean_block = remove_unwanted_lines(block)
-                        block_lower = clean_block.lower()
-                        if 'clipname' in block_lower:
-                            if 'value="home"' in block_lower or 'value="gohome"' in block_lower:
-                                gohome_home_blocks.append(clean_block)
-                        else:
-                            replaced_block = replace_resource_lines(clean_block, NAME_HERO, IDMODSKIN)
-                            effect_blocks.append(replaced_block)
-
-                    all_blocks = [check_skin_block_mod] + effect_blocks[:2] + gohome_home_blocks[:2]
-                    final_content = insert_blocks_before_action_close(final_content, all_blocks)
-            except Exception as e:
-                print("❌ Lỗi xử lý:", str(e))
-        with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/BackMod.xml', "w", encoding="utf-8") as f:
-            f.write(final_content)
-backmod_path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/BackMod.xml'
-back_path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml'
-
-if os.path.exists(backmod_path):
-    if os.path.exists(back_path):
-        os.remove(back_path)
-    os.rename(backmod_path, back_path)
-else:
-    print(f"[!] Không tìm thấy {backmod_path}, không thể đổi tên.")
-#-----------------------------------------------
-with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "r", encoding="utf-8") as f:
-    target_content = f.read()
-
-modified_count = 0
-HEROS = os.listdir(Files_Directory_Path)
-for ID_BACK in IDMODSKIN1:
-    CHECK_ID = ID_BACK
-    Skin_Back = ID_BACK[:3] + "00"
-    found = False
-    for NAME_HERO in HEROS:
-        Path_Back = os.path.join(Files_Directory_Path, NAME_HERO, "skill")
-        file_name = f"{CHECK_ID}_Back.xml"
-        file_path = os.path.join(Path_Back, file_name)
-        if not os.path.exists(file_path):
-            continue
-
-        with open(file_path, "r", encoding="utf-8") as f:
-            source_content = f.read()
-        track_blocks = re.findall(r'\s*<Track trackName=.*?</Track>', source_content, flags=re.DOTALL)
-        if not track_blocks:
-            continue
-        pattern = rf'<int name="skinId" value="{Skin_Back}".*?/>'
-        match = re.search(pattern, target_content)
-        if not match:
-            continue
-        insert_pos = target_content.find('</Event>', match.end())
-        if insert_pos == -1:
-            continue
-        insert_pos = target_content.find('</Track>', insert_pos)
-        if insert_pos == -1:
-            continue
-        insert_pos += len('</Track>')
-        combined_blocks = "\n"+"\n".join(track_blocks)
-        target_content = target_content[:insert_pos] + combined_blocks + target_content[insert_pos:]
-        modified_count += 1
-        found = True
-        break 
-    if not found:
-        pass
-if modified_count > 0:
-    with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "w", encoding="utf-8") as f:
-        f.write(target_content)
-else:
-    print("\nBack.xml Not Found")
-with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "r", encoding="utf-8") as f:
-    lines = [line for line in f if line.strip()] 
-with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', "w", encoding="utf-8") as f:
-    f.writelines(lines)
-#-----------------------------------------------
-for IDCOUNT in IDMODSKIN1:
-    IDKIEMTRA = IDCOUNT[:3] + "00"
-    LineCheck = f'<int name="skinId" value="{IDKIEMTRA}" refParamName="" useRefParam="false" />'
-
-    with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', 'r', encoding='utf-8') as f:
-        lines = f.readlines()
-
-    new_lines = []
-    count = 0
-    in_insert_mode = False
-
-    for i in range(len(lines)):
-        line = lines[i]
-        if not in_insert_mode and '<Track trackName=' in line:
-            count += 1
-        if LineCheck in line:
-            in_insert_mode = True
-        elif in_insert_mode and 'CheckSkinIdTick' in line and LineCheck not in line:
-            in_insert_mode = False
-        new_lines.append(line)
-        if in_insert_mode and '<Track trackName=' in line:
-            guid = str(uuid.uuid4())
-            condition_line = f'      <Condition id="{count-1}" guid="{guid}" status="true" />\r\n'
-            new_lines.append(condition_line)
-    with open(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml', 'w', encoding='utf-8') as f:
-        f.writelines(new_lines)
-    print('-'*53)
-    print(f'Done-{IDCOUNT}')
-#-----------------------------------------------
-duonggia = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/HasteE1.xml'
-giai(duonggia)
-for id in IDMODSKIN1:
-    with open(duonggia, 'r', encoding='utf-8') as f:
-        text = f.read()
-    text = text.replace(
-        f'<int name="skinId" value="{id}" refParamName="" useRefParam="false" />',
-        f'<int name="skinId" value="{str(id)[:3]}00" refParamName="" useRefParam="false" />'
-    )
-    with open(duonggia, 'w', encoding='utf-8') as f:
-        f.write(text)
-
-with open(duonggia, 'r', encoding='utf-8') as f:
-    lines = f.readlines()
-
-text = ''.join(lines)
-matches = re.findall(r'<int name="skinId" value="(\d+)" refParamName="" useRefParam="false" />', text)
-if not matches:
-    print("[!] Không tìm thấy dòng <int name='skinId'...>")
-    exit()
-id_skin_goc = matches[0]
-print(f"[✓] ID gốc: {id_skin_goc}")
-
-skin_line_index = next((i for i, line in enumerate(lines) if id_skin_goc in line), None)
-start = next((i for i in range(skin_line_index, -1, -1) if '<Track trackName=' in lines[i]), None)
-end = next((i for i in range(skin_line_index, len(lines)) if '</Track>' in lines[i]), None)
-block_skinid = lines[start:end+1]
-
-pattern_effect = re.compile(r'jiasu_tongyong_0[12]')
-effect_blocks = []
-seen = set()
-i = 0
-while i < len(lines):
-    if '<Track trackName=' in lines[i]:
-        block_start = i
-        while i < len(lines) and '</Track>' not in lines[i]:
-            i += 1
-        block_end = i
-        block = lines[block_start:block_end+1]
-        block_text = ''.join(block)
-        match = pattern_effect.search(block_text)
-        if match:
-            eff_name = match.group(0)
-            if eff_name not in seen:
-                seen.add(eff_name)
-                block = [l for l in block if '<Condition ' not in l]
-                effect_blocks.append(block)
-                if len(effect_blocks) == 2:
-                    break
-    i += 1
-
-if len(effect_blocks) < 2:
-    print("[!] Không đủ block hiệu ứng.")
-    exit()
-
-insert_index = next((i for i in range(len(lines)-1, -1, -1) if '</Action>' in lines[i]), None)
-if insert_index is None:
-    print("[!] Không tìm thấy </Action>")
-    exit()
-
-all_inserted = []
-
-for IDCHECK in IDMODSKIN1:
-    file_path = "Resources/1.58.1/Databin/Client/Actor/heroSkin.bytes"
-    skin_id = IDCHECK
-    dieukienmod = False
-
-    try:
-        with open(file_path, "rb") as f:
-            data = f.read().decode(errors="ignore")
-
-        lines_text = data.split("\0")
-        lines_text = [line.strip() for line in lines_text if line.strip()]
-        start_idx = None
-        end_idx = None
-        stop_marker = f"30{str(int(skin_id))[:-2]}{int(skin_id[-2:])}head.jpg"
-
-        for i, line in enumerate(lines_text):
-            if f"Share_{skin_id}.jpg" in line:
-                start_idx = i
-                break
-
-        if start_idx is not None:
-            for j in range(start_idx + 1, len(lines_text)):
-                if stop_marker in lines_text[j]:
-                    end_idx = j
-                    break
-
-        if start_idx is None:
-            print(f"❌ Không tìm thấy Share_{skin_id}.jpg trong {file_path}")
-        elif end_idx is None:
-            print(f"❌ Không tìm thấy {stop_marker} sau Share_{skin_id}.jpg trong {file_path}")
+        IDMODSKIN = IDMODSKIN1[0]
+        NAME_HERO = next((x for x in os.listdir(Files_Directory_Path) if x.startswith(IDMODSKIN[:3] + "_")), None)
+        if not NAME_HERO:
+            print("❌ Không tìm thấy tên hero.")
         else:
-            dieukienmod = any("Skin_Icon_Atmosphere" in lines_text[k] for k in range(start_idx, end_idx))
-            if dieukienmod:
-                print(f"[-] ID {skin_id} có Skin_Icon_Atmosphere")
-            else:
-                print(f"[+] ID {skin_id} không có Skin_Icon_Atmosphere")
+            back_path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml'
+            with open(back_path, "r", encoding="utf-8") as f:
+                content = f.read()
+            content = re.sub(r'\s*SkinAvatarFilterType="\d+"', '', content)
+            base_blocks = extract_blocks(content)
 
-    except Exception as e:
-        print(f"Lỗi kiểm tra Skin_Icon_Atmosphere: {e}")
+            if len(base_blocks) >= 3:
+                check_skin_block = base_blocks[0]
+                other_blocks = base_blocks[1:]
 
-    if IDCHECK == "53002" or dieukienmod:
-        prefix = IDCHECK[:3]
+                check_skin_block_mod = '\n'.join([
+                    f'        <int name="skinId" value="{IDMODSKIN[:3]}00" refParamName="" useRefParam="false" />' if '<int name="skinId"' in line else line
+                    for line in check_skin_block.splitlines()
+                ])
+                check_skin_block_mod = re.sub(r'^.*<SkinOrAvatarList[^>]*/>.*\n?', '', check_skin_block_mod, flags=re.MULTILINE)
+
+                effect_blocks = []
+                gohome_home_blocks = []
+                for block in other_blocks:
+                    clean_block = remove_unwanted_lines(block)
+                    block_lower = clean_block.lower()
+                    if 'clipname' in block_lower and ('home' in block_lower or 'gohome' in block_lower):
+                        gohome_home_blocks.append(clean_block)
+                    else:
+                        effect_blocks.append(replace_resource_lines(clean_block, NAME_HERO, IDMODSKIN))
+
+                all_blocks = [check_skin_block_mod] + effect_blocks[:2] + gohome_home_blocks[:2]
+
+                with open(back_path, "r", encoding="utf-8") as f:
+                    original_content = f.read()
+                final_content = insert_blocks_before_action_close(original_content, all_blocks)
+
+                with open(back_path, "w", encoding="utf-8") as f:
+                    f.write(final_content)
+
+            # --- Thêm block từ skin khác ---
+            with open(back_path, "r", encoding="utf-8") as f:
+                target_content = f.read()
+            modified_count = 0
+            for NAME_HERO in os.listdir(Files_Directory_Path):
+                Path_Back = os.path.join(Files_Directory_Path, NAME_HERO, "skill")
+                file_name = f"{IDMODSKIN}_Back.xml"
+                file_path = os.path.join(Path_Back, file_name)
+                if not os.path.exists(file_path):
+                    continue
+                with open(file_path, "r", encoding="utf-8") as f:
+                    source_content = f.read()
+                track_blocks = re.findall(r'\s*<Track trackName=.*?</Track>', source_content, flags=re.DOTALL)
+                if not track_blocks:
+                    continue
+                skin_back = IDMODSKIN[:3] + "00"
+                pattern = rf'<int name="skinId" value="{skin_back}".*?/>'
+                match = re.search(pattern, target_content)
+                if not match:
+                    continue
+                insert_pos = target_content.find('</Event>', match.end())
+                insert_pos = target_content.find('</Track>', insert_pos)
+                if insert_pos == -1:
+                    continue
+                insert_pos += len('</Track>')
+                combined_blocks = "\n" + "\n".join(track_blocks)
+                target_content = target_content[:insert_pos] + combined_blocks + target_content[insert_pos:]
+                modified_count += 1
+                break
+            if modified_count > 0:
+                with open(back_path, "w", encoding="utf-8") as f:
+                    f.write(target_content)
+
+            # --- Thêm Condition ---
+            with open(back_path, "r", encoding="utf-8") as f:
+                lines = [line for line in f if line.strip()]
+            with open(back_path, "w", encoding="utf-8") as f:
+                f.writelines(lines)
+
+            with open(back_path, 'r', encoding='utf-8') as f:
+                lines = f.readlines()
+            new_lines = []
+            count = 0
+            in_insert_mode = False
+            line_check = f'<int name="skinId" value="{IDMODSKIN[:3]}00" refParamName="" useRefParam="false" />'
+            for i in range(len(lines)):
+                line = lines[i]
+                if not in_insert_mode and '<Track trackName=' in line:
+                    count += 1
+                if line_check in line:
+                    in_insert_mode = True
+                elif in_insert_mode and 'CheckSkinIdTick' in line and line_check not in line:
+                    in_insert_mode = False
+                new_lines.append(line)
+                if in_insert_mode and '<Track trackName=' in line:
+                    guid = str(uuid.uuid4())
+                    condition_line = f'      <Condition id="{count-1}" guid="{guid}" status="true" />\r\n'
+                    new_lines.append(condition_line)
+            with open(back_path, 'w', encoding='utf-8') as f:
+                f.writelines(new_lines)
+            print("    Back.xml hoàn tất")
+
+#-----------------------------------------------
+    duonggia = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/HasteE1.xml'
+    giai(duonggia)
+    if IDMODSKIN == "53002" or b'Skin_Icon_Atmosphere' in dieukienmod:
+        with open(duonggia, 'r', encoding='utf-8') as f:
+            text = f.read()
+        text = text.replace(
+            f'<int name="skinId" value="{IDMODSKIN}" refParamName="" useRefParam="false" />',
+            f'<int name="skinId" value="{str(IDMODSKIN)[:3]}00" refParamName="" useRefParam="false" />'
+        )
+        with open(duonggia, 'w', encoding='utf-8') as f:
+            f.write(text)
+
+        with open(duonggia, 'r', encoding='utf-8') as f:
+            lines = f.readlines()
+
+        text = ''.join(lines)
+        matches = re.findall(r'<int name="skinId" value="(\d+)" refParamName="" useRefParam="false" />', text)
+        if not matches:
+            print("[!] Không tìm thấy dòng <int name='skinId'...>")
+            exit()
+        id_skin_goc = matches[0]
+
+        skin_line_index = next((i for i, line in enumerate(lines) if id_skin_goc in line), None)
+        start = next((i for i in range(skin_line_index, -1, -1) if '<Track trackName=' in lines[i]), None)
+        end = next((i for i in range(skin_line_index, len(lines)) if '</Track>' in lines[i]), None)
+        block_skinid = lines[start:end+1]
+
+        pattern_effect = re.compile(r'jiasu_tongyong_0[12]')
+        effect_blocks = []
+        seen = set()
+        i = 0
+        while i < len(lines):
+            if '<Track trackName=' in lines[i]:
+                block_start = i
+                while i < len(lines) and '</Track>' not in lines[i]:
+                    i += 1
+                block_end = i
+                block = lines[block_start:block_end+1]
+                block_text = ''.join(block)
+                match = pattern_effect.search(block_text)
+                if match:
+                    eff_name = match.group(0)
+                    if eff_name not in seen:
+                        seen.add(eff_name)
+                        block = [l for l in block if '<Condition ' not in l]
+                        effect_blocks.append(block)
+                        if len(effect_blocks) == 2:
+                            break
+            i += 1
+
+        if len(effect_blocks) < 2:
+            print("[!] Không đủ block hiệu ứng.")
+            exit()
+
+        insert_index = next((i for i in range(len(lines)-1, -1, -1) if '</Action>' in lines[i]), None)
+        if insert_index is None:
+            print("[!] Không tìm thấy </Action>")
+            exit()
+
+        all_inserted = []
+
+        prefix = IDMODSKIN[:3]
         zip_path = f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{prefix}_Actions.pkg.bytes'
-        mod5_dir = f'mod5/{IDCHECK}/'
+        mod5_dir = f'mod5/{IDMODSKIN}/'
         if not os.path.exists(mod5_dir) or not os.listdir(mod5_dir):
             os.makedirs(mod5_dir, exist_ok=True)
             try:
@@ -1501,48 +1486,37 @@ for IDCHECK in IDMODSKIN1:
                     zip_ref.extractall(mod5_dir)
             except:
                 print(f"[!] Không giải nén được file: {zip_path}")
-                continue
-
         NAME_HERO = next((name for name in os.listdir(mod5_dir) if name.startswith(prefix + "_")), None)
-        if not NAME_HERO:
-            continue
-
-        block_clone = []
-        for l in block_skinid:
-            if '<int name="skinId"' in l:
-                l = l.replace(id_skin_goc, IDCHECK[:3] + '00')
-            else:
-                l = l.replace(id_skin_goc, IDCHECK)
-            block_clone.append(l)
-
-        effect_clones = []
-        for eff_block in effect_blocks:
-            eff_clone = []
-            for l in eff_block:
-                l = re.sub(r'common_effects', f'hero_skill_effects/{NAME_HERO}/{IDCHECK}', l)
-                eff_clone.append(l)
-            effect_clones.append(eff_clone)
-
-        all_inserted += block_clone + effect_clones[0] + effect_clones[1]
+        if NAME_HERO:
+            block_clone = [
+                l.replace(id_skin_goc, IDMODSKIN[:3] + '00') if '<int name="skinId"' in l else l.replace(id_skin_goc, IDMODSKIN)
+                for l in block_skinid
+            ]
+            effect_clones = []
+            for eff_block in effect_blocks:
+                eff_clone = [
+                    re.sub(r'common_effects', f'hero_skill_effects/{NAME_HERO}/{IDMODSKIN}', l)
+                    for l in eff_block
+                ]
+                effect_clones.append(eff_clone)
+            all_inserted += block_clone + effect_clones[0] + effect_clones[1]
+        else:
+            print("[-] Không tìm thấy thư mục NAME_HERO trong mod5/")
     else:
-        print(f"[-] Bỏ qua {IDCHECK}, không thỏa điều kiện mod.")
+        print(f"[-] Bỏ qua {IDMODSKIN}, không thỏa điều kiện mod.")
 
-with open(duonggia, 'w', encoding='utf-8') as f:
-    f.writelines(lines[:insert_index] + all_inserted + lines[insert_index:])
+    with open(duonggia, 'w', encoding='utf-8') as f:
+        f.writelines(lines[:insert_index] + all_inserted + lines[insert_index:])
+    print(f"[✓] Gia Tốc: {os.path.basename(duonggia)} Done")
 
-print(f"[✓] Gia Tốc: {os.path.basename(duonggia)} Done")
-for IDCOUNTGIATOC in IDMODSKIN1:
-    idkt = IDCOUNTGIATOC[:3] + "00"
+    idkt = IDMODSKIN[:3] + "00"
     lc = f'<int name="skinId" value="{idkt}" refParamName="" useRefParam="false" />'
-
     fp = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/HasteE1.xml'
     with open(fp, 'r', encoding='utf-8') as f:
         ls = f.readlines()
-
     nl = []
     idx = 0
     insert = False
-
     for i in range(len(ls)):
         l = ls[i]
         if not insert and '<Track trackName=' in l:
@@ -1551,23 +1525,16 @@ for IDCOUNTGIATOC in IDMODSKIN1:
             insert = True
         elif insert and 'CheckSkinIdTick' in l and lc not in l:
             insert = False
-
         nl.append(l)
-
         if insert and '<Track trackName=' in l:
             gid = str(uuid.uuid4())
             cd = f'      <Condition id="{idx - 1}" guid="{gid}" status="true" />\r\n'
             nl.append(cd)
-
     with open(fp, 'w', encoding='utf-8') as f:
         f.writelines(nl)
-
-    print('-' * 53)
-    print(f'Done-{IDCOUNTGIATOC}')
 shutil.rmtree('mod5')
 #-----------------------------------------------
 IDMODSKININ = [str(num) for num in numbers]
-
 while True:
     for id_str in IDMODSKININ:
         IDINFO = int(id_str)
@@ -1912,9 +1879,6 @@ while True:
     if tiep_tuc != 'y':
         break
 #-----------------------------------------------
-import xml.etree.ElementTree as ET
-from xml.dom import minidom
-
 class StringBytes:
     def __init__(self, String):
         self.String = String
@@ -2296,7 +2260,7 @@ for IdCheck in IDMODSKIN1:
         process_directory(DuongDan1, LC)
 
     else:
-        print(f'[-] ID {IdCheck} không dùng phụ kiện hoặc không hỗ trợ – Bỏ qua.')
+        print(f'    Phu Kien : Khong Support.')
 
 #-----------------------------------------------
 Files_Directory = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4'
