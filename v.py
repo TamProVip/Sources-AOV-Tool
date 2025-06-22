@@ -215,21 +215,17 @@ with zipfile.ZipFile('Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Common
     zipf.extractall(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/')
     giai(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml')
 #-----------------------------------------------
-iconvaneovmacdinh=b'\t\x03\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00F9B9135D9DECEB62_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0075939F64822D8D0D_##\x00\x08\x00\x00\x003013311\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00Share_13311.jpg\x00\x10\x00\x00\x00Share_13311.jpg\x00\x10\x00\x00\x00Share_13311.jpg\x00\n\x00\x00\x0013311.jpg\x00\x05\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x00D1188909BCF1A796_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x008771C9DA02F4FEA6_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x008D69A8C30826E8D2_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x006740D42BD5B8DAF3_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x002231A8E028E42D2D_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00D74BB3893108A06A_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Commons_01/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01x\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x00\x003013311.jpg\x00\x10\x00\x00\x003013311head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
-#-----------------------------------------------
-iconvaneovbat5=b'%\x03\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00F9B9135D9DECEB62_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0075939F64822D8D0D_##\x00\n\x00\x00\x003013311_2\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x0c\x00\x00\x0013311_2.jpg\x00\x05\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x00D1188909BCF1A796_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x008771C9DA02F4FEA6_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x008D69A8C30826E8D2_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x006740D42BD5B8DAF3_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x002231A8E028E42D2D_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00D74BB3893108A06A_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x003\x00\x00\x00BG_DiRenJie_13312_T3/BG_yinyingzhishou_01_platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01x\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x003013311_2.jpg\x00\x12\x00\x00\x003013311head_2.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
-#-----------------------------------------------
-iconngokhongeovmacdinh=b'R\x03\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x00EBC0C74462FF4B6A_##\x00\x07\x00\x00\x00\x14\x00\x00\x00DDB8BB646733B67E_##\x00\x07\x00\x00\x00301677\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00Share_16707.jpg\x00\x10\x00\x00\x00Share_16707.jpg\x00\x10\x00\x00\x00Share_16707.jpg\x00\n\x00\x00\x0016707.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x008407CA15068FFAAA_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x00C35E60871AB1288B_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x007CD9214682BAB4D9_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x0030F7AD035D47227A_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x00B64FCE08AE9DDFE5_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x0051BF047372097407_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00E51142379BF893FC_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x00B68080AD661210A0_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Commons_01/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01N\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0b\x00\x00\x00301677.jpg\x00\x0f\x00\x00\x00301677head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
-#-----------------------------------------------
-iconngokhongeovbat5=b'h\x03\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x00EBC0C74462FF4B6A_##\x00\x07\x00\x00\x00\x14\x00\x00\x00DDB8BB646733B67E_##\x00\t\x00\x00\x00301677_2\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x0c\x00\x00\x0016707_2.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x008407CA15068FFAAA_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x00C35E60871AB1288B_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x007CD9214682BAB4D9_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x0030F7AD035D47227A_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x00B64FCE08AE9DDFE5_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x0051BF047372097407_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00E51142379BF893FC_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x00B68080AD661210A0_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00-\x00\x00\x00BG_wukongjuexing2/BG_wukongjuexing2_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01N\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\r\x00\x00\x00301677_2.jpg\x00\x11\x00\x00\x00301677_2head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
-#-----------------------------------------------
-bacvaneovmacdinh=b'\t\x01\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00D898FD6DC80FD88F_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0062C20D284D202339_##\x00\x14\x00\x00\x00105E41477A829A72_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x0013311.png\x00\x00\x00\x01\x00\x00\x00\x00\x00\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x9f\x86\x01\x00\x00\xf7\x07\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020220902000000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x87\x01\x00\x01\x01\x00\x00\x06,\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00'
-#-----------------------------------------------
-bacvaneovbat5=b'\x11\x01\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00D898FD6DC80FD88F_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0062C20D284D202339_##\x00\x14\x00\x00\x00105E41477A829A72_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_5.png\x00\x00\x00\x01\x00\x00\x00\x00\x00\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x9f\x86\x01\x00\x00\xf7\x07\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020220902000000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x87\x01\x00\x01\x01\x00\x00\x06,\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x06\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00'
-#-----------------------------------------------
-bacngokhongeovmacdinh=b"\x11\x01\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x07\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_1.png\x00\x01\x00\x01\x00\x00\x00\x00\x01\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x01\x00\x00\x00\x00\x90_\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020210318060000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xab'\x00\x00\x01\x01\x00\x00\x06:\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00"
-#-----------------------------------------------
-bacngokhongeovbat5=b"\x11\x01\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x07\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_5.png\x00\x01\x00\x01\x00\x00\x00\x00\x01\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x01\x00\x00\x00\x00\x90_\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020210318060000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xab'\x00\x00\x01\x01\x00\x00\x06:\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00"
+icon154 = b'q\x03\x00\x00(<\x00\x00\x9a\x00\x00\x00\x14\x00\x00\x00E2B78973E5DA0F49_##\x00\x00\x00\x00\x00\x14\x00\x00\x0020ACB10A3F5C4B9A_##\x00\x07\x00\x00\x00301540\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00{\x02\x00\x00\x10\x00\x00\x00Share_15412.jpg\x00\x10\x00\x00\x00Share_15412.jpg\x00\x10\x00\x00\x00Share_15412.jpg\x00\n\x00\x00\x0015412.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x005AFB0F28AFD223F5_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x0053AF2640805E7163_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00BF08C3E00D2DC1EC_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x00727C8C77DC33BCAB_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x0082D4F38570FF05F5_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x002048DFA5BAFC6E13_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00BFB1C5549350A312_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x005CF3DDF4FFF3F0A7_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Yena_15413/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01\xa6\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x003015412_B43_1.jpg\x00\x10\x00\x00\x003015412head.jpg\x00\x0e\x00\x00\x00Hero_1540.png\x00\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+icon154fix = b'^\x03\x00\x00(<\x00\x00\x9a\x00\x00\x00\x14\x00\x00\x00E2B78973E5DA0F49_##\x00\x00\x00\x00\x00\x14\x00\x00\x0020ACB10A3F5C4B9A_##\x00\x07\x00\x00\x00301540\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00{\x02\x00\x00\x10\x00\x00\x00Share_15412.jpg\x00\x10\x00\x00\x00Share_15412.jpg\x00\x10\x00\x00\x00Share_15412.jpg\x00\n\x00\x00\x0015412.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x005AFB0F28AFD223F5_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x0053AF2640805E7163_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00BF08C3E00D2DC1EC_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x00727C8C77DC33BCAB_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x0082D4F38570FF05F5_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x002048DFA5BAFC6E13_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00BFB1C5549350A312_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x005CF3DDF4FFF3F0A7_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Yena_15413/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01\xa6\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x00\x003015412.jpg\x00\x10\x00\x00\x003015412head.jpg\x00\x01\x00\x00\x00\x00\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+iconvalheinevo1 = b'\x13\x03\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00F9B9135D9DECEB62_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0075939F64822D8D0D_##\x00\x08\x00\x00\x003013311\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00Share_13311.jpg\x00\x10\x00\x00\x00Share_13311.jpg\x00\x10\x00\x00\x00Share_13311.jpg\x00\n\x00\x00\x0013311.jpg\x00\x05\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x00D1188909BCF1A796_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x008771C9DA02F4FEA6_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x008D69A8C30826E8D2_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x006740D42BD5B8DAF3_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x002231A8E028E42D2D_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00D74BB3893108A06A_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Commons_01/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01x\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x00\x003013311.jpg\x00\x10\x00\x00\x003013311head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+iconvalheinevo5 = b'/\x03\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00F9B9135D9DECEB62_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0075939F64822D8D0D_##\x00\n\x00\x00\x003013311_2\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x0c\x00\x00\x0013311_2.jpg\x00\x05\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x00D1188909BCF1A796_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x008771C9DA02F4FEA6_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x008D69A8C30826E8D2_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x006740D42BD5B8DAF3_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x002231A8E028E42D2D_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00D74BB3893108A06A_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x003\x00\x00\x00BG_DiRenJie_13312_T3/BG_yinyingzhishou_01_platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01x\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x003013311_2.jpg\x00\x12\x00\x00\x003013311_1head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+bacvalheinevo1 = b'\r\x01\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00D898FD6DC80FD88F_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0062C20D284D202339_##\x00\x14\x00\x00\x00105E41477A829A72_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x0013311.png\x00\x00\x00\x01\x00\x00\x00\x00\x00\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\xc4\x0b=\x00\x00\xf7\x07\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020220902000000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xdd\x83\x01\x00\x01\x01\x00\x00\x06,\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00'
+bacvalheinevo5 = b'\x15\x01\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x0b\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_5.png\x00\x01\x00\x01\x00\x00\x00\x00\x01\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x01\x00\x00\x00\x00\x8a\t=\x00\x00\x9f\x8c\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020210318060000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x17\x86\x01\x00\x01\x01\x00\x00\x06:\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00'
+iconngokhongevo1 = b'\\\x03\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x00EBC0C74462FF4B6A_##\x00\x07\x00\x00\x00\x14\x00\x00\x00DDB8BB646733B67E_##\x00\x07\x00\x00\x00301677\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00Share_16707.jpg\x00\x10\x00\x00\x00Share_16707.jpg\x00\x10\x00\x00\x00Share_16707.jpg\x00\n\x00\x00\x0016707.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x008407CA15068FFAAA_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x00C35E60871AB1288B_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x007CD9214682BAB4D9_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x0030F7AD035D47227A_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x00B64FCE08AE9DDFE5_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x0051BF047372097407_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00E51142379BF893FC_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x00B68080AD661210A0_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Commons_01/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01N\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0b\x00\x00\x00301677.jpg\x00\x0f\x00\x00\x00301677head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+iconngokhongevo5 = b'r\x03\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x00EBC0C74462FF4B6A_##\x00\x07\x00\x00\x00\x14\x00\x00\x00DDB8BB646733B67E_##\x00\t\x00\x00\x00301677_2\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x0c\x00\x00\x0016707_2.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x008407CA15068FFAAA_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x00C35E60871AB1288B_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x007CD9214682BAB4D9_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x0030F7AD035D47227A_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x00B64FCE08AE9DDFE5_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x0051BF047372097407_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00E51142379BF893FC_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x00B68080AD661210A0_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00-\x00\x00\x00BG_wukongjuexing2/BG_wukongjuexing2_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01N\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\r\x00\x00\x00301677_2.jpg\x00\x11\x00\x00\x00301677_2head.jpg\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+bacngokhongevo1 = b'CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x07\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_1.png'    
+bacngokhongevo5 = b'CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x07\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_5.png'
+
 #-----------------------------------------------
 for IDMODSKIN in IDMODSKIN:
     SKINEOV = ''
@@ -239,223 +235,163 @@ for IDMODSKIN in IDMODSKIN:
         SKINEOV = "b"
     if IDMODSKIN == '15412':
         SKINEOV = "y"
+    if IDMODSKIN == '51015':
+        SKINEOV = "l"
+
     nhap_id = IDMODSKIN
-    file_actor = file_actor_mod
-    file_shop = file_shop_mod
     IDCHECK = IDMODSKIN
     IDSOUND_S = IDMODSKIN
     phukien = ''
     phukienv = ''
 
     if IDCHECK == '52007':
-        phukien1 = input("[1]. Xanh ; [2]. Đỏ ; [3]. Không dùng phụ kiện: ")
+        phukien1 = input(
+            '\033[1;97m[\033[1;91m?\033[1;97m] Mod Component:\n'
+            '\033[1;97m [1] \033[1;92mGreen\n'
+            '\033[1;97m [2] \033[1;92mRed\n'
+            '\033[1;97m [3] \033[1;92mNo Mod Component\n'
+            '\033[1;97m[•] INPUT: '
+        )
         if phukien1 == "1":
             phukien = 'xanh'
-        elif phukien1 == "2":
+        if phukien1 == "2":
             phukien = 'do'
-        elif phukien1 == "3":
-            phukien = ''
-        else:
-            print("Lựa chọn không hợp lệ cho Veres.")
 
     if IDCHECK == '13311':
-        phukien1v = input("[1]. Vàng ; [2]. Đỏ ; [3]. Không dùng phụ kiện: ")
+        phukien1v = '3' 
         if phukien1v == "1":
             phukienv = 'vangv'
-        elif phukien1v == "2":
+        if phukien1v == "2":
             phukienv = 'dov'
-        elif phukien1v == "3":
-            phukienv = ''
-        else:
-            print("Lựa chọn không hợp lệ cho Valhein.")
-    if IDCHECK not in ["10611", "13211", "13212"]:
-        def tim_id(data, chuoi_thay_the):
-            id_tim = b'\x00\x00' + int(data).to_bytes(4, 'little')
-            
-            vi_tri_truoc = chuoi_thay_the.find(id_tim) - 2
-            
-            vi_tri = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+4]
-            vi_tri_tim = int.from_bytes(vi_tri, 'little')
-            if vi_tri_tim > 100:
-                return True
-            else:
-                return False
 
-        tat_ca_id = []
-        with open(file_actor, 'rb') as f:
-            chuoi_thay_the = f.read()
+    if IDCHECK in ["16707"]:
+        duongdan = file_actor_mod
+        try:
+            with open(duongdan, 'rb') as f:
+                codenew = f.read()
+            codenew = codenew.replace(iconngokhongevo1, iconngokhongevo5)
+            with open(duongdan, 'wb') as f:
+                f.write(codenew)
+        except:
+            pass
 
-        if nhap_id == '16707':
-            chuoi_thay_the = chuoi_thay_the.replace(iconngokhongeovmacdinh, iconngokhongeovbat5)
-        elif nhap_id == '16707':
-            chuoi_thay_the = chuoi_thay_the.replace(b'x00\x00301677\x00', b'x00\x00301677_2\x00').replace(b'x00\x00Share_16707.jpg\x00', b'x00\x00Share_16707_2.jpg\x00').replace(b'x00\x0016707.jpg\x00', b'x00\x0016707_2.jpg\x00').replace(b'x00\x00BG_Commons_01/BG_Commons_01_Platform\x00', b'x00\x00BG_wukongjuexing2/BG_wukongjuexing2_Platform\x00').replace(b'x00\x00301677head.jpg\x00', b'x00\x00301677_2head.jpg\x00')
-        elif nhap_id == '13311':
-            chuoi_thay_the = chuoi_thay_the.replace(iconvaneovmacdinh, iconvaneovbat5)
-        elif nhap_id == '13311':
-            chuoi_thay_the = chuoi_thay_the.replace(b'x00\x003013311\x00', b'x00\x003013311_2\x00').replace(b'x00\x00Share_13311.jpg\x00', b'x00\x00Share_13311_2.jpg\x00').replace(b'x00\x0013311.jpg\x00', b'x00\x0013311_2.jpg\x00').replace(b'x00\x00BG_Commons_01/BG_Commons_01_Platform\x00', b'x00\x00BG_DiRenJie_13312_T3/BG_yinyingzhishou_01_platform\x00').replace(b'x00\x003013311head.jpg\x00', b'x00\x003013311_2head.jpg\x00')
+        duongdan2 = file_shop_mod
+        try:
+            with open(duongdan2, 'rb') as f:
+                codenew = f.read()
+            codenew = codenew.replace(bacngokhongevo1, bacngokhongevo5)
+            with open(duongdan2, 'wb') as f:
+                f.write(codenew)
+        except:
+            pass
 
-        for i in range(int(nhap_id[:3] + '00'), int(nhap_id[:3] + '99')):
-            if i != int(nhap_id):
-                kiem_tra_id = tim_id(i, chuoi_thay_the)
-                if kiem_tra_id:
-                    tat_ca_id.append(str(i))
+    ID = IDCHECK
+    IDB = int(ID).to_bytes(4, byteorder="little")
+    IDH = int(ID[0:3]).to_bytes(4, byteorder="little")
+    Files = [file_actor_mod, file_shop_mod]
 
-        id_skin_moi = list(set(tat_ca_id))
-
-        vi_tri_id_tim_kiem = b'\x00\x00' + int(nhap_id).to_bytes(4, 'little')
-        vi_tri_truoc = chuoi_thay_the.find(vi_tri_id_tim_kiem) - 2
-        vi_tri = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+4]
-        vi_tri_tim = int.from_bytes(vi_tri, 'little')
-        vi_tri_mod = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+vi_tri_tim+4]
-
-        for i in id_skin_moi:
-            ll = i
-            vi_tri_mod1 = vi_tri_mod
-            vi_tri_id_tim_kiem = b'\x00\x00' + int(i).to_bytes(4, 'little')
-            vi_tri_truoc = chuoi_thay_the.find(vi_tri_id_tim_kiem) - 2
-            vi_tri = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+4]
-            vi_tri_tim = int.from_bytes(vi_tri, 'little')
-            vi_tri = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+vi_tri_tim+4]
-            
-            if i[3:] == '00':
-                if vi_tri_mod1[64:65] == b'\x07':
-                    i = nhap_id[:3] + nhap_id[4:]
-                    vi_tri_mod1 = vi_tri_mod1[:68] + vi_tri_mod1[68:73] + b'0' + vi_tri_mod1[74:]
-                    vi_tri_mod1 = vi_tri_mod1[:4] + int(ll).to_bytes(4, 'little') + vi_tri_mod1[8:]
-                    vi_tri_mod1 = vi_tri_mod1[:36] + b'\x00' + vi_tri_mod1[37:]
-                else:
-                    vi_tri_mod1 = vi_tri_mod1[:68] + vi_tri_mod1[68:73] + b'0' + vi_tri_mod1[75:]
-                    vi_tri_mod1 = (len(vi_tri_mod1[:64] + b'\x07' + vi_tri_mod1[65:]) - 4).to_bytes(4, 'little') + vi_tri_mod1[4:64] + b'\x07' + vi_tri_mod1[65:]
-                    vi_tri_mod1 = vi_tri_mod1[:4] + int(ll).to_bytes(4, 'little') + vi_tri_mod1[8:]
-                    vi_tri_mod1 = vi_tri_mod1[:36] + int(ll[3:]).to_bytes(1, 'little') + vi_tri_mod1[37:]
-            else:
-                vi_tri_mod1 = vi_tri_mod1[:36] + int(i[3:]).to_bytes(1, 'little') + vi_tri_mod1[37:]
-                vi_tri_mod1 = vi_tri_mod1[:4] + int(ll).to_bytes(4, 'little') + vi_tri_mod1[8:]
-
-            chuoi_thay_the = chuoi_thay_the.replace(vi_tri, vi_tri_mod1).replace(b'\x07\x00\x00\x00301330_2', b'\x07\x00\x00\x00301330').replace(b'\x07\x00\x00\x003016702', b'\x07\x00\x00\x00301670').replace(b'$\x03\x00\x00\xf43', b'"\x03\x00\x00\xf43').replace(b'g\x03\x00\x00<A', b'f\x03\x00\x00<A').replace(b'73F8D70E20CB6B44_##\x00\x00\x00\x00\x00\x14\x00\x00\x00C748BCA5990E9431_##\x00\x07\x00\x00\x00301330', b'73F8D70E20CB6B44_##\x00\x00\x00\x00\x00\x14\x00\x00\x00C748BCA5990E9431_##\x00\x07\x00\x00\x00301320')  # 13311and16707
-
-        with open(file_actor, 'wb') as f:
-            f.write(chuoi_thay_the)
-        dieukienmod = vi_tri_mod1
-        tat_ca_id_skin = []
-        with open(file_shop, 'rb') as f:
-            chuoi_thay_the = f.read()
-
-        if nhap_id == '16707':
-            chuoi_thay_the = chuoi_thay_the.replace(bacngokhongeovmacdinh, bacngokhongeovbat5)
-        if nhap_id == '16707':
-            chuoi_thay_the = chuoi_thay_the.replace(b'x00\x00Awake_Label_1.png\x00', b'x00\x00Awake_Label_5.png\x00')
-        elif nhap_id == '13311':
-            chuoi_thay_the = chuoi_thay_the.replace(bacvaneovmacdinh, bacvaneovbat5)
-        elif nhap_id == '13311':
-            chuoi_thay_the = chuoi_thay_the.replace(b'x00\x0013311.png\x00', b'x00\x00Awake_Label_5.png\x00')
-
-        for id_tim in range(int(nhap_id[:3] + '00'), int(nhap_id[:3] + '99')):
-            if str(id_tim) == nhap_id:
-                continue
-            vi_tri_id_tim_kiem = id_tim.to_bytes(4, 'little') + int(nhap_id[:3]).to_bytes(2, 'little') + b'\x00\x00\x14'
-            if chuoi_thay_the.find(vi_tri_id_tim_kiem) != -1:
-                tat_ca_id_skin.append(vi_tri_id_tim_kiem)
-
-        if chuoi_thay_the.find(int(nhap_id).to_bytes(4, 'little') + int(nhap_id[:3]).to_bytes(2, 'little') + b'\x00\x00\x14') != -1:
-            vi_tri_id_tim_kiem = int(nhap_id).to_bytes(4, 'little') + int(nhap_id[:3]).to_bytes(2, 'little') + b'\x00\x00\x14'
-            vi_tri_truoc = chuoi_thay_the.find(vi_tri_id_tim_kiem) - 4
-            vi_tri = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+4]
-            vi_tri_tim = int.from_bytes(vi_tri, 'little')
-            ma_skin_mod = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+vi_tri_tim+4]
-            for id1 in tat_ca_id_skin:
-                vi_tri_truoc = chuoi_thay_the.find(id1) - 4
-                vi_tri = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+4]
-                vi_tri_tim = int.from_bytes(vi_tri, 'little')
-                ma_skin_mod1 = chuoi_thay_the[vi_tri_truoc:vi_tri_truoc+vi_tri_tim+4]
-                ma_rpl = ma_skin_mod[:4] + id1[:4] + ma_skin_mod[8:]
-                chuoi_thay_the = chuoi_thay_the.replace(ma_skin_mod1, ma_rpl)
-
-        with open(file_shop, 'wb') as f:
-            f.write(chuoi_thay_the)
-        print('Actor - Shop Done')
-        
-    if IDCHECK in ["10611", "13211", "13212"]:
-        
-        
-        ID = IDCHECK
-        Show = 'y'
-        IDB = int(ID).to_bytes(4, byteorder="little")
-        IDH = int(ID[0:3]).to_bytes(4, byteorder="little")
-        Files = [file_actor, file_shop]
-        print("By Kunn_AOV")
-        print("-" *70)
-        for File in Files:
-            All = []
-            Skin = ""
-            file = open(File, "rb")
+    for File in Files:
+        All = []
+        Skin = ""
+        with open(File, "rb") as file:
             Code = file.read()
-            Find= -10
-            while True:
-                Find = Code.find(b"\x00\x00"+IDH, Find+10)
-                if Find == -1: break
-                elif str(int.from_bytes(Code[Find-2:Find], byteorder="little"))[0:3] == ID[0:3]:
-                    VT2 = int.from_bytes(Code[Find-6:Find-4], byteorder="little")
-                    Code2 = Code[Find-6:Find-6+VT2]
-                    All.append(Code2)
-                    if Code2.find(IDB) != -1: Skin=Code2
-            if Skin == "":
-                print("\n \033[1;31m The id couldn't be found in " + File + " file!")
-                IDNew = input("\n\033[1;36m  Enter an alternate skin ID: ")
-                IDK = int(IDNew).to_bytes(4, byteorder="little")
-                IDH2 = int(IDNew[0:3]).to_bytes(4, byteorder="little")
-                Find = Code.find(IDK+IDH2)
-                Sum = int.from_bytes(Code[Find-4:Find-2], byteorder="little")
-                Skin = Code[Find-4:Find-4+Sum]
-            for Id in All:
-                Cache = Skin.replace(Skin[4:6], Id[4:6], 1)
-                Cache = Cache.replace(Cache[35:44], Id[35:40]+Cache[40:44],1)
-                if Show == "y":
-                    if Id == Skin:
-                        Cache = Cache.replace(Skin[35:44], b"\x00" * 5 + b"\x14" + b"\x00" *3, 1)
-                    if Id == All[0]:
-                        Cache = Cache.replace(Id[35:44], Skin[35:44], 1)
-                Hero = hex(int(ID[0:3]))[2:]
-                if len(Hero) == 3: Hero = Hero[1:3] + "0" + Hero[0]
-                else: Hero+="00"
-                Hero += "0000"
-                Hero = bytes.fromhex(Hero)
-                Cache = Cache.replace(Cache[8:12],Hero,1)
-                if File == Files[0]:
-                    if Id == All[0]:
-                        ID30 = b"\x07\x00\x00\x0030" + bytes(ID[0:3] + "0", "utf8") + b"\x00"
-                        XYZ = Cache[64]
-                        ID0 = Cache[64: 68 + XYZ]
-                        Cache = Cache.replace(ID0, ID30, 1)
-                        VT = Id.find(b"Hero_")
-                        NumHero = Id[VT - 4]
-                        Hero = Id[VT - 4: VT + NumHero]
-                        Cache = Cache.replace(b"jpg\x00\x01\x00\x00\x00\x00", b"jpg\x00" + Hero)
-                        Full = Cache.count(Hero)
-                        if Full > 1:
-                            Cache = Cache.replace(b"jpg\x00" + Hero, b"jpg\x00\x01\x00\x00\x00\x00", Full - 1)
-                        EndTheCode = hex(len(Cache))
-                        if len(EndTheCode) == 5:
-                            EndTheCode = EndTheCode[3:5] + "0" + EndTheCode[2:3]
-                        else:
-                            EndTheCode = EndTheCode[4:6] + EndTheCode[2:4]
-                        EndTheCode = bytes.fromhex(EndTheCode)
-                        Cache = Cache.replace(Cache[0:2], EndTheCode, 1)
-                Code = Code.replace(Id, Cache, 1)
-                dieukienmod1=[]
-                dieukienmod1.append(Cache)
-                for dieukienmod2 in dieukienmod1:
-                    if b"Hero" in dieukienmod2:
-                         dieukienmod = dieukienmod2
-            file = open(File, "wb")
-            W = file.write(Code)
 
+        Find = -10
+        while True:
+            Find = Code.find(b"\x00\x00" + IDH, Find + 10)
+            if Find == -1:
+                break
+            elif str(int.from_bytes(Code[Find - 2:Find], byteorder="little"))[0:3] == ID[0:3]:
+                VT2 = int.from_bytes(Code[Find - 6:Find - 4], byteorder="little")
+                Code2 = Code[Find - 6:Find - 6 + VT2]
+                All.append(Code2)
+                if Code2.find(IDB) != -1:
+                    Skin = Code2
 
+        if Skin == "":
+            IDNew = IDCHECK[:3] + "00"
+            IDK = int(IDNew).to_bytes(4, byteorder="little")
+            IDH2 = int(IDNew[0:3]).to_bytes(4, byteorder="little")
+            Find = Code.find(IDK + IDH2)
+            Sum = int.from_bytes(Code[Find - 4:Find - 2], byteorder="little")
+            Skin = Code[Find - 4:Find - 4 + Sum]
 
-            file.close()
+        for Id in All:
+            Cache = Skin.replace(Skin[4:6], Id[4:6], 1)
+            Cache = Cache.replace(Cache[35:44], Id[35:40] + Cache[40:44], 1)
 
-for IDMODSKIN in IDMODSKIN1:
-    if b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
+            Hero = hex(int(ID[0:3]))[2:]
+            if len(Hero) == 3:
+                Hero = Hero[1:3] + "0" + Hero[0]
+            else:
+                Hero += "00"
+            Hero += "0000"
+            Hero = bytes.fromhex(Hero)
+            Cache = Cache.replace(Cache[8:12], Hero, 1)
+
+            if File == Files[0] and Id == All[0]:
+                ID30 = b"\x07\x00\x00\x0030" + bytes(ID[0:3] + "0", "utf8") + b"\x00"
+                XYZ = Cache[64]
+                ID0 = Cache[64: 68 + XYZ]
+                Cache = Cache.replace(ID0, ID30, 1)
+
+                VT = Id.find(b"Hero_")
+                NumHero = Id[VT - 4]
+                Hero = Id[VT - 4: VT + NumHero]
+                Cache = Cache.replace(b"jpg\x00\x01\x00\x00\x00\x00", b"jpg\x00" + Hero)
+                Full = Cache.count(Hero)
+                if Full > 1:
+                    Cache = Cache.replace(b"jpg\x00" + Hero, b"jpg\x00\x01\x00\x00\x00\x00", Full - 1)
+
+                EndTheCode = hex(len(Cache))
+                if len(EndTheCode) == 5:
+                    EndTheCode = EndTheCode[3:5] + "0" + EndTheCode[2:3]
+                else:
+                    EndTheCode = EndTheCode[4:6] + EndTheCode[2:4]
+                EndTheCode = bytes.fromhex(EndTheCode)
+                Cache = Cache.replace(Cache[0:2], EndTheCode, 1)
+
+            Code = Code.replace(Id, Cache, 1)
+
+            dieukienmod1 = [Cache]
+            for dieukienmod2 in dieukienmod1:
+                if b"Hero" in dieukienmod2:
+                    dieukienmod = dieukienmod2
+
+        with open(File, "wb") as file:
+            file.write(Code)
+    print('Actor - Shop Done')
+
+    if len(IDMODSKIN1) == 1:
+        if b'Skin_Icon_HeadFrame' in dieukienmod:                
+            data = dieukienmod
+            target = b'\x00\x00\x10\x00\x00\x00Share_'+IDCHECK.encode()+b'.jpg'
+            index = data.find(target) - 2
+            two_bytes_before = data[index:index+2]
+            print(two_bytes_before)
+            if two_bytes_before != b'\x00\x00':
+                inp=file_mod_vien
+                with open(inp,'rb') as f:
+                    ab=f.read()
+                a=two_bytes_before
+                i=ab.find(a)-4
+                vt=ab[i:i+4]
+                vtr=int.from_bytes(vt,byteorder='little')
+                vt1=ab[i:i+vtr]
+                id2='6500'
+                a1=bytes.fromhex(str(id2))
+                f.close()
+                i1=ab.find(a1)-4
+                vt11=ab[i1:i1+4]
+                vtr1=int.from_bytes(vt11,byteorder='little')
+                vt2=ab[i1:i1+vtr1]
+                vt1=vt1.replace(a,a1)
+                vt11=ab.replace(vt2,vt1)
+                with open(inp,'wb') as go:
+                    go.write(vt11)
+        else:
+            pass
+    if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
         skin_id_input = IDMODSKIN
         print(f"\n------------Skin ID {skin_id_input} --------------")
         sound_directory = Sound_Files
@@ -527,31 +463,28 @@ for IDMODSKIN in IDMODSKIN1:
 
             # In từng file
             print(f"[✓] Sound: {sound_file_name} cho ID {skin_id_input}")
-        print("-"*53)
+        #print("-"*53)
 
-file_paths = [file_mod_skill1, file_mod_skill2]
+    if IDCHECK == "53002" or b"Skin_Icon_Skill" in dieukienmod or b"Skin_Icon_BackToTown" in dieukienmod:
+        file_paths = [file_mod_skill1, file_mod_skill2]
+        matching_files = []
+        user_id = IDMODSKIN
+        user_id_bytes = bytes(f"fects/{user_id[0:3]}_", "utf8")
 
-for user_id in IDMODSKIN1:
-    user_id_bytes = bytes(f"fects/{user_id[0:3]}_", "utf8")
-    matching_files = []
-
-    for file in file_paths:
-        with open(file, "rb") as f:
-            if user_id_bytes in f.read():
+        for file in file_paths:
+            if user_id_bytes in open(file, "rb").read():
                 matching_files.append(file)
-
-    for file in matching_files:
-        if user_id == '13311':
-            with open(file, "rb") as f:
-                code_content = f.read()
-                code_content = code_content.replace(
+        for file in matching_files:
+            if user_id == '13311':
+                with open(file, "rb") as f:
+                    code_content = f.read()
+                    code_content = code_content.replace(
                     b"prefab_skill_effects/hero_skill_effects/133_direnjie/",
                     b"prefab_skill_effects/component_effects/13311/13311_5/"
                 )
-            with open(file, "wb") as f:
-                f.write(code_content)
-            break  
-        else:
+                with open(file, "wb") as f:
+                    f.write(code_content)
+                break  
             modified_codes = []
             buffer_codes = []
 
@@ -597,173 +530,124 @@ for user_id in IDMODSKIN1:
 
             with open(file, "wb") as f:
                 f.write(original_content)
-    print('-'*53)
+    #print('-'*53)
     print(f"  Mod Skill Effect ID: {user_id}")
     if matching_files:
         for file in matching_files:
             print(f"   [-] {os.path.basename(file):<25} Done!")
     else:
         print("   [x] Not Found")
-"""for IDCHECK in IDMODSKIN1:
-    if IDCHECK not in ["13008", "52007"]:
-        if not os.path.exists(file_mod_Character):
-            print(f"❌ Không tìm thấy file: {file_name}")
-            continue
-
-        with open(file_mod_Character, 'rb') as f:
-            file_content = f.read()
-
-        IDPHUKIEN = IDCHECK[:3]
-        found_patterns = []
-        for i in range(10500, 20000):
-            if i.to_bytes(4, 'little') in file_content:
-                found_patterns.append(str(i))
-
-        for i in range(50100, 54900):
-            if i.to_bytes(4, 'little') in file_content:
-                found_patterns.append(str(i))
-        relevant_patterns = [p for p in found_patterns if IDPHUKIEN == p[:3]]
-
-        if relevant_patterns:
-            first_pattern = relevant_patterns[0]
-            total_matches = sum(
-                file_content.count(int(p).to_bytes(4, 'little')) for p in relevant_patterns
-            )
-
-            first_pos = file_content.find(int(first_pattern).to_bytes(4, 'little')) - 155
-            if first_pos < 0:
-                continue
-
-            full_code = b''
-            while True:
-                try:
-                    block_size = int.from_bytes(file_content[first_pos:first_pos+4], 'little')
-                    block = file_content[first_pos:first_pos + block_size + 4]
-                except:
-                    print("❌ Lỗi đọc block (có thể cuối file).")
-                    break
-
-                if all(int(p).to_bytes(4, 'little') not in block for p in relevant_patterns):
-                    break
-
-                full_code += block
-                file_content = file_content[first_pos + block_size + 4:]
-                first_pos = 0
-
-            if full_code:
-                new_data = file_content.replace(full_code, b'')
-
-                with open(file_mod_Character, 'wb') as f:
-                    f.write(new_data)
-            else:
-                pass
-        else:
-            pass"""
-
-for ID in IDMODSKIN1:
-    AllID = []
+        
+    file_path = file_mod_Modtion
+    skin_id = IDMODSKIN
+    all_ids = []
     for i in range(21):
         if i < 10:
-            AllID.append(ID[0:3] + "0" + str(i))
+            all_ids.append(skin_id[0:3] + "0" + str(i))
         else:
-            AllID.append(ID[0:3] + str(i))
+            all_ids.append(skin_id[0:3] + str(i))
 
-    All_S = []
-    for i in AllID:
-        i_hex = hex(int(i))[2:]
-        All_S.append(bytes.fromhex(f"{i_hex[2:4]}{i_hex[0:2]}0000"))
+    all_patterns = []
 
-    with open(file_mod_Modtion, "rb") as f:
-        begin = f.read(140)
-        All_Code = []
+    for id in all_ids:
+        hex_id = hex(int(id))[2:]
+        all_patterns.append(bytes.fromhex(f"{hex_id[2:4]}{hex_id[0:2]}0000"))
+
+    with open(file_path, "rb") as file:
+        file_start = file.read(140)
+        all_codes = []
         while True:
-            SL = f.read(2)
-            if SL == b"":
+            segment_length = file.read(2)
+            if segment_length == b"":
+                file.close()
                 break
-            SL0 = SL[0] + SL[1] * 256
-            Code = SL + f.read(SL0)
-            if All_S[AllID.index(ID)] in Code:
-                All_Code.append(Code)
-            elif All_S[0] in Code:
-                All_Code.append(Code)
+            segment_length_value = segment_length[0] + segment_length[1] * 256 + 2
+            code = segment_length + file.read(segment_length_value)
+            if all_patterns[all_ids.index(skin_id)] in code:
+                all_codes.append(code)
+            elif all_patterns[0] in code:
+                all_codes.append(code)
 
-    CodeDB = []
-    CodeMD = []
-    CodeMD2 = []
-
-    for code in All_Code:
+    dance_codes = []
+    dance_codes_database = []
+    dance_codes_mod = []
+    for code in all_codes:
         if code[0:2] in b"6\x00S\x00":
-            CodeDB.append(code)
+            dance_codes_database.append(code)
         else:
-            CodeMD.append(code)
-            CodeMD2.append(code)
+            dance_codes.append(code)
+            dance_codes_mod.append(code)
 
-    idmod = None
-    aw = 0
+    dance_selection = 0
+    if len(dance_codes_database) > 1:
+        dance_selection = int(1) - 1
 
-    # Nếu có 2 điệu nhảy → hỏi người dùng
-    if len(CodeDB) > 1:
-        print(f"ID {ID} có {len(CodeDB)} điệu nhảy.")
-        print("Chọn điệu nhảy:")
-        for idx, code in enumerate(CodeDB, 1):
-            motion_id = int.from_bytes(code[21:25], 'little')
-            print(f"  [{idx}] ID Motion: {motion_id}")
-        while True:
-            try:
-                user_choice = int(input("Nhập số (1 hoặc 2): ").strip())
-                if user_choice in [1, 2]:
-                    aw = user_choice - 1
+    if len(dance_codes_database) > 0:
+        selected_dance_code = dance_codes_database[dance_selection]
+        dance_mod_id = selected_dance_code[21:25]
+        for code in dance_codes:
+            index = dance_codes.index(code)
+            for pattern in all_patterns:
+                position = code.find(pattern)
+                if position != -1:
+                    code_to_replace = code[position + 4:position + 8]
+                    code = code.replace(code_to_replace, dance_mod_id, 1)
+                else:
                     break
-            except:
-                pass
-        CodeR = CodeDB[aw]
-        idmod = CodeR[21:25]
-
-    elif len(CodeDB) == 1:
-        CodeR = CodeDB[0]
-        idmod = CodeR[21:25]
-
-    elif len(CodeMD) > 0:
-        for code in CodeMD:
-            vt = code.find(All_S[AllID.index(ID)])
-            if vt != -1:
-                idmod = code[vt + 4:vt + 8]
-                break
-
-    if idmod:
-        for i, code in enumerate(CodeMD):
-            for sid in All_S:
-                vt = code.find(sid)
-                if vt != -1:
-                    codet = code[vt + 4:vt + 8]
-                    code = code.replace(codet, idmod, 1)
-            CodeMD[i] = code
-
-    with open(file_mod_Modtion, "rb") as f:
-        y = f.read()
-
-    for i in range(len(CodeMD)):
-        y = y.replace(CodeMD2[i], CodeMD[i], 1)
-
-    if len(CodeMD) + len(CodeDB) == 0:
-        for sid in All_S:
-            y = y.replace(sid, b"\x00\x00\x00", 1)
-
-    with open(file_mod_Modtion, "wb") as f:
-        f.write(y)
-
-    print("—" * 53)
-    print(f"  Mod Motion ID: {ID}")
-    if idmod:
-        print(f"   [-] {os.path.basename(file_mod_Modtion):<25} Done! → Đã dùng Motion ID: {int.from_bytes(idmod, 'little')}")
+            dance_codes[index] = code
     else:
-        print(f"   [x] Không tìm thấy Motion tương ứng cho ID {ID}")
+        for code in dance_codes:
+            index = dance_codes.index(code)
+            position_ref = code.find(all_patterns[all_ids.index(skin_id)])
+            dance_mod_id = code[position_ref + 4:position_ref + 8]
+            for pattern in all_patterns:
+                position = code.find(pattern)
+                if position != -1:
+                    code_to_replace = code[position + 4:position + 8]
+                    code = code.replace(code_to_replace, dance_mod_id, 1)
+                else:
+                    break
+            dance_codes[index] = code
 
-for IDMODSKIN in IDMODSKIN1:
+    with open(file_path, "rb") as file:
+        content = file.read()
+        file.close()
+
+    for i in range(len(dance_codes_mod)):
+        content = content.replace(dance_codes_mod[i], dance_codes[i], 1)
+
+    if len(dance_codes) + len(dance_codes_database) == 0:
+        for pattern in all_patterns:
+            content = content.replace(pattern, b"00\x00\x00", 1)
+
+    with open(file_path, "wb") as file:
+        file.write(content)
+    #print("—" * 53)
+    print(f"  Mod Motion ID: {ID}")
+
     zip_path = f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{IDMODSKIN[:3]}_Actions.pkg.bytes'
     Files_Directory_Path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4/'
-    print("-"*53)
+    #print("-"*53)
     print(f'  Skill Ages - Actor_{IDMODSKIN[:3]}_Actions.pkg.bytes')
+    phukien = ""
+    if IDMODSKIN == '52007':
+        print(f"[✓] Chọn phụ kiện Veres ({IDMODSKIN}):")
+        chon = input("1. Đỏ  |  2. Xanh: ").strip()
+        if chon == "1":
+            phukien = "do"
+        elif chon == "2":
+            phukien = "xanh"
+        else:
+            print("[-] Không dùng phụ kiện.")
+    if IDMODSKIN == '13311':
+        print(f"[✓] Chọn phụ kiện Veres ({IDMODSKIN}):")
+        chon = input("1. Đỏ  |  2. Xanh: ").strip()
+        if chon == "1":
+            phukienv = "dov"
+        elif chon == "2":
+            phukien = "xanh"
+        else:
+            print("[-] Không dùng phụ kiện.")
     with zipfile.ZipFile(zip_path, 'r') as zip_ref:
         zip_ref.extractall(Files_Directory_Path)
 
@@ -923,14 +807,6 @@ for IDMODSKIN in IDMODSKIN1:
                     f.write(rpl)
 #---------------—------------———----------------
             if IDMODSKIN =='52007':
-                chon = input("1. Đỏ  |  2. Xanh: ").strip()
-                if chon == "1":
-                    phukien = "do"
-                elif chon == "2":
-                    phukien = "xanh"
-                else:
-                    phukien = ""
-
                 if phukien == "do":
                     with open(file_path, 'rb') as f:
                         rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/520_Veres/52007/',b'prefab_skill_effects/component_effects/52007/5200402/')
@@ -1039,111 +915,105 @@ for IDMODSKIN in IDMODSKIN1:
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
 #---------------—------------———----------------
-            if IDCHECK[:3] =='524' and 'A1E9.xml' in file_path:
+            if IDMODSKIN[:3] =='524' and 'A1E9.xml' in file_path:
                 with open(file_path, 'rb') as f:
-                    rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/524_Capheny/'+IDCHECK.encode()+b'/Atk1_FireRange',b'prefab_skill_effects/hero_skill_effects/524_Capheny/Atk1_FireRange')
+                    rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/524_Capheny/'+IDMODSKIN.encode()+b'/Atk1_FireRange',b'prefab_skill_effects/hero_skill_effects/524_Capheny/Atk1_FireRange')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
 #---------------—------------———----------------
-            if IDCHECK[:3] =='537' and 'S12.xml' in file_path:
+            if IDMODSKIN[:3] =='537' and 'S12.xml' in file_path:
                 with open(file_path, 'rb') as f:
                     rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/537_Trip/Trip_attack_spell01_1prefab_skill_effects/hero_skill_effects/537_Trip/Trip_attack_spell01_1prefab_skill_effects/hero_skill_effects/537_Trip/Trip_attack_spell01_1_S',b'prefab_skill_effects/hero_skill_effects/537_Trip/Trip_attack_spell01_1_S')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
 #---------------—------------———----------------
-            if IDCHECK =='11119' and 'A1B1.xml' in file_path:
+            if IDMODSKIN =='11119' and 'A1B1.xml' in file_path:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="prefabName" value="prefab_characters/commonempty" refParamName="" useRefParam="false" />', b'<String name="prefabName" value="prefab_skill_effects/hero_skill_effects/111_sunshangxiang/11119/sunshangxiang_fly_01b" refParamName="" useRefParam="false" />\r\n        <Vector3i name="translation" x="0" y="750" z="0" refParamName="" useRefParam="false" />')
                 with open(file_path,'wb') as f: 
                     f.write(rpl)
 #---------------—------------———----------------
-                if IDCHECK =='11119' and 'A2B1.xml' in file_path:
+                if IDMODSKIN =='11119' and 'A2B1.xml' in file_path:
                     with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="prefabName" value="prefab_characters/commonempty" refParamName="" useRefParam="false" />',b'<String name="prefabName" value="prefab_skill_effects/hero_skill_effects/111_sunshangxiang/11119/sunshangxiang_fly_01b" refParamName="" useRefParam="false" />\r\n        <Vector3i name="translation" x="0" y="700" z="0" refParamName="" useRefParam="false" />')
                     with open(file_path,'wb') as f: 
                         f.write(rpl)
 #---------------—------------———----------------
-            if IDCHECK =='13015' and 'A4.xml' in file_path:
+            if IDMODSKIN =='13015' and 'A4.xml' in file_path:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'<bool name="useNegateValue" value="true"', b'<bool name="useNegateValue" value="false"')
                 with open(file_path,'wb') as f: 
                     f.write(rpl)
 #---------------—------------———----------------
-            if IDCHECK =='53702' and 'S12.xml' in file_path:
+            if IDMODSKIN =='53702' and 'S12.xml' in file_path:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/537_Trip/53702/Trip_attack_spell01_1prefab_skill_effects/hero_skill_effects/537_Trip/53702/Trip_attack_spell01_1prefab_skill_effects/hero_skill_effects/537_Trip/53702/Trip_attack_spell01_1_S', b'Prefab_Skill_Effects/Hero_Skill_Effects/537_Trip/53702/Trip_attack_spell01_1_S')
                 with open(file_path,'wb') as f: 
                     f.write(rpl)
 #---------------—------------———----------------
-            if IDCHECK =='15012' and 'U1.xml' in file_path:
+            if IDMODSKIN =='15012' and 'U1.xml' in file_path:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="prefab" value="prefab_skill_effects/hero_skill_effects/150_Hanxin_spellC_01"',b'<String name="prefab" value="prefab_skill_effects/hero_skill_effects/150_hanxin/15012/150_Hanxin_spellC_01"')
                 with open(file_path, 'wb') as f:
                     f.write(rpl)
 #---------------—------------———----------------
-            if IDCHECK == '13311':
+            if IDMODSKIN == '13311':
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/133_direnjie/13311/',b'prefab_skill_effects/component_effects/13311/13311_5/').replace(b'"Play_DiRenJie_Attack_1"', b'"Play_DiRenJie_Attack_1_Skin11_AW2"').replace(b'"Play_DiRenJie_Voice_Short"', b'"Play_DiRenJie_Voice_Short_Skin11_AW3"').replace(b'"Play_DiRenJie_Attack_Hit_1"', b'"Play_DiRenJie_Attack_Hit_1_Skin11_AW2"').replace(b'"Play_DiRenJie_Skill_A"', b'"Play_DiRenJie_Skill_A_Skin11_AW2"').replace(b'"Play_DiRenJie_Voice_Anger"', b'"Play_DiRenJie_Voice_Anger_Skin11_AW3"').replace(b'"Play_DiRenJie_Skill_A_Hit"', b'"Play_DiRenJie_Skill_A_Hit_Skin11_AW2"').replace(b'"Play_DiRenJie_Attack_Hit_2"', b'"Play_DiRenJie_Attack_Hit_2_Skin11_AW2"').replace(b'"Play_DiRenJie_Skill_B"', b'"Play_DiRenJie_Skill_B_Skin11_AW2"').replace(b'"Play_DiRenJie_Skill_B_Hit"', b'"Play_DiRenJie_Skill_B_Hit_Skin11_AW2"').replace(b'"Play_DiRenJie_Card_Red"', b'"Play_DiRenJie_Card_Red_Skin11_AW2"').replace(b'"Play_DiRenJie_Card_Blue"', b'"Play_DiRenJie_Card_Blue_Skin11_AW2"').replace(b'"Play_DiRenJie_Card_Yellow"', b'"Play_DiRenJie_Card_Yellow_Skin11_AW2"').replace(b'"Play_DiRenJie_Voice_Dead"', b'"Play_DiRenJie_Voice_Dead_Skin11_AW3"').replace(b'"Play_DiRenJie_Voice_Skill_B"', b'"Play_DiRenJie_Voice_Skill_B_Skin11_AW3"').replace(b'"Play_DiRenJie_Skill_C"', b'"Play_DiRenJie_Skill_C_Skin11_AW2"').replace(b'"Play_DiRenJie_Voice_Skill_C"', b'"Play_DiRenJie_Voice_Skill_C_Skin11_AW3"').replace(b'"Play_DiRenJie_Skill_C_Hit"', b'"Play_DiRenJie_Skill_C_Hit_Skin11_AW2"')
                 with open(file_path,'wb') as f: 
                     f.write(rpl)
 #---------------—------------———----------------
-            if IDCHECK == '13311' and 'U1' in file_path:
+            if IDMODSKIN == '13311' and 'U1' in file_path:
                 if phukienv == "dov":
                     with open(file_path, 'rb') as f:
                         rpl = f.read().replace(b'prefab_skill_effects/component_effects/13311/13311_5/',b'prefab_skill_effects/component_effects/13311/1331102/')
                     with open(file_path, 'wb') as f:
                         f.write(rpl)
 #---------------—------------———----------------
-            if IDCHECK == '16707':
+            if IDMODSKIN == '16707':
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/167_wukong/16707/',b'prefab_skill_effects/component_effects/16707/16707_5/').replace(b'"Play_Back_WuKong"', b'"Play_Back_WuKong_Skin7_AW3"').replace(b'"Play_WuKong_Attack_1"', b'"Play_WuKong_Attack_1_Skin7_AW3"').replace(b'"Play_WuKong_VO_Short"', b'"Play_WuKong_VO_Short_Skin7_AW4"').replace(b'"Play_WuKong_Attack_Hit_1"', b'"Play_WuKong_Attack_Hit_1_Skin7_AW3"').replace(b'"Play_WuKong_Attack_2"', b'"Play_WuKong_Attack_2_Skin7_AW3"').replace(b'"Play_WuKong_VO_Anger"', b'"Play_WuKong_VO_Anger_Skin7_AW4"').replace(b'"Play_WuKong_Skill_Passive_Hit1"', b'"Play_WuKong_Skill_Passive_Hit1_Skin7_AW3"').replace(b'"Play_WuKong_Skill_Passive_Hit2"', b'"Play_WuKong_Skill_Passive_Hit2_Skin7_AW3"').replace(b'"Play_WuKong_Skill_Passive_Hit3"', b'"Play_WuKong_Skill_Passive_Hit3_Skin7_AW3"').replace(b'"Play_WuKong_Skill_B_2"', b'"Play_WuKong_Skill_B_2_Skin7_AW3"').replace(b'"Play_WuKong_Skill_B_Hit"', b'"Play_WuKong_Skill_B_Hit_Skin7_AW3"').replace(b'"Play_WuKong_VO_Dead"', b'"Play_WuKong_VO_Dead_Skin7_AW4"').replace(b'"Play_WuKong_Skill_A_2"', b'"Play_WuKong_Skill_A_2_Skin7_AW3"').replace(b'"Play_WuKong_Skill_A_Hit"', b'"Play_WuKong_Skill_A_Hit_Skin7_AW3"').replace(b'"Play_WuKong_Skill_A_1"', b'"Play_WuKong_Skill_A_1_Skin7_AW3"').replace(b'"Play_WuKong_VO_Skill_A"', b'"Play_WuKong_VO_Skill_A_Skin7_AW4"').replace(b'"Play_WuKong_Skill_A_Run"', b'"Play_WuKong_Skill_A_Run_Skin7_AW3"').replace(b'"Stop_WuKong_Skill_A_Run"', b'"Stop_WuKong_Skill_A_Run_Skin7_AW3"').replace(b'"Play_WuKong_Skill_B_1"', b'"Play_WuKong_Skill_B_1_Skin7_AW3"').replace(b'"Play_WuKong_VO_Skill_B"', b'"Play_WuKong_VO_Skill_B_Skin7_AW4"').replace(b'"Play_WuKong_Skill_C"', b'"Play_WuKong_Skill_C_Skin7_AW3"').replace(b'"Play_WuKong_VO_Skill_C"', b'"Play_WuKong_VO_Skill_C_Skin7_AW4"').replace(b'"Play_WuKong_Skill_C_01"', b'"Play_WuKong_Skill_C_01_Skin7_AW3"').replace(b'"Play_WuKong_Skill_C_02"', b'"Play_WuKong_Skill_C_02_Skin7_AW3"').replace(b'"Play_WuKong_Skill_C_Hit"', b'"Play_WuKong_Skill_C_Hit_Skin7_AW3"')
                 with open(file_path,'wb') as f: f.write(rpl)
 #---------------—------------———----------------
-            if IDCHECK == '16707' and 'U1B0.xml' in file_path:
+            if IDMODSKIN == '16707' and 'U1B0.xml' in file_path:
                 with open(file_path, 'rb') as f: rpl = f.read().replace(b'<String name="resourceName" value="prefab_skill_effects/component_effects/16707/16707_5/wukong_attack_spell03" refParamName="" useRefParam="false" />', b'<String name="resourceName" value="prefab_skill_effects/component_effects/16707/16707_5/wukong_attack_spell03_1" refParamName="" useRefParam="false" />\r\n         <String name="resourceName2" value="prefab_skill_effects/component_effects/16707/16707_5/wukong_attack_spell03_1" refParamName="" useRefParam="false" />')
                 with open(file_path,'wb') as f: f.write(rpl)
 #---------------—------------———----------------
-            if IDCHECK == "14111_Back.xml" in file_path:
-                with open(file_path, 'rb') as f:
-                    rpl = f.read()
-                    rpl = rpl.replace(b'<Action tag="" length="9.000" loop="false">\n    <Track trackName="SetObjectDirectionTick0" eventType="SetObjectDirectionTick" guid="2b767094-bee5-4ffd-807c-e2759b06b84e" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Event eventName="SetObjectDirectionTick" time="0.000" isDuration="false" guid="d62f8fb3-84f5-4c4a-9a27-b823160e32d1">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="rotationY" value="230" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>', b'<Action tag="" length="0.300" loop="false">\n    <Track trackName="14111专用子弹" eventType="CheckSkinIdTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Event eventName="CheckSkinIdTick" time="0.000" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="skinId" value="14111" refParamName="" useRefParam="false" />\n        <bool name="bEqual" value="false" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="ciyuan1普工" eventType="HitTriggerTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="0" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="HitTriggerTick" time="0.000" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="SelfSkillCombineID_1" value="130912" refParamName="" useRefParam="false" />\n        <TemplateObject name="triggerId" id="-1" objectName="None" isTemp="false" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="ciyuan2普工" eventType="HitTriggerTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="0" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="HitTriggerTick" time="0.080" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="SelfSkillCombineID_1" value="130913" refParamName="" useRefParam="false" />\n        <TemplateObject name="triggerId" id="-1" objectName="None" isTemp="false" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="RemoveBuffTick0" eventType="RemoveBuffTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="0" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="RemoveBuffTick" time="0.160" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="buffId" value="130912" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="RemoveBuffTick0" eventType="RemoveBuffTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="0" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="RemoveBuffTick" time="0.240" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="buffId" value="130913" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="0" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="SpawnBulletTick" time="0.240" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/14111_back" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>')     
-        if IDCHECK == '14111' and "S1.xml" in file_path:
-            with open(file_path, 'rb') as f:
-                rpl = f.read()
-                rpl = rpl.replace(b'<Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="d6b86049-520f-4922-9aad-3dfda1b6e89b" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="2a6ab8c3-3cba-4002-95c5-b9f3cfa702ef" status="true" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="633f8c27-b5e1-4ad3-9e4b-eec64807b014">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s1b2" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>', b'<Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="false" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s1b2" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>').replace(b'<Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="ec27549a-f5de-4f44-a084-6e733b00f3cc" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="23" guid="0bbb2edb-0717-4137-9771-3c0ed1c0ff0a" status="false" />\n      <Condition id="20" guid="c26bb31c-a046-42ee-bc75-0857b87baea5" status="true" />\n      <Condition id="8" guid="fd20a444-1b70-42c0-94a6-4783d23ab256" status="true" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="1d185159-f388-45bd-80c5-015c5f38670f">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s1b12" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>', b'<Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="23" guid="14111_LAURIEL_TNVT" status="false" />\n      <Condition id="20" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="8" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s1b11" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>').replace(b'</Action>\n</Project>', b'  <Track trackName="BUFF" eventType="CheckSkillCombineConditionTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="CheckSkillCombineConditionTick" time="0.000" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="skillCombineId" value="141920" refParamName="" useRefParam="false" />\n        <Enum name="checkOPType" value="5" refParamName="" useRefParam="false" />\n        <int name="skillCombineLevel" value="1" refParamName="" useRefParam="false" />\n        <bool name="bCopyActorUseSrcActor" value="true" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="28" guid="14111_LAURIEL_TNVT" status="false" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s1b2" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="BUFF1" eventType="CheckSkillCombineConditionTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="CheckSkillCombineConditionTick" time="0.000" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="skillCombineId" value="130912" refParamName="" useRefParam="false" />\n        <Enum name="checkOPType" value="3" refParamName="" useRefParam="false" />\n        <int name="skillCombineLevel" value="1" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="BUFF2" eventType="CheckSkillCombineConditionTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="CheckSkillCombineConditionTick" time="0.000" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <int name="skillCombineId" value="130913" refParamName="" useRefParam="false" />\n        <Enum name="checkOPType" value="3" refParamName="" useRefParam="false" />\n        <int name="skillCombineLevel" value="1" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="30" guid="14111_LAURIEL_TNVT" status="false" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s2b11" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="30" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="SpawnBulletTick" time="0.133" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/s1b12" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="28" guid="14111_LAURIEL_TNVT" status="false" />\n      <Event eventName="TriggerParticle" time="0.000" length="1.700" isDuration="true" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="-1" objectName="None" isTemp="false" refParamName="" useRefParam="false" />\n        <TemplateObject name="objectSpaceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/141_diaochan/14111_spell01_A" refParamName="" useRefParam="false" />\n        <Vector3 name="bindPosOffset" x="0.000" y="0.500" z="1.200" refParamName="" useRefParam="false" />\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="TriggerParticle0" eventType="TriggerParticle" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="28" guid="14111_LAURIEL_TNVT" status="true" />\n      <Event eventName="TriggerParticle" time="0.000" length="1.700" isDuration="true" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="-1" objectName="None" isTemp="false" refParamName="" useRefParam="false" />\n        <TemplateObject name="objectSpaceId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="resourceName" value="prefab_skill_effects/hero_skill_effects/141_diaochan/14111_spell01_B" refParamName="" useRefParam="false" />\n        <Vector3 name="bindPosOffset" x="0.000" y="0.500" z="1.200" refParamName="" useRefParam="false" />\n        <Vector3i name="scalingInt" x="10000" y="10000" z="10000" refParamName="" useRefParam="false" />\n        <String name="syncAnimationName" value="" refParamName="" useRefParam="false" />\n        <String name="customTagName" value="" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n    <Track trackName="SpawnBulletTick0" eventType="SpawnBulletTick" guid="14111_LAURIEL_TNVT" enabled="true" useRefParam="false" refParamName="" r="0.000" g="0.000" b="0.000" execOnForceStopped="false" execOnActionCompleted="false" stopAfterLastEvent="true">\n      <Condition id="7" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="28" guid="14111_LAURIEL_TNVT" status="true" />\n      <Condition id="30" guid="14111_LAURIEL_TNVT" status="false" />\n      <Condition id="31" guid="14111_LAURIEL_TNVT" status="false" />\n      <Event eventName="SpawnBulletTick" time="0.000" isDuration="false" guid="14111_LAURIEL_TNVT">\n        <TemplateObject name="targetId" id="0" objectName="self" isTemp="false" refParamName="" useRefParam="false" />\n        <String name="ActionName" value="prefab_characters/prefab_hero/141_diaochan/skill/14111_back" refParamName="" useRefParam="false" />\n      </Event>\n    </Track>\n  </Action>\n</Project>')
 #---------------—------------———----------------
 #-----------------------------------------------
-    if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
-        if IDCHECK not in ["13311", "16707"]:
-            directory_path = Files_Directory_Path + f'{NAME_HERO}' + '/skill/'        
-            IDSOUND_S = IDMODSKIN
-            if IDSOUND_S[3:4] == '0':
-                IDSOUND_S = IDSOUND_S[:3] + IDSOUND_S[4:]
-            IDSOUND1 = IDSOUND_S[3:]
-            IDSOUND12 = IDSOUND1.encode()
-            IDSOUND = b"_Skin" + IDSOUND12
-            IDINFO = str(int(IDMODSKIN) + 1)
-            if IDINFO[3:4] == '0':
-                IDINFO = IDINFO[:3] + IDINFO[4:]
+    if IDCHECK not in ["13311", "16707"]:
+        directory_path = Files_Directory_Path + f'{NAME_HERO}' + '/skill/'        
+        IDSOUND_S = IDMODSKIN
 
-            for file in os.listdir(directory_path):
-                filepath = directory_path + file
-                with open(filepath, 'rb') as f:
-                    content = f.read()
+        if IDSOUND_S[3:4] == '0':
+            IDSOUND_S = IDSOUND_S[:3] + IDSOUND_S[4:]
 
-                lines = content.split(b'\r\n')
-                code_lines = [
-                    line[40:line.find(b'" refParamName="" useRefParam="false" />')]
-                    for line in lines
-                    if b'<String name="eventName" value="' in line
-                ]
+        IDSOUND1 = IDSOUND_S[3:]
+        IDSOUND12 = IDSOUND1.encode()
+        IDSOUND = b"_Skin" + IDSOUND12
 
-                modified = False
-                for code in code_lines:
-                    if IDSOUND in code:
-                        continue
-                    a = b'<String name="eventName" value="' + code + b'" refParamName="" useRefParam="false" />'
-                    b = b'<String name="eventName" value="' + code + IDSOUND + b'" refParamName="" useRefParam="false" />\n        <bool name="useSkinSwitch" value="false" refParamName="" useRefParam="false"/>'
-                    if a in content:
-                        content = content.replace(a, b)
-                        modified = True
+        IDINFO = str(int(IDMODSKIN) + 1)
+        if IDINFO[3:4] == '0':
+            IDINFO = IDINFO[:3] + IDINFO[4:]
 
-                if modified:
-                    with open(filepath, 'wb') as f:
-                        f.write(content)
+        for file in os.listdir(directory_path):
+            filepath = directory_path + file
+            with open(filepath, 'rb') as f:
+                content = f.read()
+
+            lines = content.split(b'\r\n')
+            code_lines = [
+                line[40:line.find(b'" refParamName="" useRefParam="false" />')]
+                for line in lines
+                if b'<String name="eventName" value="' in line
+            ]
+
+            modified = False
+            for code in code_lines:
+                if IDSOUND in code:
+                    continue
+                a = b'<String name="eventName" value="' + code + b'" refParamName="" useRefParam="false" />'
+                b = b'<String name="eventName" value="' + code + IDSOUND + b'" refParamName="" useRefParam="false" />\n        <bool name="useSkinSwitch" value="false" refParamName="" useRefParam="false"/>'
+                if a in content:
+                    content = content.replace(a, b)
+                    modified = True
+
+            if modified:
+                with open(filepath, 'wb') as f:
+                    f.write(content)
                     
 #-----------------------------------------------
     if IDCHECK == '15009':
@@ -1206,7 +1076,14 @@ for IDMODSKIN in IDMODSKIN1:
                     print(f"Files Encryptes JG: {file_path}")
                     continue
 #-----------------------------------------------
-    if IDCHECK in ["50108","14111","11107","15009","13015"]:
+    if IDCHECK in ("50108","14111","11107","15009","13015"):
+        organSkin = "Resources/1.58.1/Databin/Client/Actor/organSkin.bytes"
+        organSkin_mod = f"{pack_name}/Resources/1.58.1/Databin/Client/Actor/organSkin.bytes"
+        shutil.copy(organSkin, organSkin_mod)
+        giai(organSkin_mod)
+        print("-"*70)
+
+    if IDCHECK in ("50108","14111","11107","15009","13015"):
         ID = IDCHECK
         file = open(organSkin_mod, "rb")
         IDN = str(hex(int(ID)))
@@ -2274,7 +2151,6 @@ for IdCheck in IDMODSKIN1:
     phukien = ''
     phukienv = ''
 
-    # ======= Veres =======
     if IdCheck == '52007':
         print(f"[✓] Chọn phụ kiện cho Veres ({IdCheck}):")
         phukien1 = input("[1] Xanh  | [2] Đỏ | [3] Không dùng phụ kiện: ").strip()
@@ -2287,7 +2163,6 @@ for IdCheck in IDMODSKIN1:
         else:
             print("[-] Lựa chọn không hợp lệ cho Veres.")
 
-    # ======= Valhein =======
     if IdCheck == '13311':
         print(f"[✓] Chọn phụ kiện cho Valhein ({IdCheck}):")
         phukien1v = input("[1] Vàng | [2] Đỏ | [3] Không dùng phụ kiện: ").strip()
@@ -2300,7 +2175,6 @@ for IdCheck in IDMODSKIN1:
         else:
             print("[-] Lựa chọn không hợp lệ cho Valhein.")
 
-    # ======= Mod phụ kiện Veres (Đỏ) =======
     if phukien == 'do' and IdCheck == '52007':
         Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/520_Veres/520_Veres_actorinfo.bytes'
         LC = '1'
@@ -2317,7 +2191,6 @@ for IdCheck in IDMODSKIN1:
         process_directory(Directory, LC)
         print('✓ Infos Veres - Phụ Kiện Đỏ: Đã Mod Xong')
 
-    # ======= Mod phụ kiện Valhein (Đỏ) =======
     elif phukienv == 'dov' and IdCheck == '13311':
         Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/133_DiRenJie/133_DiRenJie_actorinfo.bytes'
         LC = '1'
@@ -2336,16 +2209,94 @@ for IdCheck in IDMODSKIN1:
         process_directory(Directory, LC)
         print('✓ Infos Valhein - Phụ Kiện Đỏ Ver: Đã Mod Xong')
 
+    elif IdCheck == '16707':
+        with zipfile.ZipFile('Resources/1.58.1/Prefab_Characters/Actor_167_Infos.pkg.bytes') as zipc:
+            zipc.extractall(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod')
+
+        DuongDan1 = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/167_WuKong/167_WuKong_actorinfo.bytes'
+        giai(DuongDan1)
+        LC = '1'
+        process_directory(DuongDan1, LC)
+
+        with open(DuongDan1, "rb") as f:
+            data = f.read()
+
+        pattern_1678 = re.compile(
+            rb'<ArtSkinPrefabLOD[^>]*>\s*<Element[^>]*1678_SunWuKong_AW1_LOD1.*?</LookAt>',
+            re.DOTALL
+        )
+        match_1678 = pattern_1678.search(data)
+        if not match_1678:
+            print("❌ Không tìm thấy block 1678.")
+            exit()
+        block_1678 = match_1678.group()
+
+        pattern_block_dau = re.compile(
+            rb'<ArtPrefabLOD[^>]*>.*?<ArtSkinLobbyShowCamera[^>]*?/>',
+            re.DOTALL
+        )
+        data = pattern_block_dau.sub(block_1678, data)
+
+        pattern_all_skin_blocks = re.compile(
+            rb'(<ArtSkinPrefabLOD[^>]*>.*?</LookAt>)',
+            re.DOTALL
+        )
+
+        def replace_skin_block(match):
+            block = match.group()
+            if b'1678_SunWuKong_AW1' in block:
+                return block
+            return block_1678
+
+        data_moi = pattern_all_skin_blocks.sub(replace_skin_block, data)
+
+        with open(DuongDan1, "wb") as f:
+            f.write(data_moi)
+
+        with open(DuongDan1, "rb") as f:
+            data = f.read()
+
+        data = data.replace(
+            b'1678_SunWuKong_AW1',
+            b'1678_SunWuKong_AW5'
+        ).replace(
+            b'<ArtSkinLobbyShowCamera var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/167_WuKong/1678_SunWuKong_AW5_Cam"/>',
+            b'<ArtSkinLobbyShowCamera var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_SunWuKong_03_Cam"/>\n      <ArtSkinLobbyShowMovie var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_SunWuKong_03_Movie"/>'
+        ).replace(
+            b'<ArtSkinPrefabLOD var="Array" type="System.String[]">',
+            b'<ArtPrefabLOD var="Array" type="System.String[]">', 1
+        ).replace(
+            b'</ArtSkinPrefabLOD>',
+            b'</ArtPrefabLOD>', 1
+        ).replace(
+            b'<ArtSkinPrefabLODEx var="Array" type="System.String[]">',
+            b'<ArtPrefabLODEx var="Array" type="System.String[]">', 1
+        ).replace(
+            b'</ArtSkinPrefabLODEx>',
+            b'</ArtPrefabLODEx>', 1
+        ).replace(
+            b'<ArtSkinLobbyShowLOD var="Array" type="System.String[]">',
+            b'<ArtLobbyShowLOD var="Array" type="System.String[]">', 1
+        ).replace(
+            b'</ArtSkinLobbyShowLOD>',
+            b'</ArtLobbyShowLOD>', 1
+        ).replace(
+            b'<ArtSkinLobbyIdleShowLOD',
+            b'<ArtLobbyIdleShowLOD', 1
+        ).replace(
+            b'</ArtSkinLobbyIdleShowLOD>',
+            b'</ArtLobbyIdleShowLOD>', 1
+        )
+
+
+        with open(DuongDan1, "wb") as f:
+            f.write(data)
+
+        LC = '2'
+        process_directory(DuongDan1, LC)
+
     else:
         print(f'[-] ID {IdCheck} không dùng phụ kiện hoặc không hỗ trợ – Bỏ qua.')
-
-"""    if IDCHECK == '16707':
-        Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/167_WuKong/167_WuKong_actorinfo.bytes'
-        LC = '1'
-        process_directory(Directory, LC)
-        with open(Directory, 'rb') as f:
-            InfosWukong = f.read()
-            InfosWukong = InfosWukong.replace(b'Prefab_Characters/Prefab_Hero/167_WuKong/1678_SunWuKong_AW1_LOD', b'Prefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_sunwukong_03_LOD').replace(b'Prefab_Characters/Prefab_Hero/167_WuKong/1678_SunWuKong_AW1_Show', b'Prefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_sunwukong_03_Show').replace(b'Prefab_Characters/Prefab_Hero/167_WuKong/1678_SunWuKong_AW1_Cam', b'Prefab_Characters/Prefab_Hero/167_wukong/Awaken/1678_sunwukong_03_Cam')"""
 
 #-----------------------------------------------
 Files_Directory = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4'
