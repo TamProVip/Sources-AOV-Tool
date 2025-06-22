@@ -1,4 +1,4 @@
-import os; import re; import getopt; import random; import pyzstd; import xml.dom.minidom; from colorama import Fore; import sys; import shutil; import zipfile; import uuid; from collections import Counter; import xml.etree.ElementTree as ET
+import os; import re; import getopt; import random; import pyzstd; from xml.dom import minidom; from colorama import Fore; import sys; import shutil; import zipfile; import uuid; from collections import Counter; import xml.etree.ElementTree as ET
 
 with open("ZSTD_DICT.xml", 'rb') as f:
     ZSTD_DICT = f.read()
@@ -1500,14 +1500,14 @@ for IDMODSKIN in IDMODSKIN:
                 ]
                 effect_clones.append(eff_clone)
             all_inserted += block_clone + effect_clones[0] + effect_clones[1]
+
+            with open(duonggia, 'w', encoding='utf-8') as f:
+                f.writelines(lines[:insert_index] + all_inserted + lines[insert_index:])
+            print(f"[✓] Gia Tốc: {os.path.basename(duonggia)} Done")
         else:
             print("[-] Không tìm thấy thư mục NAME_HERO trong mod5/")
     else:
         print(f"[-] Bỏ qua {IDMODSKIN}, không thỏa điều kiện mod.")
-
-    with open(duonggia, 'w', encoding='utf-8') as f:
-        f.writelines(lines[:insert_index] + all_inserted + lines[insert_index:])
-    print(f"[✓] Gia Tốc: {os.path.basename(duonggia)} Done")
 
     idkt = IDMODSKIN[:3] + "00"
     lc = f'<int name="skinId" value="{idkt}" refParamName="" useRefParam="false" />'
@@ -1532,352 +1532,391 @@ for IDMODSKIN in IDMODSKIN:
             nl.append(cd)
     with open(fp, 'w', encoding='utf-8') as f:
         f.writelines(nl)
-shutil.rmtree('mod5')
-#-----------------------------------------------
-IDMODSKININ = [str(num) for num in numbers]
-while True:
-    for id_str in IDMODSKININ:
-        IDINFO = int(id_str)
-        IDINFO = str(IDINFO)
-        if len(IDINFO) > 3 and IDINFO[3:4] == '0':
-            IDINFO = IDINFO[:3] + IDINFO[4:]
-        try:
-            Files_Directory_Path = f'Prefab_Hero/mod{IDINFO}/'
-            # Create directory if it doesn't exist
-            os.makedirs(Files_Directory_Path, exist_ok=True)
-            
-            # Use the first 3 characters of the current ID
-            hero_id_prefix = IDINFO[:3]
-            zip_path = f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{hero_id_prefix}_Actions.pkg.bytes'
-            
-            #print(f"\n\033[1;97mProcessing ID: {IDINFO}\033[0m")
-            #print(f"\033[1;94mOpening file: {zip_path}\033[0m")
-            
-            if not os.path.exists(zip_path):
-                print(f"\033[1;91mFile not found: {zip_path}\033[0m")
-                continue
-                
-            with zipfile.ZipFile(zip_path) as File_Zip:
-                File_Zip.extractall(Files_Directory_Path)
-                
-            HERO_NAME_LIST = os.listdir(Files_Directory_Path)
-            for HERO_NAME_ITEM in HERO_NAME_LIST:
-                NAME_HERO = HERO_NAME_ITEM
-                #print(f"\033[1;92mFound hero: {NAME_HERO}\033[0m")
-                
-        except Exception as e:
-            print(f"\033[1;91mError processing ID {IDINFO}: {str(e)}\033[0m")
-            continue
-        
-        # NOTE: The following variables need to be defined before use:
-        # pack_name, version, NAME_HERO, IDCHECK, phukienv, phukien,
-        # ngoaihinhvaneovvang, ngoaihinhvaneovdo, ngoaihinhvaneov,
-        # ngoaihinhkhieov, ngoaihinhdoveres, ngoaihinhxanhveres
-        INFO_MOD = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/'
-        
-        try:
-            with zipfile.ZipFile(f'Resources/1.58.1/Prefab_Characters/Actor_'+f'{IDINFO[:3]}'+'_Infos.pkg.bytes') as f:
-                f.extractall(INFO_MOD)
-            
-            duongdan = INFO_MOD + 'Prefab_Hero/' + f'{NAME_HERO}' + '/'
-            newpath = duongdan + NAME_HERO + '_actorinfo.bytes'
-            
-            # NOTE: giai() function needs to be defined
-            giai(newpath)
-            IDCHECK = IDINFO
-            def skincanmod(data):
-                trc1 = r.find(timtrc, r.find(b'SkinPrefabG'))
-                vt1 = r.find(b'JTCom0', trc1-300)
-                a1 = r[vt1-31:]
-                a3 = vt1 - 31
-                skin1 = a1[:4]
-                skin2 = int.from_bytes(skin1, byteorder='little')
-                data = r[a3:a3+skin2]
-                return data
-            
-            op = newpath
-            trc = IDINFO
-            with open(op, 'rb') as f:
-                r = f.read()
-                r1 = r
-                timtrc = trc.encode()
-            
-            #skin
-            mkcam = b''
-            teninfobv1 = NAME_HERO
-            if IDCHECK == '14111':
-                teninfobv1 = '141_DiaoChan'
-            tenefec2 = teninfobv1.encode()
-            tenefec = teninfobv1.lower().encode()
-            newteneffec = tenefec[4:].capitalize()
-            newteneffec = tenefec[:4] + newteneffec
-            str1 = b"hero_skill_effects/" + tenefec2 + b"/"
-            str2 = b"hero_skill_effects/" + tenefec + b"/"
-            str3 = b"Hero_Skill_Effects/" + tenefec2 + b"/"
-            str4 = b"Hero_Skill_Effects/" + tenefec + b"/"
-            str5 = b"hero_skill_effects/" + newteneffec + b"/"
-            str7 = b"Hero_Skill_Effects/" + newteneffec + b"/"
-            IDskineffecđbt = IDCHECK.encode() + b"/" + IDCHECK.encode()
-            idnew = IDCHECK.encode() + b"/"
-            mkcam = b''
-            new1 = b''
-            new1 += skincanmod(r)
-            if IDCHECK == '13311':
-                if phukienv == "vangv":
-                    new1 = ngoaihinhvaneovvang
-                if phukienv == "dov":
-                    new1 = ngoaihinhvaneovdo
-                if phukienv == '':
-                    new1 = ngoaihinhvaneov
-            if IDCHECK == '16707':
-                new1 = ngoaihinhkhieov
-            if IDCHECK == '52007':
-                if phukien == "do":
-                    new1 = ngoaihinhdoveres
-                if phukien == "xanh":
-                    new1 = ngoaihinhxanhveres
-            
-            IDskineffecđbt = IDCHECK.encode() + b"/" + IDCHECK.encode()
-            idnew = IDCHECK.encode() + b'/'
-            ID1 = IDCHECK.encode()
-            
-            if new1.find(b'prefab_skill_effects/hero_skill_effects/') != -1:
-                FIND = new1.find(b'PreloadAnimatorEffects') - 8
-                VT1 = new1[FIND:FIND+4]
-                VTR = int.from_bytes(VT1, byteorder='little')
-                VTM = new1[FIND:FIND+VTR]
-                VTM9 = VTM
-                VTM = (VTR+12).to_bytes(4, byteorder='little') + VTM[4:]
-                ELe = VTM.find(b'Element') - 8
-                ELe1 = VTM.find(b'Element') - 16
-                VTRCM = VTM[:ELe-8]
-                DAU = VTM[ELe:ELe+4]
-                VTR = int.from_bytes(DAU, byteorder='little')
-                VTM1 = VTM[ELe:ELe+VTR]
-                VTM1 = (VTR+6).to_bytes(4, byteorder='little') + VTM1[4:]
-                VTCUOI = VTM[ELe:]
-                VTCUOI1 = VTM[ELe1:ELe1+8]
-                tinh = VTM.count(b'Element')
-                VTM = VTCUOI
-                KB = 0
-                CODEFULL = b''
-                
-                for i in range(tinh):
-                    ELe = VTM.find(b'Element') - 8
-                    DAU = VTM[ELe:ELe+4]
-                    VTR = int.from_bytes(DAU, byteorder='little')
-                    VTM1 = VTM[ELe:ELe+VTR]
-                    if VTM1.find(b'Vprefab_skill_effects/hero_skill_effects/') == -1:
-                        CODEFULL += VTM1
-                        break
-                    VTM1 = (VTR+6).to_bytes(4, byteorder='little') + VTM1[4:]
-                    VTCUOI = VTM[VTR:]
-                    ELe1 = VTM.find(b'Element') + 7
-                    DAU1 = VTM[ELe1:ELe1+4]
-                    VTR = int.from_bytes(DAU1, byteorder='little')
-                    VTM2 = VTM[ELe1:ELe1+VTR]
-                    VTM2 = (VTR+6).to_bytes(4, byteorder='little') + VTM2[4:]
-                    newvt = VTM1.find(b'Vprefab_skill_effects/') - 8
-                    MOI = VTM1[newvt:newvt+4]
-                    VTR = int.from_bytes(MOI, byteorder='little')
-                    VTR3 = VTM1[newvt:newvt+VTR]
-                    VTM3 = (VTR+6).to_bytes(4, byteorder='little') + VTR3[4:]
-                    CODE = VTM1[:15] + VTM2[:46] + VTM3 + b'\x04\x00\x00\x00\x04\x00\x00\x00'
-                    VTM = VTCUOI
-                    CODEFULL += CODE
-                
-                CODEFULL = CODEFULL.replace(str1, str1 + idnew).replace(str2, str2 + idnew)
-                CODEFULL = len(VTRCM + VTCUOI1 + CODEFULL).to_bytes(4, byteorder='little') + VTRCM[4:] + (len(VTCUOI1 + CODEFULL)).to_bytes(4, byteorder='little') + VTCUOI1[4:] + CODEFULL
-                new1 = new1.replace(VTM9, CODEFULL)
-                new1 = len(new1).to_bytes(4, byteorder='little') + new1[4:]
-                mkcam = b'\x05'
-            
-            skinmoi = new1
-            skinprefag = r.find(b'SkinPrefabG') - 8
-            tinhskinpre = r[skinprefag:skinprefag+4]
-            tinhskinpre1 = int.from_bytes(tinhskinpre, byteorder='little')
-            tinhskinpre2 = r[skinprefag:skinprefag+tinhskinpre1]
-            JTCom0 = tinhskinpre2.count(b"JTCom0")
-            beginskin = tinhskinpre2[:101]
-            CodeSkinNew = beginskin + new1 * JTCom0
-            tinhCodeSkinNew1 = CodeSkinNew[:93]
-            tinhCodeSkinNew = CodeSkinNew[93:]
-            Elenmen = len(tinhCodeSkinNew).to_bytes(4, byteorder='little') + tinhCodeSkinNew[4:]
-            SkinPrefag1 = tinhCodeSkinNew1 + Elenmen
-            SkinPrefag = len(SkinPrefag1).to_bytes(4, byteorder='little') + SkinPrefag1[4:]
-            codeskinnew = r1.replace(tinhskinpre2, SkinPrefag)
 
-            def ArtSkinPrefabLOD(data3):
-                a = skinmoi.find(b'\x00ArtSkinPrefabLOD') - 7
-                a10 = skinmoi.find(b'\x00ArtSkinPrefabLOD') - 3
-                a3 = skinmoi[a:a+8]
-                a4 = a3[4:]
-                a2 = skinmoi[a:a+4]
-                vitri = int.from_bytes(a2, byteorder='little')
-                vitri2 = int.from_bytes(a4, byteorder='little')
-                a5 = skinmoi[a:a+vitri]
-                a25 = skinmoi[a10:a10+vitri2]
-                a22 = skinmoi[a10:a10+vitri2].replace(b'\x00ArtSkinPrefabLOD', b'\x00ArtPrefabLOD')
-                a13 = len(a22).to_bytes(4, byteorder='little') + a22[4:]
-                code = a5.replace(a25, a13)
-                data3 = len(code).to_bytes(4, byteorder='little') + code[4:]
-                return data3
-            
-            def ArtSkinLobbyShowLOD(data4):
-                a = skinmoi.find(b'\x00ArtSkinLobbyShowLOD') - 7
-                a10 = skinmoi.find(b'\x00ArtSkinLobbyShowLOD') - 3
-                a3 = skinmoi[a:a+8]
-                a4 = a3[4:]
-                a2 = skinmoi[a:a+4]
-                vitri = int.from_bytes(a2, byteorder='little')
-                vitri2 = int.from_bytes(a4, byteorder='little')
-                a5 = skinmoi[a:a+vitri]
-                a25 = skinmoi[a10:a10+vitri2]
-                a22 = skinmoi[a10:a10+vitri2].replace(b'\x00ArtSkinLobbyShowLOD', b'\x00ArtLobbyShowLOD')
-                a13 = len(a22).to_bytes(4, byteorder='little') + a22[4:]
-                code = a5.replace(a25, a13)
-                data4 = len(code).to_bytes(4, byteorder='little') + code[4:]
-                return data4
-            
-            # NOTE: ArtSkinLobbyIdleShowLOD function needs to be defined
-            def ArtSkinLobbyIdleShowLOD(data4):
-                # Implementation needed
-                a = camSkin.find(b'\x00ArtSkinLobbyIdleShowLOD')-7
-                a10 = camSkin.find(b'\x00ArtSkinLobbyIdleShowLOD')-3
-                a3=camSkin[a:a+8]
-                a4=a3[4:]
-                a2=camSkin[a:a+4]
-                vitri=int.from_bytes(a2,byteorder='little')
-                ne=camSkin[vitri:]
-                vitri2=int.from_bytes(a4,byteorder='little')
-                a5=camSkin[a:a+vitri]
-                a25=camSkin[a10:a10+vitri2]
-                a22=camSkin[a10:a10+vitri2].replace(b'\x00ArtSkinLobbyIdleShowLOD',b'\x00ArtLobbyIdleShowLOD')
-                a13=len(a22).to_bytes(4,byteorder='little')+a22[4:]
-                code=a5.replace(a25,a13)
-                data4=len(code).to_bytes(4,byteorder='little')+code[4:]+ne
-                return data4
-            def ArtPrefabLODnew(data):
-                a=ab.find(b'\x00ArtPrefabLOD')-7
-                a2=ab[a:a+4]
-                a3=ab[a:a+5]
-                a4=a3[4:5]#so 10
-                vitri=int.from_bytes(a2,byteorder='little')
-                data=ab[a:a+vitri]
-                return data
-            def ArtPrefabLODExnew(data4):
-                a=ab.find(b'\x00ArtPrefabLODEx')-7
-                a2=ab[a:a+4]
-                a3=ab[a:a+5]
-                a4=a3[4:5]#so 10
-                vitri=int.from_bytes(a2,byteorder='little')
-                data4=ab[a:a+vitri]
-                return data4
-            def ArtSkinPrefabLODnew(data3):
-                a=ab.find(b'\x00ArtSkinPrefabLOD')-7
-                a10=ab.find(b'\x00ArtSkinPrefabLOD')-3
-                a3=ab[a:a+8]
-                a4=a3[4:]
-                a2=ab[a:a+4]
-                vitri=int.from_bytes(a2,byteorder='little')
-                vitri2=int.from_bytes(a4,byteorder='little')
-                a5=ab[a:a+vitri]
-                a25=ab[a10:a10+vitri2]
-                a22=ab[a10:a10+vitri2].replace(b'\x00ArtSkinPrefabLOD',b'\x00ArtPrefabLOD')
-                a13=len(a22).to_bytes(4,byteorder='little')+a22[4:]
-                code=a5.replace(a25,a13)
-                data3=len(code).to_bytes(2,byteorder='little')+code[2:]
-                return data3 
-            def ArtSkinPrefabLODExnew(data2):
-                a=ab.find(b'\x00ArtSkinPrefabLODEx')-7
-                a10=ab.find(b'\x00ArtSkinPrefabLODEx')-3
-                a3=ab[a:a+8]
-                a4=a3[4:]
-                a2=ab[a:a+4]
-                vitri=int.from_bytes(a2,byteorder='little')
-                vitri2=int.from_bytes(a4,byteorder='little')
-                a5=ab[a:a+vitri]
-                a25=ab[a10:a10+vitri2]
-                a22=ab[a10:a10+vitri2].replace(b'\x00ArtSkinPrefabLODEx',b'\x00ArtPrefabLODEx')
-                a13=len(a22).to_bytes(4,byteorder='little')+a22[4:]
-                code=a5.replace(a25,a13)
-                data2=len(code).to_bytes(4,byteorder='little')+code[4:]
-                return data2
-                
-            #codeskinmd
-            SkinMD = r[:skinprefag]
-            #skinmd Art
-            Art = SkinMD.find(b'ArtPrefabLOD') - 8
-            tinhskinpre = SkinMD[Art:Art+4]
-            tinhskinpre1 = int.from_bytes(tinhskinpre, byteorder='little')
-            tinhskinpre2 = SkinMD[Art:Art+tinhskinpre1]
-            #skinmd ArtLobbyShowLOD
-            ArtLobby = SkinMD.find(b'ArtLobbyShowLOD') - 8
-            tinhArtLobby = SkinMD[ArtLobby:ArtLobby+4]
-            tinhArtLobby1 = int.from_bytes(tinhArtLobby, byteorder='little')
-            tinhArtLobby2 = SkinMD[ArtLobby:ArtLobby+tinhArtLobby1]
-            
-            ArtSkinPrefab = b''
-            ArtSkinPrefab += ArtSkinPrefabLOD(skinmoi)
-            CodeNewMD = SkinMD.replace(tinhskinpre2, ArtSkinPrefab)
-            
-            ArtSkinLobby = b''
-            ArtSkinLobby += ArtSkinLobbyShowLOD(skinmoi)
-            CodeNewMD = CodeNewMD.replace(tinhArtLobby2, ArtSkinLobby)
-            
-            ArtLobbyIdle = CodeNewMD.find(b'ArtLobbyIdleShowLOD0') - 8
-            cammd = CodeNewMD[ArtLobbyIdle:999999]
-            ArtLobbyIdleSkin = skinmoi.find(b'ArtSkinLobbyIdleShowLOD') - 8
-            camSkin = skinmoi[ArtLobbyIdleSkin:999999]
-            camSkin = ArtSkinLobbyIdleShowLOD(camSkin)
-            
-            if mkcam == b'\x05':
-                camSkin = camSkin.replace(CODEFULL, b'')
-            
-            CodeNewMD = CodeNewMD.replace(cammd, camSkin)
-            CodeFull = codeskinnew.replace(SkinMD, CodeNewMD)
-            RootDtrc = CodeFull[:84]
-            RootDsau = CodeFull[84:]
-            RootD1 = RootDsau[8:12]
-            VTR = int.from_bytes(RootD1, byteorder='little')
-            m = RootDsau.find(b'ArtPrefabLOD') - 8
-            tinhRootDsau = len(RootDsau).to_bytes(4, byteorder='little') + RootDsau[4:]
-            tinhRootDtrc = RootDtrc + tinhRootDsau
-            CodeDayDu = len(tinhRootDtrc).to_bytes(4, byteorder='little') + tinhRootDtrc[4:]
-            CodeDayDu = CodeDayDu.replace(b"Light<", b"00000<")
-            CodeDayDu = CodeDayDu.replace(b'_LOD2', b'_LOD1').replace(b'_LOD3', b'_LOD1').replace(b'_Show2\x04', b'_Show1\x04').replace(b'_Show3\x04', b'_Show1\x04')
-            tinhcam = CodeDayDu[:89]
-            
-            with open(op, 'wb') as f:
-                f.write(CodeDayDu)
-            
-            o = open(op, 'rb')
-            h = o.read(92)
-            k = 0
-            while True:
-                r1 = o.read(4)
-                if r1 == b'':
+#-----------------------------------------------
+    if IDMODSKIN == "16707":
+        print(f"[-] Bỏ qua ID {IDMODSKIN}, không xử lý.")
+        continue 
+    INFO_MOD = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/'
+    with zipfile.ZipFile(f'Resources/1.58.1/Prefab_Characters/Actor_{IDINFO[:3]}_Infos.pkg.bytes') as f:
+        f.extractall(INFO_MOD)
+        f.close()
+    duong_prefab = INFO_MOD + 'Prefab_Hero/'
+    name_hero_list = os.listdir(duong_prefab)
+    NAME_HERO = None
+
+    for name in name_hero_list:
+        path = os.path.join(duong_prefab, name)
+        if name.lower().startswith(f"{IDINFO[:3]}_") and os.path.isdir(path):
+            if any(f.lower().endswith('_actorinfo.bytes') for f in os.listdir(path)):
+                NAME_HERO = name
+                break
+
+    if NAME_HERO is None:
+        print(f"[!] Không tìm thấy thư mục NAME_HERO bắt đầu bằng {IDINFO[:3]}_ hoặc không chứa *_actorinfo.bytes")
+        exit()
+
+    đuongan = os.path.join(duong_prefab, NAME_HERO)
+    actorinfo_file = next(
+        (f for f in os.listdir(đuongan) if f.lower().endswith('_actorinfo.bytes')),
+        None
+    )
+
+    if actorinfo_file is None:
+        print(f"[!] Không tìm thấy file *_actorinfo.bytes trong {đuongan}")
+        exit()
+    newpath = os.path.join(đuongan, actorinfo_file)
+    giai(newpath)
+    def skincanmod(data):
+        trc1=r.find(timtrc,r.find(b'SkinPrefabG'))
+        vt1=r.find(b'JTCom0',trc1-300)
+        a1=r[vt1-31:]
+        a3=vt1 - 31
+        skin1=a1[:4]
+        skin2=int.from_bytes(skin1,byteorder='little')
+        data=r[a3:a3+skin2]
+        #open('kb','wb').write(data)
+        return data
+    op = newpath
+
+
+    trc=IDINFO
+    with open(op,'rb') as f:
+        r=f.read()
+        r1=r
+        timtrc = trc.encode()
+        f.close()
+    #skin
+    mkcam=b''
+    teninfobv1=NAME_HERO
+    if IDCHECK == '14111':
+        teninfobv1='141_DiaoChan'
+    tenefec2=teninfobv1.encode()
+    tenefec=teninfobv1.lower().encode()
+    newteneffec=tenefec[4:].capitalize()
+    newteneffec=tenefec[:4]+newteneffec
+    str1 = b"hero_skill_effects/" + tenefec2 + b"/"
+    str2 = b"hero_skill_effects/" + tenefec + b"/"
+    str3 = b"Hero_Skill_Effects/" + tenefec2 + b"/"
+    str4 = b"Hero_Skill_Effects/" + tenefec + b"/"
+    str5 = b"hero_skill_effects/" + newteneffec + b"/"
+    str7 = b"Hero_Skill_Effects/" + newteneffec + b"/"
+    IDskineffecđbt=IDCHECK.encode()+b"/"+IDCHECK.encode()
+    idnew=IDCHECK.encode()+b"/"
+    mkcam =b''
+    new1=b''
+    new1+=skincanmod(r)
+    if IDCHECK == '13311':
+        if phukienv == "vangv":
+            new1=ngoaihinhvaneovvang
+            print('vanpkvang')
+        if phukienv == "dov":
+            new1=ngoaihinhvaneovdo
+        if phukienv == '':
+            new1=ngoaihinhvaneov
+    if IDCHECK == '16707':
+        new1=ngoaihinhkhieov
+    if IDCHECK == '52007':
+        if phukien == "do":
+            new1=ngoaihinhdoveres
+        if phukien == "xanh":
+            new1=ngoaihinhxanhveres
+    IDskineffecđbt=IDCHECK.encode()+b"/"+IDCHECK.encode()
+    idnew=IDCHECK.encode()+b'/'
+    ID1=IDCHECK.encode()
+    if new1.find(b'prefab_skill_effects/hero_skill_effects/')!= -1:#rpl = f.read().replace(str1,str1+ idnew).replace(str3,str3 + idnew).replace(str2,str2 + idnew).replace(str4,str4 + idnew).replace(b"""tyEffect" value="true""",b"""tyEffect" value="false""").replace(str5,str5+ idnew).replace(str6,str6 + idnew).replace(str7,str7 + idnew).replace(str8,str8 + idnew)
+        FIND=new1.find(b'PreloadAnimatorEffects')-8
+        VT1=new1[FIND:FIND+4]
+        VTR=int.from_bytes(VT1,byteorder='little')
+        VTM=new1[FIND:FIND+VTR]
+        VTM9=VTM
+        VTM=(VTR+12).to_bytes(4,byteorder='little')+VTM[4:]
+        ELe=VTM.find(b'Element')-8
+        ELe1=VTM.find(b'Element')-16
+        VTRCM=VTM[:ELe-8] #vt đầu PreloadAnimatorEffects
+        DAU=VTM[ELe:ELe+4]
+        VTR=int.from_bytes(DAU,byteorder='little')
+        VTM1=VTM[ELe:ELe+VTR]#chuẩn
+        VTM1=(VTR+6).to_bytes(4,byteorder='little')+VTM1[4:]
+        VTCUOI=VTM[ELe:]#owr cuoois
+        VTCUOI1=VTM[ELe1:ELe1+8] #đếm full eleme
+        tinh=VTM.count(b'Element')
+        VTM=VTCUOI
+        KB=0
+        CODEFULL=b''
+        for i in range(tinh):
+                ELe=VTM.find(b'Element')-8
+                DAU=VTM[ELe:ELe+4]
+                VTR=int.from_bytes(DAU,byteorder='little')
+                VTM1=VTM[ELe:ELe+VTR]#chuẩn
+                if VTM1.find(b'Vprefab_skill_effects/hero_skill_effects/') == -1:
+                    CODEFULL+=VTM1
                     break
-                KB = r1.hex()
-                KB = KB[6:8] + KB[4:6] + KB[2:4] + KB[0:2]
-                KB = int(KB, 16)
-                O = r1 + o.read(KB-4)
-                k += 1
-            o.close()
+                VTM1=(VTR+6).to_bytes(4,byteorder='little')+VTM1[4:]
+                VTCUOI=VTM[VTR:]
+                ELe1=VTM.find(b'Element')+7
+                DAU1=VTM[ELe1:ELe1+4]
+                VTR=int.from_bytes(DAU1,byteorder='little')
+                VTM2=VTM[ELe1:ELe1+VTR]#đếm r
+                VTM2=(VTR+6).to_bytes(4,byteorder='little')+VTM2[4:]
+                newvt=VTM1.find(b'Vprefab_skill_effects/')-8
+                MOI=VTM1[newvt:newvt+4]
+                VTR=int.from_bytes(MOI,byteorder='little')
+                VTR3=VTM1[newvt:newvt+VTR]
+                VTM3=(VTR+6).to_bytes(4,byteorder='little')+VTR3[4:]
+                CODE=VTM1[:15]+VTM2[:46]+VTM3+b'\x04\x00\x00\x00\x04\x00\x00\x00'
+                VTM=VTCUOI
+                CODEFULL+=CODE
+        CODEFULL=CODEFULL.replace(str1,str1+ idnew).replace(str2,str2 + idnew)#.to_bytes(4,byteorder='little')
+        CODEFULL=len(VTRCM+VTCUOI1+CODEFULL).to_bytes(4,byteorder='little')+VTRCM[4:]+(len(VTCUOI1+CODEFULL)).to_bytes(4,byteorder='little')+VTCUOI1[4:]+CODEFULL
+        new1=new1.replace(VTM9,CODEFULL)
+        new1=len(new1).to_bytes(4,byteorder='little')+new1[4:]
+        mkcam = b'\x05'#\x05
+    if new1.find(b'Prefab_Skill_Effects/Hero_Skill_Effects/')!= -1:#rpl = f.read().replace(str1,str1+ idnew).replace(str3,str3 + idnew).replace(str2,str2 + idnew).replace(str4,str4 + idnew).replace(b"""tyEffect" value="true""",b"""tyEffect" value="false""").replace(str5,str5+ idnew).replace(str6,str6 + idnew).replace(str7,str7 + idnew).replace(str8,str8 + idnew)
+        FIND=new1.find(b'PreloadAnimatorEffects')-8
+        VT1=new1[FIND:FIND+4]
+        VTR=int.from_bytes(VT1,byteorder='little')
+        VTM=new1[FIND:FIND+VTR]
+        VTM9=VTM
+        VTM=(VTR+12).to_bytes(4,byteorder='little')+VTM[4:]
+        ELe=VTM.find(b'Element')-8
+        ELe1=VTM.find(b'Element')-16
+        VTRCM=VTM[:ELe-8] #vt đầu PreloadAnimatorEffects
+        DAU=VTM[ELe:ELe+4]
+        VTR=int.from_bytes(DAU,byteorder='little')
+        VTM1=VTM[ELe:ELe+VTR]#chuẩn
+        VTM1=(VTR+6).to_bytes(4,byteorder='little')+VTM1[4:]
+        VTCUOI=VTM[ELe:]#owr cuoois
+        VTCUOI1=VTM[ELe1:ELe1+8] #đếm full eleme
+        tinh=VTM.count(b'Element')
+        VTM=VTCUOI
+        KB=0
+        CODEFULL=b''
+        for i in range(tinh):
+                ELe=VTM.find(b'Element')-8
+                DAU=VTM[ELe:ELe+4]
+                VTR=int.from_bytes(DAU,byteorder='little')
+                VTM1=VTM[ELe:ELe+VTR]#chuẩn
+                if VTM1.find(b'VPrefab_Skill_Effects/Hero_Skill_Effects/') == -1:
+                    CODEFULL+=VTM1
+                    break
+                VTM1=(VTR+6).to_bytes(4,byteorder='little')+VTM1[4:]
+                VTCUOI=VTM[VTR:]
+                ELe1=VTM.find(b'Element')+7
+                DAU1=VTM[ELe1:ELe1+4]
+                VTR=int.from_bytes(DAU1,byteorder='little')
+                VTM2=VTM[ELe1:ELe1+VTR]#đếm r
+                VTM2=(VTR+6).to_bytes(4,byteorder='little')+VTM2[4:]
+                newvt=VTM1.find(b'VPrefab_Skill_Effects/')-8
+                MOI=VTM1[newvt:newvt+4]
+                VTR=int.from_bytes(MOI,byteorder='little')
+                VTR3=VTM1[newvt:newvt+VTR]
+                VTM3=(VTR+6).to_bytes(4,byteorder='little')+VTR3[4:]
+                CODE=VTM1[:15]+VTM2[:46]+VTM3+b'\x04\x00\x00\x00\x04\x00\x00\x00'
+                VTM=VTCUOI
+                CODEFULL+=CODE
+        CODEFULL=CODEFULL.replace(str3,str3 + idnew).replace(str4,str4 + idnew)#.to_bytes(4,byteorder='little')
+        CODEFULL=len(VTRCM+VTCUOI1+CODEFULL).to_bytes(4,byteorder='little')+VTRCM[4:]+(len(VTCUOI1+CODEFULL)).to_bytes(4,byteorder='little')+VTCUOI1[4:]+CODEFULL
+        new1=new1.replace(VTM9,CODEFULL)
+        new1=len(new1).to_bytes(4,byteorder='little')+new1[4:]
+        mkcam = b'\x05'#\x05
+    skinmoi=new1
+    skinprefag=r.find(b'SkinPrefabG')-8
+    tinhskinpre=r[skinprefag:skinprefag+4]
+    tinhskinpre1=int.from_bytes(tinhskinpre,byteorder='little')
+    tinhskinpre2=r[skinprefag:skinprefag+tinhskinpre1] #
+    JTCom0 = tinhskinpre2.count(b"JTCom0")
+    beginskin=tinhskinpre2[:101]
+    CodeSkinNew=beginskin+new1*JTCom0 #
+    tinhCodeSkinNew1=CodeSkinNew[:93]
+    tinhCodeSkinNew=CodeSkinNew[93:]
+    Elenmen=len(tinhCodeSkinNew).to_bytes(4,byteorder='little')+tinhCodeSkinNew[4:]
+    SkinPrefag1=tinhCodeSkinNew1+Elenmen
+    SkinPrefag=len(SkinPrefag1).to_bytes(4,byteorder='little')+SkinPrefag1[4:]
+    codeskinnew=r1.replace(tinhskinpre2,SkinPrefag)
+
+    def ArtSkinPrefabLOD(data3):
+        a=skinmoi.find(b'\x00ArtSkinPrefabLOD')-7
+        a10=skinmoi.find(b'\x00ArtSkinPrefabLOD')-3
+        a3=skinmoi[a:a+8]
+        a4=a3[4:]
+        a2=skinmoi[a:a+4]
+        vitri=int.from_bytes(a2,byteorder='little')
+        vitri2=int.from_bytes(a4,byteorder='little')
+        a5=skinmoi[a:a+vitri]
+        a25=skinmoi[a10:a10+vitri2]
+        a22=skinmoi[a10:a10+vitri2].replace(b'\x00ArtSkinPrefabLOD',b'\x00ArtPrefabLOD')
+        a13=len(a22).to_bytes(4,byteorder='little')+a22[4:]
+        code=a5.replace(a25,a13)
+        data3=len(code).to_bytes(4,byteorder='little')+code[4:]
+        return data3 
+    def ArtSkinLobbyShowLOD(data4):
+        a=skinmoi.find(b'\x00ArtSkinLobbyShowLOD')-7
+        a10=skinmoi.find(b'\x00ArtSkinLobbyShowLOD')-3
+        a3=skinmoi[a:a+8]
+        a4=a3[4:]
+        a2=skinmoi[a:a+4]
+        vitri=int.from_bytes(a2,byteorder='little')
+        vitri2=int.from_bytes(a4,byteorder='little')
+        a5=skinmoi[a:a+vitri]
+        a25=skinmoi[a10:a10+vitri2]
+        a22=skinmoi[a10:a10+vitri2].replace(b'\x00ArtSkinLobbyShowLOD',b'\x00ArtLobbyShowLOD')
+        a13=len(a22).to_bytes(4,byteorder='little')+a22[4:]
+        code=a5.replace(a25,a13)
+        data4=len(code).to_bytes(4,byteorder='little')+code[4:]
+        return data4
+    def ArtSkinLobbyIdleShowLOD(data4):
+        a = camSkin.find(b'\x00ArtSkinLobbyIdleShowLOD') - 7
+        a10 = camSkin.find(b'\x00ArtSkinLobbyIdleShowLOD') - 3
+        a3 = camSkin[a:a+8]
+        a4 = a3[4:]
+        a2 = camSkin[a:a+4]
+        vitri = int.from_bytes(a2, byteorder='little')
+        ne = camSkin[vitri:]
+        vitri2 = int.from_bytes(a4, byteorder='little')
+        a5 = camSkin[a:a+vitri]
+        a25 = camSkin[a10:a10+vitri2]
+        a22 = camSkin[a10:a10+vitri2].replace(b'\x00ArtSkinLobbyIdleShowLOD', b'\x00ArtLobbyIdleShowLOD')
+        a13 = len(a22).to_bytes(4, byteorder='little') + a22[4:]
+        code = a5.replace(a25, a13)
+        data4 = len(code).to_bytes(4, byteorder='little') + code[4:] + ne
+        return data4
+
+    def ArtPrefabLODnew(data):
+        a = ab.find(b'\x00ArtPrefabLOD') - 7
+        a2 = ab[a:a+4]
+        a3 = ab[a:a+5]
+        a4 = a3[4:5]  # so 10
+        vitri = int.from_bytes(a2, byteorder='little')
+        data = ab[a:a+vitri]
+        return data
+
+    def ArtPrefabLODExnew(data4):
+        a = ab.find(b'\x00ArtPrefabLODEx') - 7
+        a2 = ab[a:a+4]
+        a3 = ab[a:a+5]
+        a4 = a3[4:5]  # so 10
+        vitri = int.from_bytes(a2, byteorder='little')
+        data4 = ab[a:a+vitri]
+        return data4
+
+    def ArtSkinPrefabLODnew(data3):
+        a = ab.find(b'\x00ArtSkinPrefabLOD') - 7
+        a10 = ab.find(b'\x00ArtSkinPrefabLOD') - 3
+        a3 = ab[a:a+8]
+        a4 = a3[4:]
+        a2 = ab[a:a+4]
+        vitri = int.from_bytes(a2, byteorder='little')
+        vitri2 = int.from_bytes(a4, byteorder='little')
+        a5 = ab[a:a+vitri]
+        a25 = ab[a10:a10+vitri2]
+        a22 = ab[a10:a10+vitri2].replace(b'\x00ArtSkinPrefabLOD', b'\x00ArtPrefabLOD')
+        a13 = len(a22).to_bytes(4, byteorder='little') + a22[4:]
+        code = a5.replace(a25, a13)
+        data3 = len(code).to_bytes(2, byteorder='little') + code[2:]
+        return data3
+
+    def ArtSkinPrefabLODExnew(data2):
+        a = ab.find(b'\x00ArtSkinPrefabLODEx') - 7
+        a10 = ab.find(b'\x00ArtSkinPrefabLODEx') - 3
+        a3 = ab[a:a+8]
+        a4 = a3[4:]
+        a2 = ab[a:a+4]
+        vitri = int.from_bytes(a2, byteorder='little')
+        vitri2 = int.from_bytes(a4, byteorder='little')
+        a5 = ab[a:a+vitri]
+        a25 = ab[a10:a10+vitri2]
+        a22 = ab[a10:a10+vitri2].replace(b'\x00ArtSkinPrefabLODEx', b'\x00ArtPrefabLODEx')
+        a13 = len(a22).to_bytes(4, byteorder='little') + a22[4:]
+        code = a5.replace(a25, a13)
+        data2 = len(code).to_bytes(4, byteorder='little') + code[4:]
+        return data2
+
+    #codeskinmd
+    SkinMD=r[:skinprefag]
+
+    #skinmd Art
+    Art=SkinMD.find(b'ArtPrefabLOD')-8
+    tinhskinpre=SkinMD[Art:Art+4]
+    tinhskinpre1=int.from_bytes(tinhskinpre,byteorder='little')
+    tinhskinpre2=SkinMD[Art:Art+tinhskinpre1] #
+    #skinmd ArtLobbyShowLOD
+    ArtLobby=SkinMD.find(b'ArtLobbyShowLOD')-8
+    tinhArtLobby=SkinMD[ArtLobby:ArtLobby+4]
+    tinhArtLobby1=int.from_bytes(tinhArtLobby,byteorder='little')
+    tinhArtLobby2=SkinMD[ArtLobby:ArtLobby+tinhArtLobby1] #
+    ArtSkinPrefab=b''
+    ArtSkinPrefab+=ArtSkinPrefabLOD(skinmoi)
+    CodeNewMD=SkinMD.replace(tinhskinpre2,ArtSkinPrefab)
+    ArtSkinLobby=b''
+    ArtSkinLobby+=ArtSkinLobbyShowLOD(skinmoi)
+    CodeNewMD=CodeNewMD.replace(tinhArtLobby2,ArtSkinLobby)
+    ArtLobbyIdle=CodeNewMD.find(b'ArtLobbyIdleShowLOD0')-8
+    cammd=CodeNewMD[ArtLobbyIdle:999999]
+    ArtLobbyIdleSkin=skinmoi.find(b'ArtSkinLobbyIdleShowLOD')-8
+    camSkin=skinmoi[ArtLobbyIdleSkin:999999]
+    camSkin=ArtSkinLobbyIdleShowLOD(camSkin)
+    if mkcam == b'\x05':
+        camSkin=camSkin.replace(CODEFULL,b'')
+    CodeNewMD=CodeNewMD.replace(cammd,camSkin)
+    CodeFull=codeskinnew.replace(SkinMD,CodeNewMD)
+    RootDtrc=CodeFull[:84]
+    RootDsau=CodeFull[84:]
+    RootD1=RootDsau[8:12]
+    VTR=int.from_bytes(RootD1,byteorder='little')#ArtPrefabLOD
+    m=RootDsau.find(b'ArtPrefabLOD')-8
+    FIXTRIEUVAN=b'\x61\x00\x00\x00\x19\x00\x00\x00\x75\x73\x65\x53\x74\x61\x74\x65\x44\x72\x69\x76\x65\x6E\x4D\x65\x63\x61\x6E\x69\x6D\x3C\x00\x00\x00\x03\x00\x00\x00\x0D\x00\x00\x00\x06\x00\x00\x00\x4A\x54\x50\x72\x69\x1A\x00\x00\x00\x08\x00\x00\x00\x54\x79\x70\x65\x53\x79\x73\x74\x65\x6D\x2E\x42\x6F\x6F\x6C\x65\x61\x6E\x0D\x00\x00\x00\x05\x00\x00\x00\x56\x54\x72\x75\x65\x04\x00\x00\x00'
+    #if IDCHECK == '12912':
+        #RootDsau=RootDsau[:VTR+8]+FIXTRIEUVAN+RootDsau[m:] 
+    tinhRootDsau=len(RootDsau).to_bytes(4,byteorder='little')+RootDsau[4:]
+    tinhRootDtrc=RootDtrc+tinhRootDsau
+    CodeDayDu=len(tinhRootDtrc).to_bytes(4,byteorder='little')+tinhRootDtrc[4:]
+    CodeDayDu=CodeDayDu.replace(b"Light<",b"00000<")
+    CodeDayDu = CodeDayDu.replace(b"imeline<", b"1234567<")
+    CodeDayDu = CodeDayDu.replace(b"ArtPrefabLODEx", b"ModByKunnAOVdz")
+    infthem = '1'
+    lodinf = '1'
+    showinf = '1'
+    if infthem == "1":
+        if showinf == "1":
+            CodeDayDu=CodeDayDu.replace(b"Show2\x04", b"Show1\x04")
+            CodeDayDu=CodeDayDu.replace(b"Show3\x04", b"Show1\x04")
+        if showinf == "2":
+            CodeDayDu=CodeDayDu.replace(b"Show1\x04", b"Show2\x04")
+            CodeDayDu=CodeDayDu.replace(b"Show3\x04", b"Show2\x04")
+        if showinf == "3":
+            CodeDayDu=CodeDayDu.replace(b"Show1\x04", b"Show3\x04")
+            CodeDayDu=CodeDayDu.replace(b"Show2\x04", b"Show3\x04")
+        if lodinf == "1":
+            CodeDayDu=CodeDayDu.replace(b"LOD2", b"LOD1")
+            CodeDayDu=CodeDayDu.replace(b"LOD3", b"LOD1")
+        if lodinf =="2":
+            CodeDayDu=CodeDayDu.replace(b"LOD1", b"LOD2")
+            CodeDayDu=CodeDayDu.replace(b"LOD3", b"LOD2")
+        if lodinf =="3":
+            CodeDayDu=CodeDayDu.replace(b"LOD1", b"LOD3")
+            CodeDayDu=CodeDayDu.replace(b"LOD2", b"LOD3")
             
-            k = k.to_bytes(1, byteorder='little')
-            tinhcam1 = CodeDayDu[:88] + k
-            CodeDayDu = CodeDayDu.replace(tinhcam, tinhcam1)
-            
-            with open(op, 'wb') as f:
-                f.write(CodeDayDu)
-                
-        except Exception as e:
-            print(f"\033[1;91mError processing ID {IDINFO}: {str(e)}\033[0m")
-            continue
-    tiep_tuc = 'n'
-    if tiep_tuc != 'y':
-        break
+    tinhcam=CodeDayDu[:89]
+    with open(op,'wb')as f: f.write(CodeDayDu)
+    o=open(op,'rb')
+    h=o.read(92)
+    k=0
+    while True:
+        r1=o.read(4)
+        if r1==b'':
+            break
+        KB=r1.hex()
+        KB=KB[6:8]+KB[4:6]+KB[2:4]+KB[0:2]
+        KB=int(KB,16)
+        O=r1+o.read(KB-4)
+        k+=1
+    o.close()
+    k=k.to_bytes(1,byteorder='little')
+    tinhcam1=CodeDayDu[:88]+k
+    CodeDayDu=CodeDayDu.replace(tinhcam,tinhcam1)
+    with open(op,'wb')as f: f.write(CodeDayDu)
+
 #-----------------------------------------------
 class StringBytes:
     def __init__(self, String):
@@ -2083,9 +2122,7 @@ class Bytes_XML:
 
         tree = ET.fromstring(xmlfile)
         return bytenode(tree)
-
-        
-#=========================================================================================================================                        
+                       
 def process_file(file_path_FL, LC):
     with open(file_path_FL, "rb") as f:
         G = f.read()
@@ -2104,10 +2141,7 @@ def process_file(file_path_FL, LC):
                 f1.write(encoded)
     except Exception as e:
         print(f"[LỖI] Lỗi khi xử lý file: {file_path_FL} → {e}")
-
-
-
-#=========================================================================================================================                        
+                      
 def process_directory(directory_path, LC):
     process_file(directory_path, LC)
 #-----------------------------------------------
@@ -2138,8 +2172,7 @@ for IdCheck in IDMODSKIN1:
             phukienv = ''
         else:
             print("[-] Lựa chọn không hợp lệ cho Valhein.")
-
-    if phukien == 'do' and IdCheck == '52007':
+    if phukien == 'do' and IDMODSKIN == '52007':
         Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/520_Veres/520_Veres_actorinfo.bytes'
         LC = '1'
         process_directory(Directory, LC)
@@ -2155,7 +2188,7 @@ for IdCheck in IDMODSKIN1:
         process_directory(Directory, LC)
         print('✓ Infos Veres - Phụ Kiện Đỏ: Đã Mod Xong')
 
-    elif phukienv == 'dov' and IdCheck == '13311':
+    elif phukienv == 'dov' and IDMODSKIN == '13311':
         Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/133_DiRenJie/133_DiRenJie_actorinfo.bytes'
         LC = '1'
         process_directory(Directory, LC)
@@ -2173,7 +2206,7 @@ for IdCheck in IDMODSKIN1:
         process_directory(Directory, LC)
         print('✓ Infos Valhein - Phụ Kiện Đỏ Ver: Đã Mod Xong')
 
-    elif IdCheck == '16707':
+    elif IDMODSKIN == '16707':
         with zipfile.ZipFile('Resources/1.58.1/Prefab_Characters/Actor_167_Infos.pkg.bytes') as zipc:
             zipc.extractall(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod')
 
@@ -2263,51 +2296,56 @@ for IdCheck in IDMODSKIN1:
         print(f'    Phu Kien : Khong Support.')
 
 #-----------------------------------------------
-Files_Directory = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4'
-for folder_name in os.listdir(Files_Directory):
-    folder_path = os.path.join(Files_Directory, folder_name)
-    if os.path.isdir(folder_path) and folder_name[:3].isdigit():
-        id_prefix = folder_name[:3]
-        output_file = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{id_prefix}_Actions.pkg.bytes'
+    Files_Directory = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4'
+    if os.path.exists(Files_Directory):
+        for folder_name in os.listdir(Files_Directory):
+            folder_path = os.path.join(Files_Directory, folder_name)
+            if os.path.isdir(folder_path) and folder_name[:3].isdigit():
+                id_prefix = folder_name[:3]
+                output_file = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{id_prefix}_Actions.pkg.bytes'
 
-        with zipfile.ZipFile(output_file, 'w', compression=zipfile.ZIP_STORED) as zipf:
-            for root, dirs, files in os.walk(folder_path):
-                for file in files:
-                    file_path = os.path.join(root, file)
-                    arcname = os.path.relpath(file_path, Files_Directory)
-                    zipf.write(file_path, arcname)
+                with zipfile.ZipFile(output_file, 'w', compression=zipfile.ZIP_STORED) as zipf:
+                    for root, dirs, files in os.walk(folder_path):
+                        for file in files:
+                            file_path = os.path.join(root, file)
+                            arcname = os.path.relpath(file_path, Files_Directory)
+                            zipf.write(file_path, arcname)
+                shutil.rmtree(folder_path)
+        shutil.rmtree(Files_Directory)
 
-        shutil.rmtree(folder_path)
-shutil.rmtree(Files_Directory)
+mod1_dir = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1'
+if os.path.exists(mod1_dir):
+    with zipfile.ZipFile(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/CommonActions.pkg.bytes', 'w', compression=zipfile.ZIP_STORED) as zipf:
+        for root, dirs, files in os.walk(mod1_dir):
+            for file in files:
+                file_path = os.path.join(root, file)
+                arcname = os.path.relpath(file_path, mod1_dir)
+                zipf.write(file_path, arcname)
+    shutil.rmtree(mod1_dir)
 
+mod_dir = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero'
+if os.path.exists(mod_dir):
+    for folder_name in os.listdir(mod_dir):
+        full_path = os.path.join(mod_dir, folder_name)
+        if not os.path.isdir(full_path) or "_" not in folder_name:
+            continue
+        try:
+            hero_id = folder_name.split("_")[0]
+            zip_file_name = f"Actor_{hero_id}_Infos.pkg.bytes"
+            zip_file_path = os.path.join(f'{pack_name}/Resources/1.58.1/Prefab_Characters', zip_file_name)
 
-with zipfile.ZipFile(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/CommonActions.pkg.bytes', 'w', compression=zipfile.ZIP_STORED) as zipf:
-    for root, dirs, files in os.walk(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1'):
-        for file in files:
-            file_path = os.path.join(root, file)
-            arcname = os.path.relpath(file_path, f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1')  
-            zipf.write(file_path, arcname)
-shutil.rmtree(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1')
-shutil.rmtree('Prefab_Hero')
-for folder_name in os.listdir(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero'):
-    full_path = os.path.join(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero', folder_name)
+            with zipfile.ZipFile(zip_file_path, 'w', compression=zipfile.ZIP_STORED) as zipf:
+                for root, _, files in os.walk(full_path):
+                    for file in files:
+                        file_path = os.path.join(root, file)
+                        rel_path = os.path.relpath(file_path, full_path)
+                        arcname = os.path.join("Prefab_Hero", folder_name, rel_path)
+                        zipf.write(file_path, arcname)
+            print(f"  {os.path.basename(zip_file_path)} Done")
+        except Exception as e:
+            print(f"❌ Lỗi khi nén {folder_name}: {e}")
+    shutil.rmtree(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/')
 
-    if not os.path.isdir(full_path) or "_" not in folder_name:
-        continue
-
-    try:
-        hero_id = folder_name.split("_")[0]
-        zip_file_name = f"Actor_{hero_id}_Infos.pkg.bytes"
-        zip_file_path = os.path.join(f'{pack_name}/Resources/1.58.1/Prefab_Characters', zip_file_name)
-
-        with zipfile.ZipFile(zip_file_path, 'w', compression=zipfile.ZIP_STORED) as zipf:
-            for root, _, files in os.walk(full_path):
-                for file in files:
-                    file_path = os.path.join(root, file)
-                    rel_path = os.path.relpath(file_path, full_path) 
-                    arcname = os.path.join("Prefab_Hero", folder_name, rel_path)
-                    zipf.write(file_path, arcname)
-        print(f"  {os.path.basename(zip_file_path)} Done")
-    except Exception as e:
-        print(f"❌ Lỗi khi nén {folder_name}: {e}")
-shutil.rmtree(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/')
+if os.path.exists('mod5'):
+    shutil.rmtree('mod5')
+#-----------------------------------------------
