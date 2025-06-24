@@ -45,6 +45,8 @@ def _giaima_file(filepath):
 
     except Exception as e:
         pass
+print("\033[36m[III]. Chọn Chức Năng Fix Lag\n   [1].Fix Lag AssetRefs\n   [2].Fix Lag Born\n   [3].Không Fix Lag")
+fixlag = input("\n>>> ")
 
 def process_input_numbers(numbers):
     results = []
@@ -69,7 +71,6 @@ result_str = ' '.join(map(str, results))
 IDD = result_str
 IDMODSKIN = IDD.split()
 IDMODSKIN1 = IDD.split()
-print(IDMODSKIN1)
 
 if len(IDMODSKIN1) == 1:
     print(Fore.RED + "Chỉ 1 ID được nhập vào. Tool sẽ thoát." + Fore.RESET)
@@ -135,15 +136,20 @@ for pack_name in TENSKIN:
         f.write(pack_name + '\n')
 
 print(Fore.YELLOW + '-' * 50 + Fore.RESET)
+
 if len(DANHSACH) >= 1:
     pack_name = input("Nhập Tên Pack Skin: ")
-    os.mkdir(pack_name)
-    base_path = f"{pack_name}/Resources/1.58.1/Databin/Client/"
-    directories = ["Actor", "Shop", "Sound", "Skill", "Character", "Motion", "Global"]
-    for directory in directories:
-        os.makedirs(os.path.join(base_path, directory))
 else:
     pass
+
+if not os.path.exists(pack_name):
+    os.makedirs(pack_name)
+directorie = f'{pack_name}/Resources/1.58.1/AssetRefs/Hero'
+os.makedirs(directorie, exist_ok=True)
+base_path = f"{pack_name}/Resources/1.58.1/Databin/Client/"
+directories = ["Actor", "Shop", "Sound", "Skill", "Character", "Motion", "Global"]
+for directory in directories:
+    os.makedirs(os.path.join(base_path, directory), exist_ok=True)
 #-----------------------------------------------
 file_actor = "Resources/1.58.1/Databin/Client/Actor/heroSkin.bytes"
 file_actor_mod = f"{pack_name}/Resources/1.58.1/Databin/Client/Actor/heroSkin.bytes"
@@ -212,20 +218,329 @@ with zipfile.ZipFile('Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Common
     giai(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1/commonresource/Back.xml')
 #-----------------------------------------------
 icon154 = b'q\x03\x00\x00(<\x00\x00\x9a\x00\x00\x00\x14\x00\x00\x00E2B78973E5DA0F49_##\x00\x00\x00\x00\x00\x14\x00\x00\x0020ACB10A3F5C4B9A_##\x00\x07\x00\x00\x00301540\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00{\x02\x00\x00\x10\x00\x00\x00Share_15412.jpg\x00\x10\x00\x00\x00Share_15412.jpg\x00\x10\x00\x00\x00Share_15412.jpg\x00\n\x00\x00\x0015412.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x005AFB0F28AFD223F5_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x0053AF2640805E7163_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00BF08C3E00D2DC1EC_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x00727C8C77DC33BCAB_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x0082D4F38570FF05F5_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x002048DFA5BAFC6E13_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00BFB1C5549350A312_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x005CF3DDF4FFF3F0A7_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Yena_15413/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01\xa6\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x003015412_B43_1.jpg\x00\x10\x00\x00\x003015412head.jpg\x00\x0e\x00\x00\x00Hero_1540.png\x00\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
-icon154fix = b'^\x03\x00\x00(<\x00\x00\x9a\x00\x00\x00\x14\x00\x00\x00E2B78973E5DA0F49_##\x00\x00\x00\x00\x00\x14\x00\x00\x0020ACB10A3F5C4B9A_##\x00\x07\x00\x00\x00301540\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00{\x02\x00\x00\x10\x00\x00\x00Share_15412.jpg\x00\x10\x00\x00\x00Share_15412.jpg\x00\x10\x00\x00\x00Share_15412.jpg\x00\n\x00\x00\x0015412.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x005AFB0F28AFD223F5_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x0053AF2640805E7163_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00BF08C3E00D2DC1EC_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x00727C8C77DC33BCAB_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x0082D4F38570FF05F5_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x002048DFA5BAFC6E13_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00BFB1C5549350A312_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x005CF3DDF4FFF3F0A7_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Yena_15413/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01\xa6\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x00\x003015412.jpg\x00\x10\x00\x00\x003015412head.jpg\x00\x01\x00\x00\x00\x00\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
-iconvalheinevo1 = b'\x13\x03\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00F9B9135D9DECEB62_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0075939F64822D8D0D_##\x00\x08\x00\x00\x003013311\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00Share_13311.jpg\x00\x10\x00\x00\x00Share_13311.jpg\x00\x10\x00\x00\x00Share_13311.jpg\x00\n\x00\x00\x0013311.jpg\x00\x05\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x00D1188909BCF1A796_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x008771C9DA02F4FEA6_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x008D69A8C30826E8D2_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x006740D42BD5B8DAF3_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x002231A8E028E42D2D_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00D74BB3893108A06A_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Commons_01/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01x\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x00\x003013311.jpg\x00\x10\x00\x00\x003013311head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
-iconvalheinevo5 = b'/\x03\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00F9B9135D9DECEB62_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0075939F64822D8D0D_##\x00\n\x00\x00\x003013311_2\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x0c\x00\x00\x0013311_2.jpg\x00\x05\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x00D1188909BCF1A796_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x008771C9DA02F4FEA6_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x008D69A8C30826E8D2_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x006740D42BD5B8DAF3_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x002231A8E028E42D2D_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00D74BB3893108A06A_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x003\x00\x00\x00BG_DiRenJie_13312_T3/BG_yinyingzhishou_01_platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01x\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x003013311_2.jpg\x00\x12\x00\x00\x003013311_1head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
-bacvalheinevo1 = b'\r\x01\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00D898FD6DC80FD88F_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0062C20D284D202339_##\x00\x14\x00\x00\x00105E41477A829A72_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x0013311.png\x00\x00\x00\x01\x00\x00\x00\x00\x00\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\xc4\x0b=\x00\x00\xf7\x07\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020220902000000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xdd\x83\x01\x00\x01\x01\x00\x00\x06,\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00'
-bacvalheinevo5 = b'\x15\x01\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x0b\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_5.png\x00\x01\x00\x01\x00\x00\x00\x00\x01\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x01\x00\x00\x00\x00\x8a\t=\x00\x00\x9f\x8c\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020210318060000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x17\x86\x01\x00\x01\x01\x00\x00\x06:\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00'
-iconngokhongevo1 = b'\\\x03\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x00EBC0C74462FF4B6A_##\x00\x07\x00\x00\x00\x14\x00\x00\x00DDB8BB646733B67E_##\x00\x07\x00\x00\x00301677\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00Share_16707.jpg\x00\x10\x00\x00\x00Share_16707.jpg\x00\x10\x00\x00\x00Share_16707.jpg\x00\n\x00\x00\x0016707.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x008407CA15068FFAAA_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x00C35E60871AB1288B_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x007CD9214682BAB4D9_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x0030F7AD035D47227A_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x00B64FCE08AE9DDFE5_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x0051BF047372097407_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00E51142379BF893FC_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x00B68080AD661210A0_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Commons_01/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01N\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0b\x00\x00\x00301677.jpg\x00\x0f\x00\x00\x00301677head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
-iconngokhongevo5 = b'r\x03\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x00EBC0C74462FF4B6A_##\x00\x07\x00\x00\x00\x14\x00\x00\x00DDB8BB646733B67E_##\x00\t\x00\x00\x00301677_2\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x0c\x00\x00\x0016707_2.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x008407CA15068FFAAA_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x00C35E60871AB1288B_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x007CD9214682BAB4D9_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x0030F7AD035D47227A_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x00B64FCE08AE9DDFE5_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x0051BF047372097407_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00E51142379BF893FC_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x00B68080AD661210A0_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00-\x00\x00\x00BG_wukongjuexing2/BG_wukongjuexing2_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01N\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\r\x00\x00\x00301677_2.jpg\x00\x11\x00\x00\x00301677_2head.jpg\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
-bacngokhongevo1 = b'CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x07\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_1.png'    
-bacngokhongevo5 = b'CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x07\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_5.png'
-
 #-----------------------------------------------
-for IDMODSKIN in IDMODSKIN:
+icon154fix = b'^\x03\x00\x00(<\x00\x00\x9a\x00\x00\x00\x14\x00\x00\x00E2B78973E5DA0F49_##\x00\x00\x00\x00\x00\x14\x00\x00\x0020ACB10A3F5C4B9A_##\x00\x07\x00\x00\x00301540\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00{\x02\x00\x00\x10\x00\x00\x00Share_15412.jpg\x00\x10\x00\x00\x00Share_15412.jpg\x00\x10\x00\x00\x00Share_15412.jpg\x00\n\x00\x00\x0015412.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x005AFB0F28AFD223F5_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x0053AF2640805E7163_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00BF08C3E00D2DC1EC_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x00727C8C77DC33BCAB_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x0082D4F38570FF05F5_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x002048DFA5BAFC6E13_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00BFB1C5549350A312_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x005CF3DDF4FFF3F0A7_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Yena_15413/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01\xa6\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x00\x003015412.jpg\x00\x10\x00\x00\x003015412head.jpg\x00\x01\x00\x00\x00\x00\x01\x01\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+#-----------------------------------------------
+iconvalheinevo1 = b'\x13\x03\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00F9B9135D9DECEB62_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0075939F64822D8D0D_##\x00\x08\x00\x00\x003013311\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00Share_13311.jpg\x00\x10\x00\x00\x00Share_13311.jpg\x00\x10\x00\x00\x00Share_13311.jpg\x00\n\x00\x00\x0013311.jpg\x00\x05\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x00D1188909BCF1A796_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x008771C9DA02F4FEA6_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x008D69A8C30826E8D2_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x006740D42BD5B8DAF3_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x002231A8E028E42D2D_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00D74BB3893108A06A_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Commons_01/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01x\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0c\x00\x00\x003013311.jpg\x00\x10\x00\x00\x003013311head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+#-----------------------------------------------
+iconvalheinevo5 = b'/\x03\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00F9B9135D9DECEB62_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0075939F64822D8D0D_##\x00\n\x00\x00\x003013311_2\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x12\x00\x00\x00Share_13311_2.jpg\x00\x0c\x00\x00\x0013311_2.jpg\x00\x05\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x00D1188909BCF1A796_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x008771C9DA02F4FEA6_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x008D69A8C30826E8D2_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x006740D42BD5B8DAF3_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x002231A8E028E42D2D_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x00D74BB3893108A06A_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x003\x00\x00\x00BG_DiRenJie_13312_T3/BG_yinyingzhishou_01_platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01x\n\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0e\x00\x00\x003013311_2.jpg\x00\x12\x00\x00\x003013311_1head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+#-----------------------------------------------
+bacvalheinevo1 = b'\r\x01\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x00D898FD6DC80FD88F_##\x00\x0b\x00\x00\x00\x14\x00\x00\x0062C20D284D202339_##\x00\x14\x00\x00\x00105E41477A829A72_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x0013311.png\x00\x00\x00\x01\x00\x00\x00\x00\x00\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\xc4\x0b=\x00\x00\xf7\x07\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020220902000000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\xdd\x83\x01\x00\x01\x01\x00\x00\x06,\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00'
+#-----------------------------------------------
+bacvalheinevo5 = b'\x15\x01\x00\x00\xff3\x00\x00\x85\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x0b\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_5.png\x00\x01\x00\x01\x00\x00\x00\x00\x01\xc7\x00\x00\x00\x00\x00\x00\x00\x00\x00L\x02\x00\x00\x00\x00\x01\x00\x00\x00\x00\x8a\t=\x00\x00\x9f\x8c\x02\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0f\x00\x00\x0020210318060000\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x17\x86\x01\x00\x01\x01\x00\x00\x06:\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x03\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00'
+#-----------------------------------------------
+iconngokhongevo1 = b'\\\x03\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x00EBC0C74462FF4B6A_##\x00\x07\x00\x00\x00\x14\x00\x00\x00DDB8BB646733B67E_##\x00\x07\x00\x00\x00301677\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x10\x00\x00\x00Share_16707.jpg\x00\x10\x00\x00\x00Share_16707.jpg\x00\x10\x00\x00\x00Share_16707.jpg\x00\n\x00\x00\x0016707.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x008407CA15068FFAAA_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x00C35E60871AB1288B_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x007CD9214682BAB4D9_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x0030F7AD035D47227A_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x00B64FCE08AE9DDFE5_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x0051BF047372097407_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00E51142379BF893FC_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x00B68080AD661210A0_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00%\x00\x00\x00BG_Commons_01/BG_Commons_01_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01N\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x0b\x00\x00\x00301677.jpg\x00\x0f\x00\x00\x00301677head.jpg\x00\x01\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+#-----------------------------------------------
+iconngokhongevo5 = b'r\x03\x00\x00CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x00EBC0C74462FF4B6A_##\x00\x07\x00\x00\x00\x14\x00\x00\x00DDB8BB646733B67E_##\x00\t\x00\x00\x00301677_2\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x00\x00\x00\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x12\x00\x00\x00Share_16707_2.jpg\x00\x0c\x00\x00\x0016707_2.jpg\x00\x08\x00\x00\x00\x10\x00\x00\x00Skin_Icon_Model\x00\x14\x00\x00\x008407CA15068FFAAA_##\x00\x14\x00\x00\x00Skin_Icon_Animation\x00\x14\x00\x00\x00C35E60871AB1288B_##\x00\x15\x00\x00\x00Skin_Icon_Atmosphere\x00\x14\x00\x00\x007CD9214682BAB4D9_##\x00\x15\x00\x00\x00Skin_Icon_BackToTown\x00\x14\x00\x00\x0030F7AD035D47227A_##\x00\x10\x00\x00\x00Skin_Icon_Skill\x00\x14\x00\x00\x00B64FCE08AE9DDFE5_##\x00\x16\x00\x00\x00Skin_Icon_SoundEffect\x00\x14\x00\x00\x0051BF047372097407_##\x00\x13\x00\x00\x00Skin_Icon_Dialogue\x00\x14\x00\x00\x00E51142379BF893FC_##\x00\x14\x00\x00\x00Skin_Icon_HeadFrame\x00\x14\x00\x00\x00B68080AD661210A0_##\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00-\x00\x00\x00BG_wukongjuexing2/BG_wukongjuexing2_Platform\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\n\x00\x00\x00\n\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x02\x01N\t\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\r\x00\x00\x00301677_2.jpg\x00\x11\x00\x00\x00301677_2head.jpg\x00\x01\x00\x00\x00\x00\x01\x00\x01\x00\x00\x00\x00\x00\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00'
+#-----------------------------------------------
+bacngokhongevo1 = b'CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x07\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_1.png'    
+#-----------------------------------------------
+bacngokhongevo5 = b'CA\x00\x00\xa7\x00\x00\x00\x14\x00\x00\x000B0B75B334002849_##\x00\x07\x00\x00\x00\x14\x00\x00\x006B7679BBD5264133_##\x00\x14\x00\x00\x00942E74C2AD28AE4C_##\x00\x01\x01\x00\x00\x00\x00\x01\x00\x00\x00\x00\x12\x00\x00\x00Awake_Label_5.png'
+#-----------------------------------------------
+ngoaihinhdoveres = b'9\t\x00\x00\x0b\x00\x00\x00ElementE\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom0\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.SkinElement\x04\x00\x00\x00\xe1\x08\x00\x00\x0b\x00\x00\x00\x10\x02\x00\x00\x14\x00\x00\x00ArtSkinPrefabLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xc4\x01\x00\x00\x03\x00\x00\x00\x94\x00\x00\x00\x0b\x00\x00\x00Element}\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringO\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/520_Veres/Component/5208_Veres_RT_3_LOD1\x04\x00\x00\x00\x04\x00\x00\x00\x94\x00\x00\x00\x0b\x00\x00\x00Element}\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringO\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/520_Veres/Component/5208_Veres_RT_3_LOD1\x04\x00\x00\x00\x04\x00\x00\x00\x94\x00\x00\x00\x0b\x00\x00\x00Element}\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringO\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/520_Veres/Component/5208_Veres_RT_3_LOD1\x04\x00\x00\x00\x04\x00\x00\x00\xa4\x00\x00\x00\x16\x00\x00\x00ArtSkinPrefabLODEx0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00V\x00\x00\x00\x01\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00\x16\x02\x00\x00\x17\x00\x00\x00ArtSkinLobbyShowLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xc7\x01\x00\x00\x03\x00\x00\x00\x95\x00\x00\x00\x0b\x00\x00\x00Element~\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringP\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/520_Veres/Component/5208_Veres_RT_3_Show2\x04\x00\x00\x00\x04\x00\x00\x00\x95\x00\x00\x00\x0b\x00\x00\x00Element~\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringP\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/520_Veres/Component/5208_Veres_RT_3_Show2\x04\x00\x00\x00\x04\x00\x00\x00\x95\x00\x00\x00\x0b\x00\x00\x00Element~\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringP\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/520_Veres/Component/5208_Veres_RT_3_Show2\x04\x00\x00\x00\x04\x00\x00\x00E\x01\x00\x00\x1b\x00\x00\x00ArtSkinLobbyIdleShowLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xf2\x00\x00\x00\x03\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00\x93\x00\x00\x00\x1a\x00\x00\x00ArtSkinLobbyShowCameram\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String?\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/520_Veres/5208_Veres_Cam\x04\x00\x00\x00\x04\x00\x00\x00Z\x00\x00\x00\x16\x00\x00\x00CamInterpolateTime8\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\n\x00\x00\x00\x05\x00\x00\x00V7\x04\x00\x00\x00\x04\x00\x00\x00^\x00\x00\x00\x18\x00\x00\x00Cam02InterpolateTime:\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x0c\x00\x00\x00\x05\x00\x00\x00V1.1\x04\x00\x00\x00\x04\x00\x00\x00`\x00\x00\x00\x1c\x00\x00\x00Cam02InterpolateDuration8\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\n\x00\x00\x00\x05\x00\x00\x00V2\x04\x00\x00\x00\x04\x00\x00\x00V\x00\x00\x00\x1a\x00\x00\x00PreloadAnimatorEffects0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\x04\x00\x00\x00\\\x00\x00\x00\n\x00\x00\x00LookAtF\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom1\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.CameraLookAt\x04\x00\x00\x00\x04\x00\x00\x00m\x00\x00\x00\x0f\x00\x00\x00LightConfigR\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom=\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.PrepareBattleLightConfig\x04\x00\x00\x00\x04\x00\x00\x00'
+#-----------------------------------------------
+ngoaihinhvaneov=b'/\x0c\x00\x00\x0b\x00\x00\x00ElementE\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom0\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.SkinElement\x04\x00\x00\x00\xd7\x0b\x00\x00\n\x00\x00\x00\x16\x02\x00\x00\x14\x00\x00\x00ArtSkinPrefabLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xca\x01\x00\x00\x03\x00\x00\x00\x96\x00\x00\x00\x0b\x00\x00\x00Element\x7f\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringQ\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_04_LOD1\x04\x00\x00\x00\x04\x00\x00\x00\x96\x00\x00\x00\x0b\x00\x00\x00Element\x7f\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringQ\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_04_LOD2\x04\x00\x00\x00\x04\x00\x00\x00\x96\x00\x00\x00\x0b\x00\x00\x00Element\x7f\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringQ\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_04_LOD3\x04\x00\x00\x00\x04\x00\x00\x00\xa4\x00\x00\x00\x16\x00\x00\x00ArtSkinPrefabLODEx0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00V\x00\x00\x00\x01\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00\x1c\x02\x00\x00\x17\x00\x00\x00ArtSkinLobbyShowLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xcd\x01\x00\x00\x03\x00\x00\x00\x97\x00\x00\x00\x0b\x00\x00\x00Element\x80\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringR\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_04_Show1\x04\x00\x00\x00\x04\x00\x00\x00\x97\x00\x00\x00\x0b\x00\x00\x00Element\x80\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringR\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_04_Show2\x04\x00\x00\x00\x04\x00\x00\x00\x97\x00\x00\x00\x0b\x00\x00\x00Element\x80\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringR\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_04_Show3\x04\x00\x00\x00\x04\x00\x00\x00E\x01\x00\x00\x1b\x00\x00\x00ArtSkinLobbyIdleShowLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xf2\x00\x00\x00\x03\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00\xa5\x00\x00\x00\x1a\x00\x00\x00ArtSkinLobbyShowCamera\x7f\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringQ\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_AW5_Cam\x04\x00\x00\x00\x04\x00\x00\x00^\x00\x00\x00\x18\x00\x00\x00Cam02InterpolateTime:\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x0c\x00\x00\x00\x05\x00\x00\x00V1.5\x04\x00\x00\x00\x04\x00\x00\x00b\x00\x00\x00\x1c\x00\x00\x00Cam02InterpolateDuration:\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x0c\x00\x00\x00\x05\x00\x00\x00V0.9\x04\x00\x00\x00\x04\x00\x00\x00V\x00\x00\x00\x1a\x00\x00\x00PreloadAnimatorEffects0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\x04\x00\x00\x00\x8c\x03\x00\x00\n\x00\x00\x00LookAtF\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom1\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.CameraLookAt\x04\x00\x00\x004\x03\x00\x00\x04\x00\x00\x00B\x01\x00\x00\n\x00\x00\x00Offset4\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom\x1f\x00\x00\x00\x08\x00\x00\x00TypeUnityEngine.Vector3\x04\x00\x00\x00\xfc\x00\x00\x00\x03\x00\x00\x00S\x00\x00\x00\x05\x00\x00\x00xB\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x14\x00\x00\x00\x05\x00\x00\x00V-0.07000029\x04\x00\x00\x00\x04\x00\x00\x00P\x00\x00\x00\x05\x00\x00\x00y?\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x11\x00\x00\x00\x05\x00\x00\x00V1.539993\x04\x00\x00\x00\x04\x00\x00\x00Q\x00\x00\x00\x05\x00\x00\x00z@\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x12\x00\x00\x00\x05\x00\x00\x00V-3.739998\x04\x00\x00\x00\x04\x00\x00\x00H\x01\x00\x00\r\x00\x00\x00Direction4\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom\x1f\x00\x00\x00\x08\x00\x00\x00TypeUnityEngine.Vector3\x04\x00\x00\x00\xff\x00\x00\x00\x03\x00\x00\x00S\x00\x00\x00\x05\x00\x00\x00xB\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x14\x00\x00\x00\x05\x00\x00\x00V0.002750125\x04\x00\x00\x00\x04\x00\x00\x00S\x00\x00\x00\x05\x00\x00\x00yB\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x14\x00\x00\x00\x05\x00\x00\x00V0.009888734\x04\x00\x00\x00\x04\x00\x00\x00Q\x00\x00\x00\x05\x00\x00\x00z@\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x12\x00\x00\x00\x05\x00\x00\x00V0.9999473\x04\x00\x00\x00\x04\x00\x00\x00P\x00\x00\x00\x0c\x00\x00\x00Duration8\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\n\x00\x00\x00\x05\x00\x00\x00V1\x04\x00\x00\x00\x04\x00\x00\x00R\x00\x00\x00\r\x00\x00\x00CameraFOV9\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x0b\x00\x00\x00\x05\x00\x00\x00V17\x04\x00\x00\x00\x04\x00\x00\x00m\x00\x00\x00\x0f\x00\x00\x00LightConfigR\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom=\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.PrepareBattleLightConfig\x04\x00\x00\x00\x04\x00\x00\x00'
+#-----------------------------------------------
+ngoaihinhvaneovvang=b'J\x0c\x00\x00\x0b\x00\x00\x00ElementE\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom0\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.SkinElement\x04\x00\x00\x00\r\x0c\x00\x00\n\x00\x00\x00\x16\x02\x00\x00\x14\x00\x00\x00ArtSkinPrefabLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xca\x01\x00\x00\x03\x00\x00\x00\x96\x00\x00\x00\x0b\x00\x00\x00Element\x7f\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringQ\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_04_LOD2\x04\x00\x00\x00\x04\x00\x00\x00\x96\x00\x00\x00\x0b\x00\x00\x00Element\x7f\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringQ\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_04_LOD2\x04\x00\x00\x00\x04\x00\x00\x00\x96\x00\x00\x00\x0b\x00\x00\x00Element\x7f\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringQ\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_04_LOD2\x04\x00\x00\x00\x04\x00\x00\x00\xa4\x00\x00\x00\x16\x00\x00\x00ArtSkinPrefabLODEx0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00V\x00\x00\x00\x01\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x007\x02\x00\x00\x17\x00\x00\x00ArtSkinLobbyShowLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xe8\x01\x00\x00\x03\x00\x00\x00\xa0\x00\x00\x00\x0b\x00\x00\x00Element\x89\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Component/13312_DiRenJie_AW5_RT_2_Show2\x04\x00\x00\x00\x04\x00\x00\x00\xa0\x00\x00\x00\x0b\x00\x00\x00Element\x89\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Component/13312_DiRenJie_AW5_RT_2_Show2\x04\x00\x00\x00\x04\x00\x00\x00\xa0\x00\x00\x00\x0b\x00\x00\x00Element\x89\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Component/13312_DiRenJie_AW5_RT_2_Show2\x04\x00\x00\x00\x04\x00\x00\x00E\x01\x00\x00\x1b\x00\x00\x00ArtSkinLobbyIdleShowLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xf2\x00\x00\x00\x03\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00\xa5\x00\x00\x00\x1a\x00\x00\x00ArtSkinLobbyShowCamera\x7f\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringQ\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_AW5_Cam\x04\x00\x00\x00\x04\x00\x00\x00^\x00\x00\x00\x18\x00\x00\x00Cam02InterpolateTime:\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x0c\x00\x00\x00\x05\x00\x00\x00V1.5\x04\x00\x00\x00\x04\x00\x00\x00b\x00\x00\x00\x1c\x00\x00\x00Cam02InterpolateDuration:\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x0c\x00\x00\x00\x05\x00\x00\x00V0.9\x04\x00\x00\x00\x04\x00\x00\x00V\x00\x00\x00\x1a\x00\x00\x00PreloadAnimatorEffects0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\x04\x00\x00\x00\x8c\x03\x00\x00\n\x00\x00\x00LookAtF\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom1\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.CameraLookAt\x04\x00\x00\x004\x03\x00\x00\x04\x00\x00\x00B\x01\x00\x00\n\x00\x00\x00Offset4\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom\x1f\x00\x00\x00\x08\x00\x00\x00TypeUnityEngine.Vector3\x04\x00\x00\x00\xfc\x00\x00\x00\x03\x00\x00\x00S\x00\x00\x00\x05\x00\x00\x00xB\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x14\x00\x00\x00\x05\x00\x00\x00V-0.07000029\x04\x00\x00\x00\x04\x00\x00\x00P\x00\x00\x00\x05\x00\x00\x00y?\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x11\x00\x00\x00\x05\x00\x00\x00V1.539993\x04\x00\x00\x00\x04\x00\x00\x00Q\x00\x00\x00\x05\x00\x00\x00z@\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x12\x00\x00\x00\x05\x00\x00\x00V-3.739998\x04\x00\x00\x00\x04\x00\x00\x00H\x01\x00\x00\r\x00\x00\x00Direction4\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom\x1f\x00\x00\x00\x08\x00\x00\x00TypeUnityEngine.Vector3\x04\x00\x00\x00\xff\x00\x00\x00\x03\x00\x00\x00S\x00\x00\x00\x05\x00\x00\x00xB\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x14\x00\x00\x00\x05\x00\x00\x00V0.002750125\x04\x00\x00\x00\x04\x00\x00\x00S\x00\x00\x00\x05\x00\x00\x00yB\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x14\x00\x00\x00\x05\x00\x00\x00V0.009888734\x04\x00\x00\x00\x04\x00\x00\x00Q\x00\x00\x00\x05\x00\x00\x00z@\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x12\x00\x00\x00\x05\x00\x00\x00V0.9999473\x04\x00\x00\x00\x04\x00\x00\x00P\x00\x00\x00\x0c\x00\x00\x00Duration8\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\n\x00\x00\x00\x05\x00\x00\x00V1\x04\x00\x00\x00\x04\x00\x00\x00R\x00\x00\x00\r\x00\x00\x00CameraFOV9\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x0b\x00\x00\x00\x05\x00\x00\x00V17\x04\x00\x00\x00\x04\x00\x00\x00m\x00\x00\x00\x0f\x00\x00\x00LightConfigR\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom=\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.PrepareBattleLightConfig\x04\x00\x00\x00\x04\x00\x00\x00'
+#-----------------------------------------------
+ngoaihinhkhieov=b'B\x10\x00\x00\x0b\x00\x00\x00ElementE\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom0\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.SkinElement\x04\x00\x00\x00\xea\x0f\x00\x00\x0e\x00\x00\x00\x10\x02\x00\x00\x14\x00\x00\x00ArtSkinPrefabLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xc4\x01\x00\x00\x03\x00\x00\x00\x94\x00\x00\x00\x0b\x00\x00\x00Element}\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringO\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_sunwukong_03_LOD1\x04\x00\x00\x00\x04\x00\x00\x00\x94\x00\x00\x00\x0b\x00\x00\x00Element}\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringO\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_sunwukong_03_LOD2\x04\x00\x00\x00\x04\x00\x00\x00\x94\x00\x00\x00\x0b\x00\x00\x00Element}\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringO\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_sunwukong_03_LOD3\x04\x00\x00\x00\x04\x00\x00\x00\xa4\x00\x00\x00\x16\x00\x00\x00ArtSkinPrefabLODEx0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00V\x00\x00\x00\x01\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00\x16\x02\x00\x00\x17\x00\x00\x00ArtSkinLobbyShowLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xc7\x01\x00\x00\x03\x00\x00\x00\x95\x00\x00\x00\x0b\x00\x00\x00Element~\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringP\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_sunwukong_03_Show1\x04\x00\x00\x00\x04\x00\x00\x00\x95\x00\x00\x00\x0b\x00\x00\x00Element~\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringP\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_sunwukong_03_Show2\x04\x00\x00\x00\x04\x00\x00\x00\x95\x00\x00\x00\x0b\x00\x00\x00Element~\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringP\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_sunwukong_03_Show3\x04\x00\x00\x00\x04\x00\x00\x00E\x01\x00\x00\x1b\x00\x00\x00ArtSkinLobbyIdleShowLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xf2\x00\x00\x00\x03\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00\xa2\x00\x00\x00\x1a\x00\x00\x00ArtSkinLobbyShowCamera|\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringN\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/167_wukong/Awaken/1678_sunwukong_03_Cam\x04\x00\x00\x00\x04\x00\x00\x00\xa3\x00\x00\x00\x19\x00\x00\x00ArtSkinLobbyShowMovie~\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringP\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/167_wukong/Awaken/1678_sunwukong_03_Movie\x04\x00\x00\x00\x04\x00\x00\x00Y\x00\x00\x00\x11\x00\x00\x00useNewMecanim<\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x1a\x00\x00\x00\x08\x00\x00\x00TypeSystem.Boolean\r\x00\x00\x00\x05\x00\x00\x00VTrue\x04\x00\x00\x00\x04\x00\x00\x00W\x00\x00\x00\x0f\x00\x00\x00bUnityLight<\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x1a\x00\x00\x00\x08\x00\x00\x00TypeSystem.Boolean\r\x00\x00\x00\x05\x00\x00\x00VTrue\x04\x00\x00\x00\x04\x00\x00\x00a\x00\x00\x00\x19\x00\x00\x00bUseCodeAnimComponent<\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x1a\x00\x00\x00\x08\x00\x00\x00TypeSystem.Boolean\r\x00\x00\x00\x05\x00\x00\x00VTrue\x04\x00\x00\x00\x04\x00\x00\x00f\x00\x00\x00\x08\x00\x00\x00MSAAR\x00\x00\x00\x03\x00\x00\x00\x0e\x00\x00\x00\x06\x00\x00\x00JTEnum2\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.EAntiAliasing\n\x00\x00\x00\x05\x00\x00\x00V2\x04\x00\x00\x00\x04\x00\x00\x00$\x03\x00\x00\x1a\x00\x00\x00PreloadAnimatorEffects0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xd2\x02\x00\x00\x05\x00\x00\x00\x8e\x00\x00\x00\x0b\x00\x00\x00Elementw\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringI\x00\x00\x00\x05\x00\x00\x00Vprefab_skill_effects/hero_skill_effects/167_WuKong/wukong_Sprint\x04\x00\x00\x00\x04\x00\x00\x00\x93\x00\x00\x00\x0b\x00\x00\x00Element|\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringN\x00\x00\x00\x05\x00\x00\x00Vprefab_skill_effects/hero_skill_effects/167_WuKong/wukong_Sprint_Idle\x04\x00\x00\x00\x04\x00\x00\x00\x93\x00\x00\x00\x0b\x00\x00\x00Element|\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringN\x00\x00\x00\x05\x00\x00\x00Vprefab_skill_effects/hero_skill_effects/167_WuKong/wukong_Sprint_Loop\x04\x00\x00\x00\x04\x00\x00\x00\x92\x00\x00\x00\x0b\x00\x00\x00Element{\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringM\x00\x00\x00\x05\x00\x00\x00Vprefab_skill_effects/hero_skill_effects/167_WuKong/wukong_Sprint_Run\x04\x00\x00\x00\x04\x00\x00\x00\x84\x00\x00\x00\x0b\x00\x00\x00Elementm\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String?\x00\x00\x00\x05\x00\x00\x00Vprefab_skill_effects/Dance_Effects/167/dance_03_texiao\x04\x00\x00\x00\x04\x00\x00\x00\x86\x03\x00\x00\n\x00\x00\x00LookAtF\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom1\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.CameraLookAt\x04\x00\x00\x00.\x03\x00\x00\x04\x00\x00\x00B\x01\x00\x00\n\x00\x00\x00Offset4\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom\x1f\x00\x00\x00\x08\x00\x00\x00TypeUnityEngine.Vector3\x04\x00\x00\x00\xfc\x00\x00\x00\x03\x00\x00\x00S\x00\x00\x00\x05\x00\x00\x00xB\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x14\x00\x00\x00\x05\x00\x00\x00V-0.05998039\x04\x00\x00\x00\x04\x00\x00\x00P\x00\x00\x00\x05\x00\x00\x00y?\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x11\x00\x00\x00\x05\x00\x00\x00V1.389713\x04\x00\x00\x00\x04\x00\x00\x00Q\x00\x00\x00\x05\x00\x00\x00z@\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x12\x00\x00\x00\x05\x00\x00\x00V-2.490662\x04\x00\x00\x00\x04\x00\x00\x00B\x01\x00\x00\r\x00\x00\x00Direction4\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom\x1f\x00\x00\x00\x08\x00\x00\x00TypeUnityEngine.Vector3\x04\x00\x00\x00\xf9\x00\x00\x00\x03\x00\x00\x00T\x00\x00\x00\x05\x00\x00\x00xC\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x15\x00\x00\x00\x05\x00\x00\x00V1.831149E-07\x04\x00\x00\x00\x04\x00\x00\x00T\x00\x00\x00\x05\x00\x00\x00yC\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x15\x00\x00\x00\x05\x00\x00\x00V-8.35189E-09\x04\x00\x00\x00\x04\x00\x00\x00I\x00\x00\x00\x05\x00\x00\x00z8\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\n\x00\x00\x00\x05\x00\x00\x00V1\x04\x00\x00\x00\x04\x00\x00\x00P\x00\x00\x00\x0c\x00\x00\x00Duration8\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\n\x00\x00\x00\x05\x00\x00\x00V1\x04\x00\x00\x00\x04\x00\x00\x00R\x00\x00\x00\r\x00\x00\x00CameraFOV9\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x0b\x00\x00\x00\x05\x00\x00\x00V17\x04\x00\x00\x00\x04\x00\x00\x00m\x00\x00\x00\x0f\x00\x00\x00LightConfigR\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom=\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.PrepareBattleLightConfig\x04\x00\x00\x00\x04\x00\x00\x00'
+#----------------------------------------------
+ngoaihinhvaneovdo= b'J\x0c\x00\x00\x0b\x00\x00\x00ElementE\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom0\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.SkinElement\x04\x00\x00\x00\r\x0c\x00\x00\n\x00\x00\x00\x16\x02\x00\x00\x14\x00\x00\x00ArtSkinPrefabLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xca\x01\x00\x00\x03\x00\x00\x00\x96\x00\x00\x00\x0b\x00\x00\x00Element\x7f\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringQ\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_04_LOD2\x04\x00\x00\x00\x04\x00\x00\x00\x96\x00\x00\x00\x0b\x00\x00\x00Element\x7f\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringQ\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_04_LOD2\x04\x00\x00\x00\x04\x00\x00\x00\x96\x00\x00\x00\x0b\x00\x00\x00Element\x7f\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringQ\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_04_LOD2\x04\x00\x00\x00\x04\x00\x00\x00\xa4\x00\x00\x00\x16\x00\x00\x00ArtSkinPrefabLODEx0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00V\x00\x00\x00\x01\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x007\x02\x00\x00\x17\x00\x00\x00ArtSkinLobbyShowLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xe8\x01\x00\x00\x03\x00\x00\x00\xa0\x00\x00\x00\x0b\x00\x00\x00Element\x89\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Component/13312_DiRenJie_AW5_RT_3_Show2\x04\x00\x00\x00\x04\x00\x00\x00\xa0\x00\x00\x00\x0b\x00\x00\x00Element\x89\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Component/13312_DiRenJie_AW5_RT_3_Show2\x04\x00\x00\x00\x04\x00\x00\x00\xa0\x00\x00\x00\x0b\x00\x00\x00Element\x89\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Component/13312_DiRenJie_AW5_RT_3_Show2\x04\x00\x00\x00\x04\x00\x00\x00E\x01\x00\x00\x1b\x00\x00\x00ArtSkinLobbyIdleShowLOD0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\xf2\x00\x00\x00\x03\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00N\x00\x00\x00\x0b\x00\x00\x00Element7\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.String\t\x00\x00\x00\x05\x00\x00\x00V\x04\x00\x00\x00\x04\x00\x00\x00\xa5\x00\x00\x00\x1a\x00\x00\x00ArtSkinLobbyShowCamera\x7f\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.StringQ\x00\x00\x00\x05\x00\x00\x00VPrefab_Characters/Prefab_Hero/133_DiRenJie/Awaken/13312_DiRenJie_AW5_Cam\x04\x00\x00\x00\x04\x00\x00\x00^\x00\x00\x00\x18\x00\x00\x00Cam02InterpolateTime:\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x0c\x00\x00\x00\x05\x00\x00\x00V1.5\x04\x00\x00\x00\x04\x00\x00\x00b\x00\x00\x00\x1c\x00\x00\x00Cam02InterpolateDuration:\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x0c\x00\x00\x00\x05\x00\x00\x00V0.9\x04\x00\x00\x00\x04\x00\x00\x00V\x00\x00\x00\x1a\x00\x00\x00PreloadAnimatorEffects0\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTArr\x1b\x00\x00\x00\x08\x00\x00\x00TypeSystem.String[]\x04\x00\x00\x00\x04\x00\x00\x00\x8c\x03\x00\x00\n\x00\x00\x00LookAtF\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom1\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.CameraLookAt\x04\x00\x00\x004\x03\x00\x00\x04\x00\x00\x00B\x01\x00\x00\n\x00\x00\x00Offset4\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom\x1f\x00\x00\x00\x08\x00\x00\x00TypeUnityEngine.Vector3\x04\x00\x00\x00\xfc\x00\x00\x00\x03\x00\x00\x00S\x00\x00\x00\x05\x00\x00\x00xB\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x14\x00\x00\x00\x05\x00\x00\x00V-0.07000029\x04\x00\x00\x00\x04\x00\x00\x00P\x00\x00\x00\x05\x00\x00\x00y?\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x11\x00\x00\x00\x05\x00\x00\x00V1.539993\x04\x00\x00\x00\x04\x00\x00\x00Q\x00\x00\x00\x05\x00\x00\x00z@\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x12\x00\x00\x00\x05\x00\x00\x00V-3.739998\x04\x00\x00\x00\x04\x00\x00\x00H\x01\x00\x00\r\x00\x00\x00Direction4\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom\x1f\x00\x00\x00\x08\x00\x00\x00TypeUnityEngine.Vector3\x04\x00\x00\x00\xff\x00\x00\x00\x03\x00\x00\x00S\x00\x00\x00\x05\x00\x00\x00xB\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x14\x00\x00\x00\x05\x00\x00\x00V0.002750125\x04\x00\x00\x00\x04\x00\x00\x00S\x00\x00\x00\x05\x00\x00\x00yB\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x14\x00\x00\x00\x05\x00\x00\x00V0.009888734\x04\x00\x00\x00\x04\x00\x00\x00Q\x00\x00\x00\x05\x00\x00\x00z@\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x12\x00\x00\x00\x05\x00\x00\x00V0.9999473\x04\x00\x00\x00\x04\x00\x00\x00P\x00\x00\x00\x0c\x00\x00\x00Duration8\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\n\x00\x00\x00\x05\x00\x00\x00V1\x04\x00\x00\x00\x04\x00\x00\x00R\x00\x00\x00\r\x00\x00\x00CameraFOV9\x00\x00\x00\x03\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTPri\x19\x00\x00\x00\x08\x00\x00\x00TypeSystem.Single\x0b\x00\x00\x00\x05\x00\x00\x00V17\x04\x00\x00\x00\x04\x00\x00\x00m\x00\x00\x00\x0f\x00\x00\x00LightConfigR\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom=\x00\x00\x00\x08\x00\x00\x00TypeAssets.Scripts.GameLogic.PrepareBattleLightConfig\x04\x00\x00\x00\x04\x00\x00\x00'
+#-----------------------------------------------
+class StringBytes:
+    def __init__(self,String):
+        self.String=String
+        self.OldString=String
+    def tell(self):
+        return len(self.OldString)-len(self.String)
+    def seek(self,I,O=0):
+        if O==0:
+            self.String=self.OldString[I:]
+        elif O==1:
+            self.String=self.String[I:]
+    def read(self,Int=None):
+        if Int==None:
+            if type(self.String)==str:
+                return ""
+            else:
+                return b""
+        R=self.String[:Int]
+        self.String=self.String[Int:]
+        return R
+class Bytes_XML:
+    def decode(String):
+        def get_int(A):
+            return int.from_bytes(A.read(4), 'little')        
+        def get_str(A, pos=None):
+            if pos is not None:
+                A.seek(pos, 0)
+            ofs = get_int(A)
+            stri = A.read(ofs-4)
+            return stri.decode()        
+        def get_node(A, fid=None, sta=None):
+            global i
+            ofs = get_int(A)
+            stri = get_str(A)
+            stri1 = stri
+            myid = i
+            i += 1
+            A.seek(4, 1)
+            aidx = get_int(A)
+            ite = False
+            attr = {}
+            for j in range(0, aidx):
+                attr1 = get_attr(A)
+                if type(attr1) == str:
+                    text1 = attr1
+                    ite = True
+                else:
+                    attr.update(attr1)
+            if fid is None:
+                nod[myid] = ET.SubElement(root, stri1, attrib=attr)
+            else:
+                nod[myid] = ET.SubElement(nod[fid], stri1, attrib=attr)
+            if ite:
+                if text1 == '':
+                    nod[myid].set("value",' ')
+                else:
+                    nod[myid].set("value",text1)
+            check_four(A)
+            chk = sta + ofs - A.tell()
+            if chk > 12:
+                A.seek(4, 1)
+                sidx = get_int(A)
+                for h in range(0, sidx):
+                    get_node(A, myid, A.tell())
+            A.seek(sta + ofs, 0)        
+        def get_attr(A, pos=None):
+            if pos is None:
+                pos = A.tell()
+            ofs = get_int(A)
+            type = get_int(A)
+            if type == 5:
+                stri = A.read(ofs - 8).decode()[1:]
+                check_four(A)
+                A.seek(pos + ofs, 0)
+                return stri
+            else:
+                if type == 6:
+                    stri = A.read(ofs - 8).decode()
+                    if stri[0:2] == 'JT':
+                        if stri == 'JTArr':
+                            stri = 'Array'
+                        elif stri == 'JTPri':
+                            stri = 'String'
+                        else:
+                            stri = stri[2:]
+                        name = 'var'
+                    else:
+                        name = 'var_Raw'
+                elif type == 8:
+                    stri2 = A.read(ofs - 8).decode()
+                    if stri2[0:4] == 'Type':
+                        stri = stri2[4:]
+                        name = 'type'
+                    else:
+                        stri = stri2
+                        name = 'type_Raw'
+                else:
+                    stri = A.read(ofs - 8).decode()
+                    name = str(type)
+                    A.seek(pos + ofs, 0)
+                return {name:stri}
+        def check_four(A):
+            if get_int(A) != 4:
+                A.seek(-4, 1)
+        A=StringBytes(String)
+        global i, nod, root
+        i = 0
+        nod = {}
+        ofs = get_int(A)
+        stri = get_str(A)
+        stri1 = stri
+        A.seek(4, 1)
+        aidx = get_int(A)
+        ite = False
+        attr = {}
+        for j in range(0, aidx):
+            attr1 = get_attr(A)
+            if type(attr1) == str:
+                text1 = attr1
+                ite = True
+            else:
+                attr.update(attr1)
+        root = ET.Element(stri1, attrib=attr)
+        if ite:
+            nod[myid].set("value",text1)
+        check_four(A)
+        chk = ofs - A.tell()
+        if chk > 12:
+            A.seek(4, 1)
+            sidx = get_int(A)
+            for h in range(0, sidx):
+                get_node(A, None, A.tell())
+        try:return minidom.parseString(ET.tostring(root,"utf-8").decode()).toprettyxml(indent="  ",newl="\r\n").encode()
+        except: return ET.tostring(root,"utf-8").decode()
+    def encode(xmlfile):
+        def byteint(num):
+            return num.to_bytes(4, byteorder='little')
+        def bytestr(stri):
+            outbyte = byteint(len(stri) + 4)
+            outbyte = outbyte + stri.encode()
+            return outbyte
+        def byteattr(key, attr):
+            if key == 'var':
+                if attr[key] == 'Array':
+                    stri = 'JTArr'
+                elif attr[key] == 'String':
+                    stri = 'JTPri'
+                else:
+                    stri = 'JT' + attr[key]
+                aid = 6
+            elif key == 'var_Raw':
+                stri = attr[key]
+                aid = 6
+            elif key == 'type':
+                stri = 'Type' + attr[key]
+                aid = 8
+            elif key == 'type_Raw':
+                stri = attr[key]
+                aid = 8
+            elif key == "value": return b""
+            else:
+                import unicodedata
+                if unicodedata.numeric(key):
+                    stri = attr[key]
+                    aid = int(key)
+            stripro = stri.encode()
+            outbyte = byteint(len(stripro) + 8) + byteint(aid) + stripro
+            return outbyte
+        def bytenode(node):
+            iftex = False
+            name1 = node.tag
+            name = bytestr(name1)
+            attr1 = b''
+            aindex = len(node.attrib)
+            plus = 8
+            for key in node.attrib:
+                if key=="value":aindex-=1
+                attr1 = attr1 + byteattr(key, node.attrib)
+            if (node.get("value") != None) and (node.get("value")[0:1] != '\n'):
+                if node.get("value") == ' ':
+                    stri1 = ''
+                else:
+                    stri1 = node.get("value")
+                iftex = True
+                stripro = ('V' + stri1).encode()
+                attr1 = attr1 + byteint(len(stripro) + 8) + byteint(5) + stripro + byteint(4)
+                aindex += 1
+                plus = 4
+            attr1 = byteint(len(attr1) + plus) + byteint(aindex) + attr1 + byteint(4)
+            alchild = b''
+            if len(node):
+                cindex = 0
+                for child in node:
+                    alchild = alchild + bytenode(child)
+                    cindex += 1
+                alchild = byteint(len(alchild) + 8) + byteint(cindex) + alchild
+            else:
+                if iftex == False:
+                    alchild = byteint(4)
+            bnode = name + attr1 + alchild
+            bnode = byteint(len(bnode) + 4) + bnode
+            return bnode
+        tree = ET.fromstring(xmlfile)
+        byt = bytenode(tree)
+        return byt
+                          
+def process_file(file_path_FL, LC):
+    with open(file_path_FL, "rb") as f:
+        G = f.read()
+        with open(file_path_FL, "wb") as f1:
+            try:
+                if LC == "1":
+                    f1.write(Bytes_XML.decode(G))
+                elif LC == "2":
+                    f1.write(Bytes_XML.encode(G.decode()))
+            except Exception as e:
+                pass
+        
+def process_directory(directory_path, LC):
+    file_path_FL = directory_path
+    process_file(file_path_FL, LC) 
+#-----------------------------------------------
+def ArtSkinLobbyIdleShowLOD(data4):
+    a=camSkin.find(b'\x00ArtSkinLobbyIdleShowLOD')-7
+    a10=camSkin.find(b'\x00ArtSkinLobbyIdleShowLOD')-3
+    a3=camSkin[a:a+8]
+    a4=a3[4:]
+    a2=camSkin[a:a+4]
+    vitri=int.from_bytes(a2,byteorder='little')
+    ne=camSkin[vitri:]
+    vitri2=int.from_bytes(a4,byteorder='little')
+    a5=camSkin[a:a+vitri]
+    a25=camSkin[a10:a10+vitri2]
+    a22=camSkin[a10:a10+vitri2].replace(b'\x00ArtSkinLobbyIdleShowLOD',b'\x00ArtLobbyIdleShowLOD')
+    a13=len(a22).to_bytes(4,byteorder='little')+a22[4:]
+    code=a5.replace(a25,a13)
+    data4=len(code).to_bytes(4,byteorder='little')+code[4:]+ne
+    return data4
+#-----------------------------------------------
+def ArtPrefabLODnew(data):
+    a=ab.find(b'\x00ArtPrefabLOD')-7
+    a2=ab[a:a+4]
+    a3=ab[a:a+5]
+    a4=a3[4:5]#so 10
+    vitri=int.from_bytes(a2,byteorder='little')
+    data=ab[a:a+vitri]
+    return data
+def ArtPrefabLODExnew(data4):
+    a=ab.find(b'\x00ArtPrefabLODEx')-7
+    a2=ab[a:a+4]
+    a3=ab[a:a+5]
+    a4=a3[4:5]#so 10
+    vitri=int.from_bytes(a2,byteorder='little')
+    data4=ab[a:a+vitri]
+    return data4
+#-----------------------------------------------
+def ArtSkinPrefabLODnew(data3):
+    a=ab.find(b'\x00ArtSkinPrefabLOD')-7
+    a10=ab.find(b'\x00ArtSkinPrefabLOD')-3
+    a3=ab[a:a+8]
+    a4=a3[4:]
+    a2=ab[a:a+4]
+    vitri=int.from_bytes(a2,byteorder='little')
+    vitri2=int.from_bytes(a4,byteorder='little')
+    a5=ab[a:a+vitri]
+    a25=ab[a10:a10+vitri2]
+    a22=ab[a10:a10+vitri2].replace(b'\x00ArtSkinPrefabLOD',b'\x00ArtPrefabLOD')
+    a13=len(a22).to_bytes(4,byteorder='little')+a22[4:]
+    code=a5.replace(a25,a13)
+    data3=len(code).to_bytes(2,byteorder='little')+code[2:]
+    return data3 
+#-----------------------------------------------
+def ArtSkinPrefabLODExnew(data2):
+    a=ab.find(b'\x00ArtSkinPrefabLODEx')-7
+    a10=ab.find(b'\x00ArtSkinPrefabLODEx')-3
+    a3=ab[a:a+8]
+    a4=a3[4:]
+    a2=ab[a:a+4]
+    vitri=int.from_bytes(a2,byteorder='little')
+    vitri2=int.from_bytes(a4,byteorder='little')
+    a5=ab[a:a+vitri]
+    a25=ab[a10:a10+vitri2]
+    a22=ab[a10:a10+vitri2].replace(b'\x00ArtSkinPrefabLODEx',b'\x00ArtPrefabLODEx')
+    a13=len(a22).to_bytes(4,byteorder='little')+a22[4:]
+    code=a5.replace(a25,a13)
+    data2=len(code).to_bytes(4,byteorder='little')+code[4:]
+    return data2
+#-----------------------------------------------
+for IDMODSKIN in IDMODSKIN1:
     index = DANHSACH.index(IDMODSKIN)
-    TENSKIN_NOW = TENSKIN[index] 
+    TENSKIN_NOW = TENSKIN[index]
+    fileasset = f'Resources/1.58.1/AssetRefs/Hero/{IDMODSKIN[:3]}_AssetRef.bytes'
+    fileasset_mod2 = f'{pack_name}/Resources/1.58.1/AssetRefs/Hero/{IDMODSKIN[:3]}_AssetRef.bytes'
+    shutil.copy(fileasset, fileasset_mod2)
     print('-' * 53)
     print(f"{TENSKIN_NOW:^53}")
     print('-' * 53)
@@ -244,6 +559,11 @@ for IDMODSKIN in IDMODSKIN:
     IDSOUND_S = IDMODSKIN
     phukien = ''
     phukienv = ''
+    IDINFO=int(IDMODSKIN)+1
+    IDINFO=str(IDINFO)
+    if str(IDINFO)[3:4] == '0':
+        IDINFO=IDINFO[:3]+IDINFO[4:]
+    IDINFO=str(IDINFO)
 
     if IDCHECK == '52007':
         phukien1 = input(
@@ -259,7 +579,13 @@ for IDMODSKIN in IDMODSKIN:
             phukien = 'do'
 
     if IDCHECK == '13311':
-        phukien1v = '3' 
+        phukien1v = input(
+            '\033[1;97m[\033[1;91m?\033[1;97m] Mod Component:\n'
+            '\033[1;97m [1] \033[1;92mGreen\n'
+            '\033[1;97m [2] \033[1;92mRed\n'
+            '\033[1;97m [3] \033[1;92mNo Mod Component\n'
+            '\033[1;97m[•] INPUT: '
+        )
         if phukien1v == "1":
             phukienv = 'vangv'
         if phukien1v == "2":
@@ -361,6 +687,7 @@ for IDMODSKIN in IDMODSKIN:
 
         with open(File, "wb") as file:
             file.write(Code)
+#----------------------------------------------
     if len(IDMODSKIN1) == 1:
         if b'Skin_Icon_HeadFrame' in dieukienmod:
             chedovien='1'
@@ -404,7 +731,220 @@ for IDMODSKIN in IDMODSKIN:
                         go.write(vt11)
             else:
                 print('không tìm thấy viền (vui lòng nhập thủ công)')
+#----------------------------------------------
+    if fixlag == '1':
+        if b"Skin_Icon_Skill" in dieukienmod or IDCHECK == "53702":
+            fileasset_mod = f'{pack_name}/Resources/1.58.1/AssetRefs/Hero/{IDMODSKIN[:3]}_AssetRef.bytes'
+            giai(fileasset_mod)
+            id=IDCHECK
+            if IDCHECK == "13311":
+                with open(fileasset_mod,'rb') as f:rpl=f.read()
+                CODETONG = rpl.replace(b"prefab_skill_effects/hero_skill_effects/133_direnjie/", b"prefab_skill_effects/component_effects/13311/13311_5/")
+                with open(fileasset_mod,'wb') as f:f.write(CODETONG)
+                print(f"033[0mFix Lag EVO\033[0m: \033[0m[Done]\033[0m")
+                print("-"*53)
+            elif IDCHECK == "16707":
+                with open(fileasset_mod,'rb') as f:rpl=f.read();f.close()
+                CACHE=[]
+                VTR=rpl[rpl.find(b'particlesInFirstLayer')-8:rpl.find(b'particlesInFirstLayer')-4];VTC=rpl[rpl.find(b'particlesInFirstLayer')-8:rpl.find(b'animationsw')-8]
+                DAU1=rpl[:rpl.find(b'particlesInFirstLayer')-8]
+                VTF=b''
+                if rpl.find(b'skinSubset') != -1:
+                    VTF=rpl[rpl.find(b'skinSubset')-8:]
+                    CUOI1=rpl[rpl.find(b'animationsw')-8:rpl.find(b'skinSubset')-8]
+                else:
+                    CUOI1=rpl[rpl.find(b'animationsw')-8:]
+                while True:
+                    if VTC == b'': break
+                    CACHE.append(VTC[:int.from_bytes((VTC[:4]),'little')])
+                    VTC=VTC[int.from_bytes((VTC[:4]),'little'):]
+                CODETONG=b''
+                for i in CACHE:
+                    VT=i.find(b'Element')-8
+                    VTDAU=i[VT-8:VT]
+                    DAU=i[:VT-8]
+                    VTD=i[VT:]
+                    CODE=b''
+                    for ig in range(i.count(b'Element')):
+                        VTC=VTD[:int.from_bytes((VTD[:4]),'little')]
+                        VT=VTC[103:111]
+                        VT1=VTC[111:121]
+                        VT2=VTC[121:167]
+                        Cuoi=VTC[int.from_bytes(VTC[167:171],'little')+167:]
+                        VTT=VTC[167:int.from_bytes(VTC[167:171],'little')+167]
+                        if VTT.find(id[:3].encode())!= -1:
+                            IDEOV = "16707_5"
+                            RPL=VTT[4:].replace(b"hero_skill_effects/167_wukong/",b"component_effects/16707/16707_5/").replace(b"Hero_Skill_Effects/167_wukong/",b"component_effects/16707/16707_5/");RPL=RPL.replace(IDEOV.encode()+b'/'+IDEOV.encode(),IDEOV.encode())
+                        else:RPL=VTT[4:]
+                        RPL=len(b'\x0b\x00\x00\x00\x0b\x00\x00\x00ElementT\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom?\x00\x00\x00\x08\x00\x00\x00TypeAssetRefAnalyser.Pair`2[System.String,System.Int32]\x04\x00\x00\x00'+len(VT+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+VT[4:]+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+b'\x0b\x00\x00\x00ElementT\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom?\x00\x00\x00\x08\x00\x00\x00TypeAssetRefAnalyser.Pair`2[System.String,System.Int32]\x04\x00\x00\x00'+len(VT+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+VT[4:]+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi
+                        CODE+=RPL
+                        VTD=VTD[int.from_bytes((VTD[:4]),'little'):]
+                    CODE=len(DAU+len(CODE+VTDAU).to_bytes(4,'little')+VTDAU[4:]+CODE).to_bytes(4,'little')+DAU[4:]+len(CODE+VTDAU).to_bytes(4,'little')+VTDAU[4:]+CODE;CODETONG+=CODE
+                if id in('15704','11107'):
+                    VTP=CUOI1[:149]
+                    CUOI=CUOI1[149:]
+                    ELEMENT=[]
+                    while True:
+                        VT=CUOI[:4]
+                        if CUOI==b'': break
+                        ELEMENT.append(CUOI[:int.from_bytes(VT,'little')])
+                        CUOI=CUOI[int.from_bytes(VT,'little'):]
+                    CUOI1=b''
+                    for VTC in ELEMENT:
+                        VT=VTC[103:111]
+                        VT1=VTC[111:121]
+                        VT2=VTC[121:167]
+                        Cuoi=VTC[int.from_bytes(VTC[167:171],'little')+167:]
+                        VTT=VTC[167:int.from_bytes(VTC[167:171],'little')+167]
+                        RPL=VTT[4:]
+                        RPL=RPL[:5]+id.encode()+b'/'+RPL[5:]
+                        RPL=len(b'\x0b\x00\x00\x00\x0b\x00\x00\x00ElementT\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom?\x00\x00\x00\x08\x00\x00\x00TypeAssetRefAnalyser.Pair`2[System.String,System.Int32]\x04\x00\x00\x00'+len(VT+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+VT[4:]+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+b'\x0b\x00\x00\x00ElementT\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom?\x00\x00\x00\x08\x00\x00\x00TypeAssetRefAnalyser.Pair`2[System.String,System.Int32]\x04\x00\x00\x00'+len(VT+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+VT[4:]+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi
+                        CUOI1+=RPL
+                    CUOI1=VTP[:141]+(len(CUOI1)+8).to_bytes(4,'little')+VTP[145:]+CUOI1
+                CODETONG=len(DAU1[:83]+len((DAU1[83:91]+(len(DAU1[91:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[95:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1)+VTF)).to_bytes(4,'little')+DAU1[87:91]+(len(DAU1[91:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[95:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1)+VTF).to_bytes(4,'little')+DAU1[4:83]+len((DAU1[83:91]+(len(DAU1[91:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[95:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1)+VTF)).to_bytes(4,'little')+DAU1[87:91]+(len(DAU1[91:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[95:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1)+VTF
+                #with open('kb1.bytes','wb') as f:f.write(CODETONG)
+                with open(fileasset_mod,'wb') as f:f.write(CODETONG)
+                print(f"Fix Lag\033[0m: \033[0m[Done]\033[0m")
+                print("-"*53)
+#----------------------------------------------
+            if IDCHECK == "52007":
+                if phukien == "do" or "xanh":
+                    with open(fileasset_mod,'rb') as f:rpl=f.read();f.close()
+                    CACHE=[]
+                    VTR=rpl[rpl.find(b'particlesInFirstLayer')-8:rpl.find(b'particlesInFirstLayer')-4];VTC=rpl[rpl.find(b'particlesInFirstLayer')-8:rpl.find(b'animationsw')-8]
+                    DAU1=rpl[:rpl.find(b'particlesInFirstLayer')-8]
+                    VTF=b''
+                    if rpl.find(b'skinSubset') != -1:
+                        VTF=rpl[rpl.find(b'skinSubset')-8:]
+                        CUOI1=rpl[rpl.find(b'animationsw')-8:rpl.find(b'skinSubset')-8]
+                    else:
+                        CUOI1=rpl[rpl.find(b'animationsw')-8:]
+                    while True:
+                        if VTC == b'': break
+                        CACHE.append(VTC[:int.from_bytes((VTC[:4]),'little')])
+                        VTC=VTC[int.from_bytes((VTC[:4]),'little'):]
+                    CODETONG=b''
+                    for i in CACHE:
+                        VT=i.find(b'Element')-8
+                        VTDAU=i[VT-8:VT]
+                        DAU=i[:VT-8]
+                        VTD=i[VT:]
+                        CODE=b''
+                        for ig in range(i.count(b'Element')):
+                            VTC=VTD[:int.from_bytes((VTD[:4]),'little')]
+                            VT=VTC[103:111]
+                            VT1=VTC[111:121]
+                            VT2=VTC[121:167]
+                            Cuoi=VTC[int.from_bytes(VTC[167:171],'little')+167:]
+                            VTT=VTC[167:int.from_bytes(VTC[167:171],'little')+167]
+                            if VTT.find(id[:3].encode())!= -1:
+                                if phukien == "do":
+                                    PHUKHIENDO = "5200402"
+                                    RPL=VTT[4:].replace(b"hero_skill_effects/520_Veres/",b"component_effects/52007/5200402/").replace(b"hero_skill_effects/520_Veres/",b"component_effects/52007/5200402/");RPL=RPL.replace(PHUKHIENDO.encode()+b'/'+PHUKHIENDO.encode(),PHUKHIENDO.encode())
+                                if phukien == "xanh":
+                                    PHUKHIENDO = "5200401"
+                                    RPL=VTT[4:].replace(b"hero_skill_effects/520_Veres/",b"component_effects/52007/5200401/").replace(b"hero_skill_effects/520_Veres/",b"component_effects/52007/5200401/");RPL=RPL.replace(PHUKHIENDO.encode()+b'/'+PHUKHIENDO.encode(),PHUKHIENDO.encode())
 
+                            else:RPL=VTT[4:]
+                            RPL=len(b'\x0b\x00\x00\x00\x0b\x00\x00\x00ElementT\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom?\x00\x00\x00\x08\x00\x00\x00TypeAssetRefAnalyser.Pair`2[System.String,System.Int32]\x04\x00\x00\x00'+len(VT+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+VT[4:]+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+b'\x0b\x00\x00\x00ElementT\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom?\x00\x00\x00\x08\x00\x00\x00TypeAssetRefAnalyser.Pair`2[System.String,System.Int32]\x04\x00\x00\x00'+len(VT+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+VT[4:]+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi
+                            CODE+=RPL
+                            VTD=VTD[int.from_bytes((VTD[:4]),'little'):]
+                        CODE=len(DAU+len(CODE+VTDAU).to_bytes(4,'little')+VTDAU[4:]+CODE).to_bytes(4,'little')+DAU[4:]+len(CODE+VTDAU).to_bytes(4,'little')+VTDAU[4:]+CODE;CODETONG+=CODE
+                    if id in('15704','11107'):
+                        VTP=CUOI1[:149]
+                        CUOI=CUOI1[149:]
+                        ELEMENT=[]
+                        while True:
+                            VT=CUOI[:4]
+                            if CUOI==b'': break
+                            ELEMENT.append(CUOI[:int.from_bytes(VT,'little')])
+                            CUOI=CUOI[int.from_bytes(VT,'little'):]
+                        CUOI1=b''
+                        for VTC in ELEMENT:
+                            VT=VTC[103:111]
+                            VT1=VTC[111:121]
+                            VT2=VTC[121:167]
+                            Cuoi=VTC[int.from_bytes(VTC[167:171],'little')+167:]
+                            VTT=VTC[167:int.from_bytes(VTC[167:171],'little')+167]
+                            RPL=VTT[4:]
+                            RPL=RPL[:5]+id.encode()+b'/'+RPL[5:]
+                            RPL=len(b'\x0b\x00\x00\x00\x0b\x00\x00\x00ElementT\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom?\x00\x00\x00\x08\x00\x00\x00TypeAssetRefAnalyser.Pair`2[System.String,System.Int32]\x04\x00\x00\x00'+len(VT+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+VT[4:]+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+b'\x0b\x00\x00\x00ElementT\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom?\x00\x00\x00\x08\x00\x00\x00TypeAssetRefAnalyser.Pair`2[System.String,System.Int32]\x04\x00\x00\x00'+len(VT+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+VT[4:]+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi
+                            CUOI1+=RPL
+                        CUOI1=VTP[:141]+(len(CUOI1)+8).to_bytes(4,'little')+VTP[145:]+CUOI1
+                    CODETONG=len(DAU1[:83]+len((DAU1[83:91]+(len(DAU1[91:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[95:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1)+VTF)).to_bytes(4,'little')+DAU1[87:91]+(len(DAU1[91:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[95:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1)+VTF).to_bytes(4,'little')+DAU1[4:83]+len((DAU1[83:91]+(len(DAU1[91:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[95:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1)+VTF)).to_bytes(4,'little')+DAU1[87:91]+(len(DAU1[91:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[95:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1)+VTF
+                    #with open('kb1.bytes','wb') as f:f.write(CODETONG)
+                    with open(fileasset_mod,'wb') as f:f.write(CODETONG)
+                    print(f"\033[93mFix Lag Veres PK Kimono\033[0m: \033[92m[Done]\033[0m")
+                    print("-"*53)
+
+
+
+
+
+
+
+            else:
+                with open(fileasset_mod,'rb') as f:rpl=f.read();f.close()
+                CACHE=[]
+                VTR=rpl[rpl.find(b'particlesInFirstLayer')-8:rpl.find(b'particlesInFirstLayer')-4];VTC=rpl[rpl.find(b'particlesInFirstLayer')-8:rpl.find(b'animationsw')-8]
+                DAU1=rpl[:rpl.find(b'particlesInFirstLayer')-8]
+                VTF=b''
+                if rpl.find(b'skinSubset') != -1:
+                    VTF=rpl[rpl.find(b'skinSubset')-8:]
+                    CUOI1=rpl[rpl.find(b'animationsw')-8:rpl.find(b'skinSubset')-8]
+                else:
+                    CUOI1=rpl[rpl.find(b'animationsw')-8:]
+                while True:
+                    if VTC == b'': break
+                    CACHE.append(VTC[:int.from_bytes((VTC[:4]),'little')])
+                    VTC=VTC[int.from_bytes((VTC[:4]),'little'):]
+                CODETONG=b''
+                for i in CACHE:
+                    VT=i.find(b'Element')-8
+                    VTDAU=i[VT-8:VT]
+                    DAU=i[:VT-8]
+                    VTD=i[VT:]
+                    CODE=b''
+                    for ig in range(i.count(b'Element')):
+                        VTC=VTD[:int.from_bytes((VTD[:4]),'little')]
+                        VT=VTC[103:111]
+                        VT1=VTC[111:121]
+                        VT2=VTC[121:167]
+                        Cuoi=VTC[int.from_bytes(VTC[167:171],'little')+167:]
+                        VTT=VTC[167:int.from_bytes(VTC[167:171],'little')+167]
+                        if VTT.find(id[:3].encode())!= -1:
+                            RPL=VTT[4:].replace(b"hero_skill_effects/"+(VTT[(VTT.find(b'/',VTT.find(id[:3].encode())-1))+1:(VTT.find(b'/',VTT.find(id[:3].encode())))]),b"hero_skill_effects/"+(VTT[(VTT.find(b'/',VTT.find(id[:3].encode())-1))+1:(VTT.find(b'/',VTT.find(id[:3].encode())))])+b'/'+id.encode()).replace(b"Hero_Skill_Effects/"+(VTT[(VTT.find(b'/',VTT.find(id[:3].encode())-1))+1:(VTT.find(b'/',VTT.find(id[:3].encode())))]),b"Hero_Skill_Effects/"+(VTT[(VTT.find(b'/',VTT.find(id[:3].encode())-1))+1:(VTT.find(b'/',VTT.find(id[:3].encode())))])+b'/'+id.encode());RPL=RPL.replace(id.encode()+b'/'+id.encode(),id.encode())
+                        else:RPL=VTT[4:]
+                        RPL=len(b'\x0b\x00\x00\x00\x0b\x00\x00\x00ElementT\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom?\x00\x00\x00\x08\x00\x00\x00TypeAssetRefAnalyser.Pair`2[System.String,System.Int32]\x04\x00\x00\x00'+len(VT+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+VT[4:]+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+b'\x0b\x00\x00\x00ElementT\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom?\x00\x00\x00\x08\x00\x00\x00TypeAssetRefAnalyser.Pair`2[System.String,System.Int32]\x04\x00\x00\x00'+len(VT+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+VT[4:]+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi
+                        CODE+=RPL
+                        VTD=VTD[int.from_bytes((VTD[:4]),'little'):]
+                    CODE=len(DAU+len(CODE+VTDAU).to_bytes(4,'little')+VTDAU[4:]+CODE).to_bytes(4,'little')+DAU[4:]+len(CODE+VTDAU).to_bytes(4,'little')+VTDAU[4:]+CODE;CODETONG+=CODE
+                if id in('15704','11107'):
+                    VTP=CUOI1[:149]
+                    CUOI=CUOI1[149:]
+                    ELEMENT=[]
+                    while True:
+                        VT=CUOI[:4]
+                        if CUOI==b'': break
+                        ELEMENT.append(CUOI[:int.from_bytes(VT,'little')])
+                        CUOI=CUOI[int.from_bytes(VT,'little'):]
+                    CUOI1=b''
+                    for VTC in ELEMENT:
+                        VT=VTC[103:111]
+                        VT1=VTC[111:121]
+                        VT2=VTC[121:167]#MODLQ
+                        Cuoi=VTC[int.from_bytes(VTC[167:171],'little')+167:]
+                        VTT=VTC[167:int.from_bytes(VTC[167:171],'little')+167]
+                        RPL=VTT[4:]
+                        RPL=RPL[:5]+id.encode()+b'/'+RPL[5:]
+                        RPL=len(b'\x0b\x00\x00\x00\x0b\x00\x00\x00ElementT\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom?\x00\x00\x00\x08\x00\x00\x00TypeAssetRefAnalyser.Pair`2[System.String,System.Int32]\x04\x00\x00\x00'+len(VT+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+VT[4:]+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+b'\x0b\x00\x00\x00ElementT\x00\x00\x00\x02\x00\x00\x00\r\x00\x00\x00\x06\x00\x00\x00JTCom?\x00\x00\x00\x08\x00\x00\x00TypeAssetRefAnalyser.Pair`2[System.String,System.Int32]\x04\x00\x00\x00'+len(VT+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi).to_bytes(4,'little')+VT[4:]+(len(VT1+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL)+8).to_bytes(4,'little')+VT1[4:]+len(VT2+(len(RPL)+4).to_bytes(4,'little')+RPL).to_bytes(4,'little')+VT2[4:]+(len(RPL)+4).to_bytes(4,'little')+RPL+Cuoi
+                        CUOI1+=RPL
+                    CUOI1=VTP[:141]+(len(CUOI1)+8).to_bytes(4,'little')+VTP[145:]+CUOI1
+                CODETONG=len(DAU1[:83]+len((DAU1[83:91]+(len(DAU1[91:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[95:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1)+VTF)).to_bytes(4,'little')+DAU1[87:91]+(len(DAU1[91:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[95:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1)+VTF).to_bytes(4,'little')+DAU1[4:83]+len((DAU1[83:91]+(len(DAU1[91:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[95:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1)+VTF)).to_bytes(4,'little')+DAU1[87:91]+(len(DAU1[91:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[95:183]+len(DAU1[183:]+CODETONG+CUOI1).to_bytes(4,'little')+DAU1[187:]+CODETONG+CUOI1)+VTF
+                #with open('kb1.bytes','wb') as f:f.write(CODETONG)
+                with open(fileasset_mod,'wb') as f:f.write(CODETONG)
+                print(f"033[0mFix Lag\033[0m: \033[0m[Done]\033[0m")
+                print("-"*53)
 
     print('[✓] Âm Thanh Databin')
     if IDCHECK == "53002" or b"Skin_Icon_SoundEffect" in dieukienmod or b"Skin_Icon_Dialogue" in dieukienmod:
@@ -478,8 +1018,8 @@ for IDMODSKIN in IDMODSKIN:
             
             # In từng file
             print(f"     Sound: {sound_file_name}  Done")
-        #print("-"*53)
     print(f"{'+ Trạng Thái Mod':<25}")
+#----------------------------------------------
     if IDCHECK == "53002" or b"Skin_Icon_Skill" in dieukienmod or b"Skin_Icon_BackToTown" in dieukienmod:
         file_paths = [file_mod_skill1, file_mod_skill2]
         matching_files = []
@@ -552,7 +1092,7 @@ for IDMODSKIN in IDMODSKIN:
             print(f"   [-] {os.path.basename(file):<25} Done!")
     else:
         print("    [x] SkillMark Not Found")
-        
+#----------------------------------------------
     file_path = file_mod_Modtion
     skin_id = IDMODSKIN
     all_ids = []
@@ -643,25 +1183,6 @@ for IDMODSKIN in IDMODSKIN:
     zip_path = f'Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{IDMODSKIN[:3]}_Actions.pkg.bytes'
     Files_Directory_Path = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4/'
     print(f'    Skill Ages - Actor_{IDMODSKIN[:3]}_Actions.pkg.bytes')
-    phukien = ""
-    if IDMODSKIN == '52007':
-        print(f"[✓] Chọn phụ kiện Veres ({IDMODSKIN}):")
-        chon = input("1. Đỏ  |  2. Xanh: ").strip()
-        if chon == "1":
-            phukien = "do"
-        elif chon == "2":
-            phukien = "xanh"
-        else:
-            print("[-] Không dùng phụ kiện.")
-    if IDMODSKIN == '13311':
-        print(f"[✓] Chọn phụ kiện Veres ({IDMODSKIN}):")
-        chon = input("1. Đỏ  |  2. Xanh: ").strip()
-        if chon == "1":
-            phukienv = "dov"
-        elif chon == "2":
-            phukien = "xanh"
-        else:
-            print("[-] Không dùng phụ kiện.")
     with zipfile.ZipFile(zip_path, 'r') as zip_ref:
         zip_ref.extractall(Files_Directory_Path)
 
@@ -725,8 +1246,6 @@ for IDMODSKIN in IDMODSKIN:
                         new_lines.append(b'        <int name="frameRate" value="120" refParamName="" useRefParam="false" />\n        <bool name="bUseTargetSkinEffect" value="true" refParamName="" useRefParam="false"/>')
                 All = b'\r\n'.join(new_lines)
 
-            
-            # Regex linh hoạt: bắt <int ... name="skinId" ... value="16307" ... />
             CheckSkinIdTick = ('<int name="skinId" value="'+IDMODSKIN+'" refParamName="" useRefParam="false" />').encode()
             CheckSkinIdTick0 = ('<int name="skinId" value="'+IDMODSKIN[:3]+'00'+'" refParamName="" useRefParam="false" />').encode()
             if CheckSkinIdTick in All:
@@ -828,6 +1347,7 @@ for IDMODSKIN in IDMODSKIN:
                         rpl = f.read().replace(b'prefab_skill_effects/hero_skill_effects/520_Veres/52007/',b'prefab_skill_effects/component_effects/52007/5200402/')
                     with open(file_path, 'wb') as f:
                         f.write(rpl)
+                    print('Hieu Ung Phu Kien Do Veres Done')
                 elif phukien == "xanh":
                     with open(file_path, 'rb') as f:
                         rpl = f.read().replace(
@@ -836,6 +1356,7 @@ for IDMODSKIN in IDMODSKIN:
             )
                     with open(file_path, 'wb') as f:
                         f.write(rpl)
+                    print('Hieu Ung Phu Kien Xanh Veres Done')
 #---------------—------------———----------------
             if IDMODSKIN == '13011' and 'S2B2_13011' in file_path and 'S2B3_13011' in file_path and 'S2B1.xml' in file_path:
                 with open(file_path, 'rb') as f:
@@ -1055,10 +1576,6 @@ for IDMODSKIN in IDMODSKIN:
         IDSOUND1 = IDSOUND_S[3:]
         IDSOUND12 = IDSOUND1.encode()
         IDSOUND = b"_Skin" + IDSOUND12
-
-        IDINFO = str(int(IDMODSKIN) + 1)
-        if IDINFO[3:4] == '0':
-            IDINFO = IDINFO[:3] + IDINFO[4:]
 
         for file in os.listdir(directory_path):
             filepath = directory_path + file
@@ -1532,11 +2049,7 @@ for IDMODSKIN in IDMODSKIN:
             nl.append(cd)
     with open(fp, 'w', encoding='utf-8') as f:
         f.writelines(nl)
-
 #-----------------------------------------------
-    if IDMODSKIN == "16707":
-        print(f"[-] Bỏ qua ID {IDMODSKIN}, không xử lý.")
-        continue 
     INFO_MOD = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/'
     with zipfile.ZipFile(f'Resources/1.58.1/Prefab_Characters/Actor_{IDINFO[:3]}_Infos.pkg.bytes') as f:
         f.extractall(INFO_MOD)
@@ -1557,10 +2070,17 @@ for IDMODSKIN in IDMODSKIN:
         exit()
 
     đuongan = os.path.join(duong_prefab, NAME_HERO)
-    actorinfo_file = next(
-        (f for f in os.listdir(đuongan) if f.lower().endswith('_actorinfo.bytes')),
-        None
-    )
+    actorinfo_file = None
+
+    for f in os.listdir(đuongan):
+        if f.lower() == f"{NAME_HERO.lower()}_actorinfo.bytes":
+            actorinfo_file = f
+            break
+    if actorinfo_file is None:
+        for f in os.listdir(đuongan):
+            if f.lower().endswith('_actorinfo.bytes'):
+                actorinfo_file = f
+                break
 
     if actorinfo_file is None:
         print(f"[!] Không tìm thấy file *_actorinfo.bytes trong {đuongan}")
@@ -1765,73 +2285,6 @@ for IDMODSKIN in IDMODSKIN:
         code=a5.replace(a25,a13)
         data4=len(code).to_bytes(4,byteorder='little')+code[4:]
         return data4
-    def ArtSkinLobbyIdleShowLOD(data4):
-        a = camSkin.find(b'\x00ArtSkinLobbyIdleShowLOD') - 7
-        a10 = camSkin.find(b'\x00ArtSkinLobbyIdleShowLOD') - 3
-        a3 = camSkin[a:a+8]
-        a4 = a3[4:]
-        a2 = camSkin[a:a+4]
-        vitri = int.from_bytes(a2, byteorder='little')
-        ne = camSkin[vitri:]
-        vitri2 = int.from_bytes(a4, byteorder='little')
-        a5 = camSkin[a:a+vitri]
-        a25 = camSkin[a10:a10+vitri2]
-        a22 = camSkin[a10:a10+vitri2].replace(b'\x00ArtSkinLobbyIdleShowLOD', b'\x00ArtLobbyIdleShowLOD')
-        a13 = len(a22).to_bytes(4, byteorder='little') + a22[4:]
-        code = a5.replace(a25, a13)
-        data4 = len(code).to_bytes(4, byteorder='little') + code[4:] + ne
-        return data4
-
-    def ArtPrefabLODnew(data):
-        a = ab.find(b'\x00ArtPrefabLOD') - 7
-        a2 = ab[a:a+4]
-        a3 = ab[a:a+5]
-        a4 = a3[4:5]  # so 10
-        vitri = int.from_bytes(a2, byteorder='little')
-        data = ab[a:a+vitri]
-        return data
-
-    def ArtPrefabLODExnew(data4):
-        a = ab.find(b'\x00ArtPrefabLODEx') - 7
-        a2 = ab[a:a+4]
-        a3 = ab[a:a+5]
-        a4 = a3[4:5]  # so 10
-        vitri = int.from_bytes(a2, byteorder='little')
-        data4 = ab[a:a+vitri]
-        return data4
-
-    def ArtSkinPrefabLODnew(data3):
-        a = ab.find(b'\x00ArtSkinPrefabLOD') - 7
-        a10 = ab.find(b'\x00ArtSkinPrefabLOD') - 3
-        a3 = ab[a:a+8]
-        a4 = a3[4:]
-        a2 = ab[a:a+4]
-        vitri = int.from_bytes(a2, byteorder='little')
-        vitri2 = int.from_bytes(a4, byteorder='little')
-        a5 = ab[a:a+vitri]
-        a25 = ab[a10:a10+vitri2]
-        a22 = ab[a10:a10+vitri2].replace(b'\x00ArtSkinPrefabLOD', b'\x00ArtPrefabLOD')
-        a13 = len(a22).to_bytes(4, byteorder='little') + a22[4:]
-        code = a5.replace(a25, a13)
-        data3 = len(code).to_bytes(2, byteorder='little') + code[2:]
-        return data3
-
-    def ArtSkinPrefabLODExnew(data2):
-        a = ab.find(b'\x00ArtSkinPrefabLODEx') - 7
-        a10 = ab.find(b'\x00ArtSkinPrefabLODEx') - 3
-        a3 = ab[a:a+8]
-        a4 = a3[4:]
-        a2 = ab[a:a+4]
-        vitri = int.from_bytes(a2, byteorder='little')
-        vitri2 = int.from_bytes(a4, byteorder='little')
-        a5 = ab[a:a+vitri]
-        a25 = ab[a10:a10+vitri2]
-        a22 = ab[a10:a10+vitri2].replace(b'\x00ArtSkinPrefabLODEx', b'\x00ArtPrefabLODEx')
-        a13 = len(a22).to_bytes(4, byteorder='little') + a22[4:]
-        code = a5.replace(a25, a13)
-        data2 = len(code).to_bytes(4, byteorder='little') + code[4:]
-        return data2
-
     #codeskinmd
     SkinMD=r[:skinprefag]
 
@@ -1873,30 +2326,6 @@ for IDMODSKIN in IDMODSKIN:
     CodeDayDu=len(tinhRootDtrc).to_bytes(4,byteorder='little')+tinhRootDtrc[4:]
     CodeDayDu=CodeDayDu.replace(b"Light<",b"00000<")
     CodeDayDu = CodeDayDu.replace(b"imeline<", b"1234567<")
-    CodeDayDu = CodeDayDu.replace(b"ArtPrefabLODEx", b"ModByKunnAOVdz")
-    infthem = '1'
-    lodinf = '1'
-    showinf = '1'
-    if infthem == "1":
-        if showinf == "1":
-            CodeDayDu=CodeDayDu.replace(b"Show2\x04", b"Show1\x04")
-            CodeDayDu=CodeDayDu.replace(b"Show3\x04", b"Show1\x04")
-        if showinf == "2":
-            CodeDayDu=CodeDayDu.replace(b"Show1\x04", b"Show2\x04")
-            CodeDayDu=CodeDayDu.replace(b"Show3\x04", b"Show2\x04")
-        if showinf == "3":
-            CodeDayDu=CodeDayDu.replace(b"Show1\x04", b"Show3\x04")
-            CodeDayDu=CodeDayDu.replace(b"Show2\x04", b"Show3\x04")
-        if lodinf == "1":
-            CodeDayDu=CodeDayDu.replace(b"LOD2", b"LOD1")
-            CodeDayDu=CodeDayDu.replace(b"LOD3", b"LOD1")
-        if lodinf =="2":
-            CodeDayDu=CodeDayDu.replace(b"LOD1", b"LOD2")
-            CodeDayDu=CodeDayDu.replace(b"LOD3", b"LOD2")
-        if lodinf =="3":
-            CodeDayDu=CodeDayDu.replace(b"LOD1", b"LOD3")
-            CodeDayDu=CodeDayDu.replace(b"LOD2", b"LOD3")
-            
     tinhcam=CodeDayDu[:89]
     with open(op,'wb')as f: f.write(CodeDayDu)
     o=open(op,'rb')
@@ -1916,406 +2345,71 @@ for IDMODSKIN in IDMODSKIN:
     tinhcam1=CodeDayDu[:88]+k
     CodeDayDu=CodeDayDu.replace(tinhcam,tinhcam1)
     with open(op,'wb')as f: f.write(CodeDayDu)
-
+    print('   Actor_'+IDINFO[:3]+'_Infos.pkg.bytes'+' Done')
 #-----------------------------------------------
-class StringBytes:
-    def __init__(self, String):
-        self.String = String
-        self.OldString = String
+    if IDCHECK[:3] == '196' and b"Skin_Icon_Skill" in dieukienmod:
+        Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/196_Elsu/196_Elsu_trap_actorinfo.bytes'
+        giai(Directory)
 
-    def tell(self):
-        return len(self.OldString) - len(self.String)
-
-    def seek(self, I, O=0):
-        if O == 0:
-            self.String = self.OldString[I:]
-        elif O == 1:
-            self.String = self.String[I:]
-
-    def read(self, Int=None):
-        if Int is None:
-            return b""
-        R = self.String[:Int]
-        self.String = self.String[Int:]
-        return R
-
-
-class Bytes_XML:
-    def decode(String):
-        def get_int(A):
-            return int.from_bytes(A.read(4), 'little')
-
-        def get_str(A, pos=None):
-            if pos is not None:
-                A.seek(pos, 0)
-            ofs = get_int(A)
-            stri = A.read(ofs - 4)
-            return stri.decode()
-
-        def get_attr(A, pos=None):
-            if pos is None:
-                pos = A.tell()
-            ofs = get_int(A)
-            type = get_int(A)
-            if type == 5:
-                stri = A.read(ofs - 8).decode()[1:]
-                check_four(A)
-                A.seek(pos + ofs, 0)
-                return stri
-            else:
-                if type == 6:
-                    stri = A.read(ofs - 8).decode()
-                    if stri.startswith('JT'):
-                        if stri == 'JTArr':
-                            stri = 'Array'
-                        elif stri == 'JTPri':
-                            stri = 'String'
-                        else:
-                            stri = stri[2:]
-                        name = 'var'
-                    else:
-                        name = 'var_Raw'
-                elif type == 8:
-                    stri2 = A.read(ofs - 8).decode()
-                    if stri2.startswith('Type'):
-                        stri = stri2[4:]
-                        name = 'type'
-                    else:
-                        stri = stri2
-                        name = 'type_Raw'
-                else:
-                    stri = A.read(ofs - 8).decode()
-                    name = str(type)
-                    A.seek(pos + ofs, 0)
-                return {name: stri}
-
-        def check_four(A):
-            if get_int(A) != 4:
-                A.seek(-4, 1)
-
-        def get_node(A, fid=None, sta=None):
-            global i
-            ofs = get_int(A)
-            stri = get_str(A)
-            myid = i
-            i += 1
-            A.seek(4, 1)
-            aidx = get_int(A)
-            ite = False
-            attr = {}
-            for _ in range(aidx):
-                attr1 = get_attr(A)
-                if isinstance(attr1, str):
-                    text1 = attr1
-                    ite = True
-                else:
-                    attr.update(attr1)
-            if fid is None:
-                nod[myid] = ET.SubElement(root, stri, attrib=attr)
-            else:
-                nod[myid] = ET.SubElement(nod[fid], stri, attrib=attr)
-            if ite:
-                if text1 == '':
-                    nod[myid].set("value", " ")
-                else:
-                    nod[myid].set("value", text1)
-            check_four(A)
-            chk = sta + ofs - A.tell()
-            if chk > 12:
-                A.seek(4, 1)
-                sidx = get_int(A)
-                for _ in range(sidx):
-                    get_node(A, myid, A.tell())
-            A.seek(sta + ofs, 0)
-
-        A = StringBytes(String)
-        global i, nod, root
-        i = 0
-        nod = {}
-        ofs = get_int(A)
-        stri = get_str(A)
-        A.seek(4, 1)
-        aidx = get_int(A)
-        ite = False
-        attr = {}
-        for _ in range(aidx):
-            attr1 = get_attr(A)
-            if isinstance(attr1, str):
-                text1 = attr1
-                ite = True
-            else:
-                attr.update(attr1)
-        root = ET.Element(stri, attrib=attr)
-        if ite:
-            root.set("value", text1)
-        check_four(A)
-        chk = ofs - A.tell()
-        if chk > 12:
-            A.seek(4, 1)
-            sidx = get_int(A)
-            for _ in range(sidx):
-                get_node(A, None, A.tell())
-
-        try:
-            xml_str = minidom.parseString(ET.tostring(root, "utf-8").decode()).toprettyxml(indent="  ", newl="\r\n")
-            return xml_str.encode('utf-8')  # always return bytes
-        except Exception as e:
-            print("[LỖI decode] minidom thất bại:", e)
-            return ET.tostring(root, "utf-8")  # fallback: still bytes
-
-
-    def encode(xmlfile):
-        def byteint(num):
-            return num.to_bytes(4, byteorder='little')
-
-        def bytestr(stri):
-            outbyte = byteint(len(stri) + 4) + stri.encode()
-            return outbyte
-
-        def byteattr(key, attr):
-            if key == 'var':
-                stri = 'JT' + attr[key] if attr[key] not in ['Array', 'String'] else {'Array': 'JTArr', 'String': 'JTPri'}[attr[key]]
-                aid = 6
-            elif key == 'var_Raw':
-                stri = attr[key]
-                aid = 6
-            elif key == 'type':
-                stri = 'Type' + attr[key]
-                aid = 8
-            elif key == 'type_Raw':
-                stri = attr[key]
-                aid = 8
-            elif key == "value":
-                return b""
-            else:
-                stri = attr[key]
-                aid = int(key)
-            stripro = stri.encode()
-            return byteint(len(stripro) + 8) + byteint(aid) + stripro
-
-        def bytenode(node):
-            name = bytestr(node.tag)
-            attr_data = b''
-            aindex = len(node.attrib)
-            plus = 8
-            for key in node.attrib:
-                if key == "value":
-                    aindex -= 1
-                attr_data += byteattr(key, node.attrib)
-            if node.get("value") and not node.get("value").startswith('\n'):
-                val = node.get("value")
-                if val == " ":
-                    val = ""
-                stripro = ('V' + val).encode()
-                attr_data += byteint(len(stripro) + 8) + byteint(5) + stripro + byteint(4)
-                aindex += 1
-                plus = 4
-            attr_data = byteint(len(attr_data) + plus) + byteint(aindex) + attr_data + byteint(4)
-            child_data = b''
-            if len(node):
-                children = [bytenode(child) for child in node]
-                child_data = b''.join(children)
-                child_data = byteint(len(child_data) + 8) + byteint(len(children)) + child_data
-            else:
-                child_data = byteint(4)
-            return byteint(len(name + attr_data + child_data) + 4) + name + attr_data + child_data
-
-        tree = ET.fromstring(xmlfile)
-        return bytenode(tree)
-                       
-def process_file(file_path_FL, LC):
-    with open(file_path_FL, "rb") as f:
-        G = f.read()
-
-    try:
-        if LC == "1":
-            decoded = Bytes_XML.decode(G)
-            if decoded:
-                with open(file_path_FL, "wb") as f1:
-                    f1.write(decoded)
-            else:
-                print(f"[LỖI] Không decode được file: {file_path_FL}")
-        elif LC == "2":
-            encoded = Bytes_XML.encode(G.decode())
-            with open(file_path_FL, "wb") as f1:
-                f1.write(encoded)
-    except Exception as e:
-        print(f"[LỖI] Lỗi khi xử lý file: {file_path_FL} → {e}")
-                      
-def process_directory(directory_path, LC):
-    process_file(directory_path, LC)
-#-----------------------------------------------
-for IdCheck in IDMODSKIN1:
-    phukien = ''
-    phukienv = ''
-
-    if IdCheck == '52007':
-        print(f"[✓] Chọn phụ kiện cho Veres ({IdCheck}):")
-        phukien1 = input("[1] Xanh  | [2] Đỏ | [3] Không dùng phụ kiện: ").strip()
-        if phukien1 == "1":
-            phukien = 'xanh'
-        elif phukien1 == "2":
-            phukien = 'do'
-        elif phukien1 == "3":
-            phukien = ''
-        else:
-            print("[-] Lựa chọn không hợp lệ cho Veres.")
-
-    if IdCheck == '13311':
-        print(f"[✓] Chọn phụ kiện cho Valhein ({IdCheck}):")
-        phukien1v = input("[1] Vàng | [2] Đỏ | [3] Không dùng phụ kiện: ").strip()
-        if phukien1v == "1":
-            phukienv = 'vangv'
-        elif phukien1v == "2":
-            phukienv = 'dov'
-        elif phukien1v == "3":
-            phukienv = ''
-        else:
-            print("[-] Lựa chọn không hợp lệ cho Valhein.")
-    if phukien == 'do' and IDMODSKIN == '52007':
-        Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/520_Veres/520_Veres_actorinfo.bytes'
         LC = '1'
         process_directory(Directory, LC)
 
-        with open(Directory, 'rb') as f:
-            InfosVeres = f.read()
-            InfosVeres = InfosVeres.replace(b'5208_Veres_LOD', b'Component/5208_Veres_RT_3_LOD').replace(b'5208_Veres_Show', b'Component/5208_Veres_RT_3_Show')
+        with open(Directory, 'rb') as code_elsu:
+            elsu = code_elsu.read()
+            elsu = elsu.replace(
+                b'Prefab_Skill_Effects/Hero_Skill_Effects/196_Elsu/BaiLiShouYue_attack02_spell01_LOD',
+                b'Prefab_Skill_Effects/Hero_Skill_Effects/196_Elsu/' + IDCHECK.encode() + b'/BaiLiShouYue_attack02_spell01_LOD'
+            )
 
         with open(Directory, 'wb') as f:
-            f.write(InfosVeres)
+            f.write(elsu)
 
         LC = '2'
         process_directory(Directory, LC)
-        print('✓ Infos Veres - Phụ Kiện Đỏ: Đã Mod Xong')
+#-----------------------------------------------
+    if IDCHECK == "19015":
+        Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/190_ZhuGeLiang/190_ZhuGeLiang_actorinfo.bytes'
 
-    elif phukienv == 'dov' and IDMODSKIN == '13311':
-        Directory = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/133_DiRenJie/133_DiRenJie_actorinfo.bytes'
         LC = '1'
         process_directory(Directory, LC)
-
-        with open(Directory, 'rb') as f:
-            InfosValhein = f.read()
-            InfosValhein = InfosValhein.replace(b'13312_DiRenJie_AW1_LOD', b'Awaken/13312_DiRenJie_04_LOD')\
-                                       .replace(b'13312_DiRenJie_AW1_Show', b'Component/13312_DiRenJie_AW5_RT_3_Show')\
-                                       .replace(b'1331_DiRenJie_Cam', b'Awaken/13312_DiRenJie_AW5_Cam')
+        with open(Directory, 'rb') as code_tulen:
+            tulen = code_tulen.read()
+            tulen = tulen.replace(
+                b'\n  <useMecanim var="String" type="System.Boolean" value="True"/>',
+                b''
+            )
 
         with open(Directory, 'wb') as f:
-            f.write(InfosValhein)
+            f.write(tulen)
 
         LC = '2'
         process_directory(Directory, LC)
-        print('✓ Infos Valhein - Phụ Kiện Đỏ Ver: Đã Mod Xong')
-
-    elif IDMODSKIN == '16707':
-        with zipfile.ZipFile('Resources/1.58.1/Prefab_Characters/Actor_167_Infos.pkg.bytes') as zipc:
-            zipc.extractall(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod')
-
-        DuongDan1 = f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/Prefab_Hero/167_WuKong/167_WuKong_actorinfo.bytes'
-        giai(DuongDan1)
-        LC = '1'
-        process_directory(DuongDan1, LC)
-
-        with open(DuongDan1, "rb") as f:
-            data = f.read()
-
-        pattern_1678 = re.compile(
-            rb'<ArtSkinPrefabLOD[^>]*>\s*<Element[^>]*1678_SunWuKong_AW1_LOD1.*?</LookAt>',
-            re.DOTALL
-        )
-        match_1678 = pattern_1678.search(data)
-        if not match_1678:
-            print("❌ Không tìm thấy block 1678.")
-            exit()
-        block_1678 = match_1678.group()
-
-        pattern_block_dau = re.compile(
-            rb'<ArtPrefabLOD[^>]*>.*?<ArtSkinLobbyShowCamera[^>]*?/>',
-            re.DOTALL
-        )
-        data = pattern_block_dau.sub(block_1678, data)
-
-        pattern_all_skin_blocks = re.compile(
-            rb'(<ArtSkinPrefabLOD[^>]*>.*?</LookAt>)',
-            re.DOTALL
-        )
-
-        def replace_skin_block(match):
-            block = match.group()
-            if b'1678_SunWuKong_AW1' in block:
-                return block
-            return block_1678
-
-        data_moi = pattern_all_skin_blocks.sub(replace_skin_block, data)
-
-        with open(DuongDan1, "wb") as f:
-            f.write(data_moi)
-
-        with open(DuongDan1, "rb") as f:
-            data = f.read()
-
-        data = data.replace(
-            b'1678_SunWuKong_AW1',
-            b'1678_SunWuKong_AW5'
-        ).replace(
-            b'<ArtSkinLobbyShowCamera var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/167_WuKong/1678_SunWuKong_AW5_Cam"/>',
-            b'<ArtSkinLobbyShowCamera var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_SunWuKong_03_Cam"/>\n      <ArtSkinLobbyShowMovie var="String" type="System.String" value="Prefab_Characters/Prefab_Hero/167_WuKong/Awaken/1678_SunWuKong_03_Movie"/>'
-        ).replace(
-            b'<ArtSkinPrefabLOD var="Array" type="System.String[]">',
-            b'<ArtPrefabLOD var="Array" type="System.String[]">', 1
-        ).replace(
-            b'</ArtSkinPrefabLOD>',
-            b'</ArtPrefabLOD>', 1
-        ).replace(
-            b'<ArtSkinPrefabLODEx var="Array" type="System.String[]">',
-            b'<ArtPrefabLODEx var="Array" type="System.String[]">', 1
-        ).replace(
-            b'</ArtSkinPrefabLODEx>',
-            b'</ArtPrefabLODEx>', 1
-        ).replace(
-            b'<ArtSkinLobbyShowLOD var="Array" type="System.String[]">',
-            b'<ArtLobbyShowLOD var="Array" type="System.String[]">', 1
-        ).replace(
-            b'</ArtSkinLobbyShowLOD>',
-            b'</ArtLobbyShowLOD>', 1
-        ).replace(
-            b'<ArtSkinLobbyIdleShowLOD',
-            b'<ArtLobbyIdleShowLOD', 1
-        ).replace(
-            b'</ArtSkinLobbyIdleShowLOD>',
-            b'</ArtLobbyIdleShowLOD>', 1
-        )
-
-
-        with open(DuongDan1, "wb") as f:
-            f.write(data)
-
-        LC = '2'
-        process_directory(DuongDan1, LC)
-
-    else:
-        print(f'    Phu Kien : Khong Support.')
 
 #-----------------------------------------------
-    Files_Directory = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4'
-    if os.path.exists(Files_Directory):
-        for folder_name in os.listdir(Files_Directory):
-            folder_path = os.path.join(Files_Directory, folder_name)
-            if os.path.isdir(folder_path) and folder_name[:3].isdigit():
-                id_prefix = folder_name[:3]
-                output_file = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{id_prefix}_Actions.pkg.bytes'
+Files_Directory = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod4'
+if os.path.exists(Files_Directory):
+    for folder_name in os.listdir(Files_Directory):
+        folder_path = os.path.join(Files_Directory, folder_name)
+        if os.path.isdir(folder_path) and folder_name[:3].isdigit():
+            id_prefix = folder_name[:3]
+            output_file = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/Actor_{id_prefix}_Actions.pkg.bytes'
 
-                with zipfile.ZipFile(output_file, 'w', compression=zipfile.ZIP_STORED) as zipf:
-                    for root, dirs, files in os.walk(folder_path):
-                        for file in files:
-                            file_path = os.path.join(root, file)
-                            arcname = os.path.relpath(file_path, Files_Directory)
-                            zipf.write(file_path, arcname)
-                shutil.rmtree(folder_path)
-        shutil.rmtree(Files_Directory)
+            with zipfile.ZipFile(output_file, 'w', compression=zipfile.ZIP_STORED) as zipf:
+                for root, dirs, files in os.walk(folder_path):
+                    for file in files:
+                        file_path = os.path.join(root, file)
+                        arcname = os.path.relpath(file_path, Files_Directory)
+                        zipf.write(file_path, arcname)
+            shutil.rmtree(folder_path)
+    shutil.rmtree(Files_Directory)
 
 mod1_dir = f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/mod1'
 if os.path.exists(mod1_dir):
-    with zipfile.ZipFile(f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/CommonActions.pkg.bytes', 'w', compression=zipfile.ZIP_STORED) as zipf:
+    with zipfile.ZipFile(
+        f'{pack_name}/Resources/1.58.1/Ages/Prefab_Characters/Prefab_Hero/CommonActions.pkg.bytes',
+        'w',
+        compression=zipfile.ZIP_STORED
+    ) as zipf:
         for root, dirs, files in os.walk(mod1_dir):
             for file in files:
                 file_path = os.path.join(root, file)
@@ -2332,7 +2426,10 @@ if os.path.exists(mod_dir):
         try:
             hero_id = folder_name.split("_")[0]
             zip_file_name = f"Actor_{hero_id}_Infos.pkg.bytes"
-            zip_file_path = os.path.join(f'{pack_name}/Resources/1.58.1/Prefab_Characters', zip_file_name)
+            zip_file_path = os.path.join(
+                f'{pack_name}/Resources/1.58.1/Prefab_Characters',
+                zip_file_name
+            )
 
             with zipfile.ZipFile(zip_file_path, 'w', compression=zipfile.ZIP_STORED) as zipf:
                 for root, _, files in os.walk(full_path):
@@ -2341,7 +2438,6 @@ if os.path.exists(mod_dir):
                         rel_path = os.path.relpath(file_path, full_path)
                         arcname = os.path.join("Prefab_Hero", folder_name, rel_path)
                         zipf.write(file_path, arcname)
-            print(f"  {os.path.basename(zip_file_path)} Done")
         except Exception as e:
             print(f"❌ Lỗi khi nén {folder_name}: {e}")
     shutil.rmtree(f'{pack_name}/Resources/1.58.1/Prefab_Characters/mod/')
