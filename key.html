@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Link Key Tool</title>
+</head>
+<body>
+    <p>Key của bạn:</p>
+    <input type="text" id="keyField" readonly>
+    <button onclick="copyKey()">Copy Key</button>
+
+    <p>Link rút gọn:</p>
+    <a href="#" id="shortLink" target="_blank">Đang tạo link...</a>
+
+    <script>
+        fetch('key_link.json')
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('keyField').value = data.key;
+                document.getElementById('shortLink').href = data.link;
+                document.getElementById('shortLink').innerText = data.link;
+            });
+
+        function copyKey() {
+            const keyField = document.getElementById('keyField');
+            keyField.select();
+            keyField.setSelectionRange(0, 99999);
+            document.execCommand("copy");
+            alert("Đã copy KEY: " + keyField.value);
+        }
+    </script>
+</body>
+</html>
